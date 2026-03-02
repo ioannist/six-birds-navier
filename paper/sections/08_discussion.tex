@@ -1,0 +1,77 @@
+\section{Discussion, limitations, and what would be needed for Clay}\label{sec:discussion}
+
+\paragraph{What this paper achieves.}
+This repository and paper deliver a \emph{reproducible decision scaffold} for multiscale reasoning
+in the style of the Six Birds framework.
+We mechanize (in Lean) the core system-agnostic inequality logic behind a No-Zeno engine
+(Section~\ref{sec:no-zeno-engine}), and we mechanize two additional abstract pillars:
+(i) route-stability implies polynomial capacity growth (Section~\ref{sec:route-capacity}),
+and (ii) a discrete no-go theorem showing that ICAP-style certificates imply pointwise
+positive-gain bounds when the feasible input set contains localized tests
+(Section~\ref{sec:no-go-icap}).
+Separately, we provide a manifest-driven, deterministic Python pipeline that produces
+all cited figures and their accompanying metadata (Section~\ref{sec:experiments}).
+
+\paragraph{What this paper does \emph{not} claim.}
+We do not prove the Clay 3D Navier--Stokes global regularity theorem.
+All PDE-specific hinge claims that would be required for a Clay claim are stated explicitly
+as OPEN assumptions elsewhere in the repository. Our emphasis is on (i) making the lemma chain
+explicit and auditable, and (ii) showing precisely where and why the ``obvious'' ICAP/capacity
+route collapses into a classical peak/strain channel unless one adds a genuine feasibility
+restriction that excludes wavepacket-like localization.
+
+\paragraph{Why the ICAP/capacity route does not automatically beat classical criteria.}
+A uniform ICAP-style capacity certificate is an \emph{extremal} inequality: it bounds the maximal
+positive work that the bridge can extract from \emph{all admissible inputs}.
+The discrete no-go theorem (Section~\ref{sec:no-go-icap}) shows that if the feasible input set
+is rich enough to contain basis-like localized tests, then any such ICAP bound immediately implies
+a pointwise bound on the underlying positive-gain functional. In the PDE interpretation, the
+corresponding gain bound aligns with a peak/strain channel (e.g.\ a supremum-type functional
+controlling vortex stretching). This explains, structurally, why ``uniform ICAP solves Clay''
+is not a free consequence of energy-based accounting.
+
+\paragraph{What we do instead: an ``SBT-legal'' variant.}
+Given the above obstruction, the only viable bypass within this scaffold is to restrict feasibility
+so that localized wavepacket tests are \emph{not} admissible. We formalize this as an anti-localization
+hinge and show that it can follow from finite-channel delocalized feasibility in a discrete model.
+We then propose an operational certificate (computed by scripts in this repository) that checks
+anti-localization-style metrics for initial data (Section~\ref{sec:spt-legal}).
+This does not claim that legality is preserved under Navier--Stokes evolution; rather, it proposes
+a concrete restricted theory where the No-Zeno engine becomes meaningful without smuggling in a
+classical supremum regularity hypothesis.
+
+\subsection{OPEN gaps: what would be needed for a Clay claim}
+To turn this scaffold into a Clay regularity proof, one would need to establish PDE-facing statements
+that go beyond what is currently proved here. Concretely:
+\begin{itemize}
+\item \textbf{A channelization theorem for the canonical NS packaged bridge:}
+prove (or refute) that the feasible interface at shell $j$ is effectively low-channel and delocalized
+in a sense strong enough to exclude wavepacket-like tests.
+\item \textbf{Anti-localization as a theorem (not a certificate):}
+prove that the actual NS-relevant feasible inputs satisfy an anti-localization inequality with
+$\eta_j\to 0$ (or prove that intermittency produces counterexamples).
+\item \textbf{A PDE bridge from ``No-Zeno'' to smooth continuation:}
+show that the absence of a Zeno cascade (as defined by a canonical frontier) yields a continuation
+criterion in an $H^s$ class, closing the loop from abstract increments to PDE regularity.
+\end{itemize}
+
+\subsection{Future work}
+\paragraph{Theory (paper-facing).}
+\begin{itemize}
+\item Prove or refute a concrete Navier--Stokes statement implying wavepacket-exclusion for feasible inputs
+(e.g.\ channelization/delocalization for a canonical packaged bridge object).
+\item Clarify whether any such wavepacket-exclusion principle can be derived from NS structure without implicitly
+assuming a classical peak-channel bound (BKM/Serrin-type) \citep{bkm_1984,serrin1962interior}.
+\item Mechanize additional abstract ``interface calculus'' steps in Lean as they are used in the scaffold,
+including alternative discrete feasibility models and their implications.
+\end{itemize}
+
+\paragraph{Numerics (repo-facing).}
+\begin{itemize}
+\item Push the existing diagnostic suite to higher $N$, longer horizons, and broader forcing/viscosity regimes,
+and quantify robustness of channel and anti-localization metrics.
+\item Stress-test intentionally illegal constructions (multiple localized patterns, multi-shell localization,
+intermittency-like bursts) to map how the certificate fails.
+\item Add sensitivity analyses: dependence of $\kappa_j$ and effective ranks on estimator choices (window sizes,
+pooling strategy, basis choices).
+\end{itemize}

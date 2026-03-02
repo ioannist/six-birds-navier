@@ -1,0 +1,162 @@
+\section{An SBT-legal Navier--Stokes variant and an operational legality certificate}
+\label{sec:spt-legal}
+
+Sections~\ref{sec:no-zeno-engine}--\ref{sec:route-capacity} isolate a mechanized
+\emph{No-Zeno decision engine} whose hypotheses are stated in terms of work, capacity,
+and route mismatch. Section~\ref{sec:no-go-icap} shows why a naive ``uniform ICAP''
+certificate cannot bypass classical peak-channel obstructions as long as the feasible
+interface inputs remain rich enough to approximate localized wavepackets.
+
+\paragraph{Definition vs.\ diagnostic.}
+Throughout, ``SBT-legal'' is used in two explicit senses.
+\emph{Analytically}, it denotes a restricted variant/theory in which feasibility at each scale excludes
+wavepacket-like concentration (a hypothesis on admissible interface signals, not a theorem about
+classical Navier--Stokes).
+\emph{Operationally}, we implement a certificate that tests this exclusion at a chosen resolution and
+time window; in this paper we use it primarily as an initial-data filter and as a controlled
+LEGAL-vs-ILLEGAL diagnostic.
+We do not claim that passing the certificate at $t=0$ implies it remains true for later times under
+the classical PDE flow; that invariance problem is recorded as an OPEN hinge in
+Section~\ref{sec:discussion}.
+
+This section states the paper's main proposal: rather than claiming Clay regularity,
+we define an \emph{SBT-legal} (restricted) variant of Navier--Stokes in which feasibility
+(P2) excludes localization in a quantitative way, and we provide a reproducible
+\emph{certificate} to test this legality on initial data (and diagnostically along short
+runs). This is a research program specification and an operational toolbox, not a PDE theorem.
+
+\subsection{Anti-localization as the hinge that blocks wavepacket tests}
+
+Fix a dyadic scale $j\in\N$. Let $u_j := \Delta_j u$ denote the $j$th Littlewood--Paley shell.
+Let $B_j(x_0)$ denote a ball of radius comparable to $2^{-j}$ (in our diagnostics we use a fixed
+multiple of the grid cell size at that scale). Define the \emph{worst local energy fraction}
+\begin{equation}
+\label{eq:local-energy-fraction}
+L_j(u) \;:=\;
+\sup_{x_0\in\T^3}\frac{\int_{B_j(x_0)} |u_j(x)|^2\,dx}{\|u_j\|_{L^2_x}^2},
+\qquad 0\le L_j(u)\le 1.
+\end{equation}
+The anti-localization hinge is the statement that shell energy cannot concentrate into
+a single uncertainty-scale ball at high $j$.
+
+\begin{definition}[Anti-localization at scale $j$]
+\label{def:anti-localization}
+A shell field $v\in \mathrm{Ran}(\Delta_j)$ is \emph{$\eta_j$-anti-localized} if
+\begin{equation}
+\label{eq:antiloc}
+\sup_{x_0\in\T^3}\int_{B_j(x_0)} |v(x)|^2\,dx \;\le\; \eta_j \,\|v\|_{L^2_x}^2.
+\end{equation}
+A sequence is \emph{asymptotically anti-localized} if $\eta_j\to 0$ as $j\to\infty$.
+\end{definition}
+
+\begin{remark}[Why this matters for the No-go]
+The obstruction in Theorem~\ref{thm:icap-no-go} is driven by the existence of feasible inputs
+that can localize (basis tests / wavepackets). Anti-localization in the sense of
+\eqref{eq:antiloc} is a quantitative way to forbid such tests: if $\eta_j\to 0$, then at high $j$
+no feasible shell input can carry most of its $L^2$ mass inside a single ball $B_j(x_0)$.
+This is the minimal ``escape hatch'' that can bypass the wavepacket implication
+``ICAP $\Rightarrow$ peak bound''.
+\end{remark}
+
+\subsection{Finite-channel delocalization implies anti-localization (mechanized)}
+
+A primitive-shaped way to obtain anti-localization is \emph{channelization}:
+feasible shell inputs are generated through only $m_j$ channels whose shapes are delocalized.
+This is the formal version of the ``no-addressability'' intuition: if the interface exposes only
+a small number of delocalized degrees of freedom, it cannot target a single spatial cell.
+
+\begin{lemma}[Delocalized finite channels $\Rightarrow$ anti-localization]
+\label{lem:channel-antiloc}
+Fix a finite index set of channels $\rho$ with $|\rho|=m$ and a finite spatial index set $\iota$
+(modeling a discrete grid). Let $B\subset \iota$ represent a cell/ball at scale $j$.
+Assume channel shapes $\psi_r:\iota\to\R$ satisfy the delocalization bound
+\[
+\sum_{i\in B} \psi_r(i)^2 \;\le\; \kappa\,\mu(B)\qquad \text{for all }r\in\rho,
+\]
+where $\kappa\ge 0$ and $\mu(B)\ge 0$ is the reference ``cell mass'' (e.g.\ volume fraction).
+Then for any coefficients $a:\rho\to\R$ the synthesized field
+$u(i)=\sum_{r\in\rho} a_r\,\psi_r(i)$ satisfies
+\begin{equation}
+\label{eq:finite-channel-antiloc}
+\sum_{i\in B} u(i)^2
+\;\le\;
+m\,\kappa\,\mu(B)\,\sum_{r\in\rho} a_r^2.
+\end{equation}
+In particular, if the channel family is orthonormal in $\ell^2(\iota)$ so that
+$\|u\|_{\ell^2}^2=\sum_r a_r^2$, then $u$ is $\eta$-anti-localized on $B$ with
+$\eta = m\,\kappa\,\mu(B)$.
+\end{lemma}
+
+\begin{remark}[Mechanization]
+Lemma~\ref{lem:channel-antiloc} is proved (in a discrete finite-dimensional form) in Lean:
+\texttt{formal/Fluids/AntiLocalization.lean}. In the codebase the main statement is
+\nolinkurl{mass_cell_le_card_mul_deloc_mul_coeffEnergy}.
+\end{remark}
+
+\begin{remark}[Heuristic scaling]
+In $\T^3$, the volume fraction of an uncertainty-scale ball is $\mu(B_j)\sim 2^{-3j}$.
+If a channelization hypothesis gives $m_j\lesssim j$ and $\kappa$ is bounded, then
+$\eta_j \lesssim (j+1)\,2^{-3j}\to 0$. This is precisely the regime in which feasible shell inputs
+cannot approximate wavepackets, so the ICAP no-go obstruction no longer applies.
+\end{remark}
+
+\subsection{Operational certificate for SBT-legal initial data (and diagnostics)}
+
+We now define an operational notion of ``SBT legality'' for initial data, intended as an
+\emph{admissibility restriction} for a modified research question (not the Clay problem):
+\emph{do SBT-legal initial data evolve without Zeno cascades, and hence avoid blow-up within
+the No-Zeno scaffold?}
+
+\begin{definition}[Operational SBT-legality certificate (initial data)]
+\label{def:spt-legal-cert}
+Given a dyadic decomposition $u_0=\sum_j (u_0)_j$, define $L_j(u_0)$ by \eqref{eq:local-energy-fraction}.
+Let $f_j$ denote the baseline volume fraction at scale $j$ (uniform reference).
+Define the normalized concentration factor
+\[
+\kappa_j(u_0) \;:=\; \frac{L_j(u_0)}{f_j}.
+\]
+We say $u_0$ is \emph{SBT-legal at thresholds} $(\kappa_\star,\mathrm{burst}_\star,m_\star)$
+if the certificate computed by the script
+\nolinkurl{python/scripts/ns_spt_legal_certify.py}
+returns PASS, which in practice checks configurable bounds on:
+(i) $\max_j \kappa_j$,
+(ii) a burst ratio statistic over time windows if evolution is enabled,
+and optionally (iii) an effective channel count $m_{95}$ from PCA/SVD diagnostics.
+\end{definition}
+
+\paragraph{Implementation note (reproducible output).}
+The certificate tool writes a machine-readable JSON file
+\nolinkurl{python/artifacts/spt_legal_cert.json}.
+The output includes a \texttt{SPT\_LEGAL\_CONFIG} block
+recording seeds and simulation parameters.
+The figure/metadata pipeline is manifest-driven; see
+\nolinkurl{paper/figures_manifest.json} and
+\nolinkurl{python/scripts/ns_paper_figures.py}.
+
+\subsection{LEGAL vs.\ ILLEGAL: the certificate is nontrivial}
+
+Finally, we show the certificate rejects intentionally localized ``wavepacket-like'' initial data.
+We construct an ILLEGAL initial condition by placing most of the shell energy into a localized blob
+in a single dyadic band (see \nolinkurl{python/src/nswave/illegal_initial_conditions.py}).
+The LEGAL baseline is a standard band-limited random initial condition used in our demos.
+Bandlimiting alone does not prevent spatial concentration: the ILLEGAL example is band-limited by
+construction yet fails the certificate with a large $\kappa$.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=0.92\linewidth]{../python/artifacts/paper/ns_spt_illegal_vs_legal.png}
+  \caption{\textbf{LEGAL vs.\ ILLEGAL initial data under the same SBT-legality certificate.}
+  The LEGAL baseline passes with $\max_j \kappa_j \approx O(1)$, while an intentionally localized
+  shell ``wavepacket'' fails immediately with a very large concentration factor (e.g.\ $\max_j\kappa_j\sim 10^2$
+  in the included demo). This illustrates that SBT-legality is a substantive restriction: it rules out
+  strongly localized high-frequency initial conditions that trigger the wavepacket obstruction.}
+  \label{fig:spt-illegal-vs-legal}
+\end{figure}
+
+\begin{remark}[What this does \emph{not} claim]
+We do not prove that SBT-legality is preserved by Navier--Stokes evolution, nor that every smooth
+initial datum is SBT-legal. The point is sharper: within this scaffold, \emph{bypassing the ICAP no-go}
+requires an anti-localization/channelization hinge, and we can (i) state that hinge precisely,
+(ii) mechanize the finite-dimensional inequality logic it relies on, and (iii) provide reproducible
+diagnostics and certificates that test it on concrete initial conditions.
+\end{remark}

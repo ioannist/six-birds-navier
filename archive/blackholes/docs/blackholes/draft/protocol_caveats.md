@@ -1,0 +1,6 @@
+- probe must be in a free region (V≈0)
+- two points must be separated by ~dx (small but nonzero)
+- band-limit to frequencies where A_in is strong
+- windowing/tapering affects FFT leakage
+- exp(-iωt) convention vs FFT sign; conjugation step needed
+- baseline ratio only valid if same incident S(ω) and same measurement of incident

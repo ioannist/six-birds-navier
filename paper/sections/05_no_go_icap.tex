@@ -1,0 +1,81 @@
+\section{No-go: uniform ICAP plus localization-rich feasibility implies peak control}
+\label{sec:no-go-icap}
+
+This section isolates a structural obstruction in the ``capacity certificate'' route.
+Roughly: an ICAP-style inequality is an \emph{extremal} (worst-case) gain bound.
+If the feasible interface inputs at scale $j$ are rich enough to contain highly localized tests
+(the discrete analogue of wavepackets), then ICAP forces a \emph{pointwise} bound on the
+positive-gain functional of the bridge.
+In the Navier--Stokes interpretation, that pointwise gain corresponds to a classical
+``peak/strain'' channel.
+Therefore, a uniform ICAP certificate cannot bypass the traditional bottleneck unless feasibility
+\emph{quantitatively excludes localization}.
+
+\subsection{A discrete obstruction (mechanized)}
+
+Let $\iota$ be a finite index set (think: spatial cells, or degrees of freedom in a finite lens).
+Let $g:\iota\to\R$ be a real-valued ``gain profile''.
+Consider the quadratic form
+\[
+Q_g(u) := \sum_{i\in\iota} g(i)\,u(i)^2,
+\qquad u:\iota\to\R.
+\]
+An ICAP-style inequality in this memoryless/discrete setting is:
+\begin{equation}\label{eq:icap-discrete}
+\max\!\big(Q_g(u),0\big)\ \le\ \Lambda \sum_{i\in\iota} u(i)^2
+\qquad\text{for all }u:\iota\to\R,
+\end{equation}
+Crucially, ICAP here is a \emph{certificate quantified over all feasible inputs} (not merely a bound along one realized trajectory).
+for some constant $\Lambda\in\R$.
+
+\begin{theorem}[ICAP + basis feasibility $\Rightarrow$ pointwise positive-gain bound]
+\label{thm:icap-no-go}
+Assume \eqref{eq:icap-discrete} holds for some $\Lambda\in\R$.
+Then for every $i\in\iota$,
+\[
+\max\!\big(g(i),0\big)\ \le\ \Lambda.
+\]
+\end{theorem}
+
+\begin{proof}[Proof sketch]
+Fix $i\in\iota$ and test \eqref{eq:icap-discrete} with the basis input
+$u=\mathbf{1}_{\{i\}}$ (i.e.\ $u(i)=1$ and $u(j)=0$ for $j\neq i$).
+Then $Q_g(u)=g(i)$ and $\sum_j u(j)^2=1$, so \eqref{eq:icap-discrete} gives
+$\max(g(i),0)\le \Lambda$.
+\end{proof}
+
+\paragraph{Mechanization note.}
+Theorem~\ref{thm:icap-no-go} is proved in Lean as
+\nolinkurl{icap_implies_pointwise_pos_bound_of_basis_tests}
+in \texttt{formal/Fluids/IcapNoGo.lean}.
+
+\subsection{Interpretation: why this collapses back to a peak channel}
+
+Theorem~\ref{thm:icap-no-go} explains why ``uniform ICAP'' is a very strong certificate:
+if the admissible/feasible test set contains basis-like localized probes, ICAP forces a
+pointwise bound on the positive part of the gain.
+
+In PDE language, ``basis tests'' are replaced by ``wavepacket tests'': band-limited vector fields
+that concentrate their $L^2$ mass into a ball of radius $\sim 2^{-j}$.
+If feasibility allows such tests at every depth $j$, then an ICAP bound that quantifies over
+all feasible inputs/windows implies a pointwise-in-space bound on the positive gain of the
+relevant bridge component.
+For Navier--Stokes, a canonical component of the scale interaction is the high--low
+``strain'' coupling; bounding its positive gain corresponds to bounding a peak/strain functional
+(e.g.\ a symmetric-gradient/vorticity-stretching channel), returning the argument to a classical
+regularity bottleneck \citep{majda_bertozzi_vif,bkm_1984,serrin1962interior}.
+
+\paragraph{Guardrail (continuum analogue).}
+Theorem~\ref{thm:icap-no-go} is deliberately discrete and mechanized.
+In the continuum, the corresponding implication replaces basis tests by divergence-free wavepackets
+whose energy densities approximate Dirac masses at the uncertainty scale.
+That microlocal passage is standard in spirit, but we do \emph{not} formalize it in this paper;
+we use the discrete theorem to isolate the logical bottleneck in a checkable form.
+
+\subsection{Consequence: the only viable bypass is anti-localization/channelization}
+
+Within this scaffold, the only way for an ICAP/DIV route to avoid peak control is if
+feasibility at depth $j$ \emph{excludes wavepacket-like localization} quantitatively.
+In the next section we formalize this as an anti-localization/channelization hinge:
+feasible port inputs live in a low-channel, delocalized range, which blocks localized tests and
+makes ``capacity'' a genuinely weaker requirement than peak control.

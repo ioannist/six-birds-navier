@@ -1,0 +1,8 @@
+- Start from R(Z) = (1 - Z)/(1 + Z) with (1+Z) != 0.
+- Use |R| <= 1 <=> |1 - Z|^2 <= |1 + Z|^2.
+- Expand |1 ± Z|^2 using Z = x + i y.
+- Identity: |1 + Z|^2 - |1 - Z|^2 = 4 Re(Z).
+- If Re(Z) >= 0, then |1 - Z|^2 <= |1 + Z|^2.
+- Conclude |(1 - Z)/(1 + Z)| <= 1.
+- Converse: if |R| <= 1 and (1+Z) != 0, infer Re(Z) >= 0.
+- Note ω>0 and exp(-i ω t) convention for the flux ledger context.

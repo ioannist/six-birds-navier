@@ -1,0 +1,184 @@
+[
+  {
+    "id": "fig_ns14_energy_ledger_3d",
+    "class": "fast",
+    "script": "python/scripts/ns14_energy_ledger_3d.py",
+    "seed": 0,
+    "artifact_png": "paper/ns14_energy_ledger_3d.png",
+    "artifact_npz": "paper/ns14_energy_ledger_3d_data.npz",
+    "stdout_markers": [
+      "FIGURE_CONFIG:",
+      "ns14_energy_ledger_3d.png"
+    ]
+  },
+  {
+    "id": "fig_ns15_uv_completion_3d",
+    "class": "fast",
+    "script": "python/scripts/ns15_uv_completion_turns_on_3d.py",
+    "seed": 0,
+    "artifact_png": "paper/ns15_uv_completion_3d.png",
+    "artifact_npz": "paper/ns15_uv_completion_3d_data.npz",
+    "stdout_markers": [
+      "FIGURE_CONFIG:",
+      "ns15_uv_completion_3d.png"
+    ]
+  },
+  {
+    "id": "fig_ns16_mu_convergence_3d",
+    "class": "fast",
+    "script": "python/scripts/ns16_mu_to_zero_convergence_3d.py",
+    "seed": 0,
+    "artifact_png": "paper/ns16_mu_convergence_3d.png",
+    "artifact_npz": "paper/ns16_mu_convergence_3d_data.npz",
+    "stdout_markers": [
+      "FIGURE_CONFIG:",
+      "ns16_mu_convergence_3d.png"
+    ]
+  },
+  {
+    "id": "fig_ns18_exponent_sanity",
+    "class": "fast",
+    "script": "python/scripts/ns18_exponent_sanity_harness.py",
+    "seed": 0,
+    "artifact_png": "paper/ns18_exponent_sanity.png",
+    "artifact_npz": "paper/ns18_exponent_sanity_data.npz",
+    "stdout_markers": [
+      "FIGURE_CONFIG:",
+      "ns18_exponent_sanity.png"
+    ]
+  },
+  {
+    "id": "fig_nsbu12_toy_zeno_gallery",
+    "class": "fast",
+    "script": "python/scripts/nsbu12_toy_zeno_gallery.py",
+    "seed": 0,
+    "artifact_png": "paper/nsbu12_toy_zeno_gallery.png",
+    "artifact_npz": "paper/nsbu12_toy_zeno_gallery_data.npz",
+    "stdout_markers": [
+      "FIGURE_CONFIG:",
+      "nsbu12_toy_zeno_gallery.png"
+    ]
+  },
+  {
+    "id": "fig_ns_spt_illegal_vs_legal",
+    "class": "fast",
+    "script": "python/scripts/ns_spt_illegal_ic_demo.py",
+    "seed": 0,
+    "artifact_png": "paper/ns_spt_illegal_vs_legal.png",
+    "artifact_npz": "paper/ns_spt_illegal_vs_legal_data.npz",
+    "stdout_markers": [
+      "FIGURE_CONFIG:",
+      "CASE=LEGAL",
+      "CASE=ILLEGAL",
+      "ns_spt_illegal_vs_legal.png"
+    ]
+  },
+  {
+    "id": "fig_nsbu21_route_capacity_numbers",
+    "class": "slow",
+    "script": "python/scripts/nsbu21_route_capacity_numbers.py",
+    "seed": 0,
+    "artifact_png": "paper/nsbu21_route_capacity_numbers.png",
+    "artifact_npz": "paper/nsbu21_route_capacity_numbers_data.npz",
+    "stdout_markers": [
+      "FIGURE_CONFIG:",
+      "nsbu21_route_capacity_numbers.png"
+    ]
+  },
+  {
+    "id": "fig_nsbu23_route_capacity_hypothesis_dense",
+    "class": "slow",
+    "script": "python/scripts/nsbu23_route_capacity_hypothesis_check.py",
+    "seed": 0,
+    "artifact_png": "paper/nsbu23_route_capacity_hypothesis_dense.png",
+    "artifact_npz": "paper/nsbu23_route_capacity_hypothesis_dense_data.npz",
+    "stdout_markers": [
+      "FIGURE_CONFIG:",
+      "nsbu23_route_capacity_hypothesis_dense.png"
+    ]
+  },
+  {
+    "id": "fig_nsbu28_antilocalization",
+    "class": "slow",
+    "script": "python/scripts/nsbu28_antilocalization_diagnostic.py",
+    "seed": 0,
+    "artifact_png": "paper/nsbu28_antilocalization.png",
+    "artifact_npz": "paper/nsbu28_antilocalization_data.npz",
+    "stdout_markers": [
+      "FIGURE_CONFIG:",
+      "nsbu28_antilocalization.png"
+    ]
+  },
+  {
+    "id": "fig_nsbu29_antilocalization_sweep",
+    "class": "slow",
+    "script": "python/scripts/nsbu29_antilocalization_sweep.py",
+    "seed": 0,
+    "artifact_png": "paper/nsbu29_antilocalization_sweep.png",
+    "artifact_npz": "paper/nsbu29_antilocalization_sweep_data.npz",
+    "stdout_markers": [
+      "FIGURE_CONFIG:",
+      "nsbu29_antilocalization_sweep.png"
+    ]
+  },
+  {
+    "id": "fig_ns_chan00_channel_count",
+    "class": "slow",
+    "script": "python/scripts/ns_chan00_channel_count.py",
+    "seed": 0,
+    "artifact_png": "paper/ns_channel_count.png",
+    "artifact_npz": "paper/ns_channel_count_data.npz",
+    "stdout_markers": [
+      "FIGURE_CONFIG:",
+      "ns_channel_count.png"
+    ]
+  },
+  {
+    "id": "fig_ns_chan01_channel_delocalization",
+    "class": "slow",
+    "script": "python/scripts/ns_chan01_channel_delocalization.py",
+    "seed": 0,
+    "artifact_png": "paper/ns_channel_delocalization.png",
+    "artifact_npz": "paper/ns_channel_delocalization_data.npz",
+    "stdout_markers": [
+      "FIGURE_CONFIG:",
+      "ns_channel_delocalization.png"
+    ]
+  },
+  {
+    "id": "fig_ns_spt_legal_sweep",
+    "class": "slow",
+    "script": "python/scripts/ns_spt_legal_sweep.py",
+    "seed": 0,
+    "artifact_png": "paper/ns_spt_legal_sweep.png",
+    "artifact_npz": "paper/ns_spt_legal_sweep_data.npz",
+    "stdout_markers": [
+      "FIGURE_CONFIG:",
+      "ns_spt_legal_sweep.png"
+    ]
+  },
+  {
+    "id": "fig_nsbu04_sgs_H",
+    "class": "optional",
+    "script": "python/scripts/nsbu04_sgs_frequency_response.py",
+    "seed": 0,
+    "artifact_png": "paper/nsbu04_sgs_H.png",
+    "artifact_npz": "paper/nsbu04_sgs_H_data.npz",
+    "stdout_markers": [
+      "FIGURE_CONFIG:",
+      "nsbu04_sgs_H.png"
+    ]
+  },
+  {
+    "id": "fig_nsbu05_sgs_fit",
+    "class": "optional",
+    "script": "python/scripts/nsbu05_sgs_realization_fit.py",
+    "seed": 0,
+    "artifact_png": "paper/nsbu05_sgs_fit.png",
+    "artifact_npz": "paper/nsbu05_sgs_fit_data.npz",
+    "stdout_markers": [
+      "FIGURE_CONFIG:",
+      "nsbu05_sgs_fit.png"
+    ]
+  }
+]

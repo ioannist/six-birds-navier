@@ -1,0 +1,32 @@
+\section{Introduction}
+
+The Clay Millennium problem for 3D incompressible Navier--Stokes asks whether smooth initial data always generate globally smooth solutions, or whether a finite-time singularity (``blow-up'') can occur. A central reason the problem resists purely energy-based methods is that energy can remain bounded while gradients (or vorticity stretching) form intense, localized peaks. Classical conditional criteria formalize this (e.g.\ Beale--Kato--Majda type peak-channel control): if a certain ``peak channel'' stays integrable in time (e.g.\ a supremum norm controlling vortex stretching), then blow-up cannot occur \citep{bkm_1984}. The open difficulty is to show that such peak control must hold automatically for all smooth initial data.
+
+This paper does \emph{not} claim a solution to the Clay problem. Instead, it builds a sharp, reproducible \emph{decision scaffold} for a multiscale approach inspired by the Six Birds framework \citep{tsiokos_2026_18365949}. The core idea is to treat scale-elimination not as a modeling choice but as a canonical \emph{packaging} operation: the eliminated degrees of freedom become a causal ``bridge object'' acting on the retained variables through an interface, and the overall dynamics are constrained by an \emph{accounting} law. In Six Birds terms, we rely on six recurring structural moves:
+(i) rewrite/coordinate change, (ii) feasibility/gating constraints, (iii) route dependence of reductions, (iv) sectorization/quantization of interaction channels, (v) packaging of eliminated structure into an effective object, and (vi) accounting (passivity-like) inequalities \citep{tsiokos_2026_18365949}. Our repo makes this concrete for Navier--Stokes by defining canonical multiscale objects (dyadic shells, frontier scales, and packaged subgrid operators) and then asking which primitive-shaped lemmas would be sufficient to rule out ``Zeno'' cascades to infinite depth.
+
+\paragraph{What is mechanized vs.\ what is evidence.}
+We separate three layers of claims:
+\begin{itemize}
+\item \textbf{MECH (Lean):} We mechanize the pure inequality logic used by the No-Zeno engine: summability implies no finite upper bound on crossing times; work/capacity inequalities imply increment lower bounds; and route-stability inequalities imply polynomial capacity growth. These are system-agnostic and proved in Lean in this repository.
+\item \textbf{NUMERIC (Python):} We provide diagnostic computations for Navier--Stokes and toy models (dyadic ladders, route-capacity extraction, anti-localization metrics, and channel diagnostics). These are reproducible from a manifest and produce deterministic metadata; they are evidence, not proofs.
+\item \textbf{OPEN (assumptions):} The Navier--Stokes-facing hinge lemmas that would be required for a Clay claim are stated explicitly as open assumptions, with no ambiguity about what remains unproved.
+\end{itemize}
+
+\paragraph{The core insight: where Clay collapses in this scaffold.}
+Our initial goal was to certify a ``No-Zeno'' condition: that the multiscale frontier cannot climb to arbitrarily fine scales in finite time. A natural route is to bound a positive-work ``capacity'' of the packaged subgrid bridge and then show a divergence condition that forces crossing-time sums to diverge. However, a discrete no-go theorem (mechanized in an appropriate finite-dimensional form) shows a fundamental obstruction: if the feasible interface inputs at scale $j$ remain rich enough to approximate localized wavepackets, then any \emph{uniform} ICAP-style certificate for the bridge implies a pointwise bound on a positive-gain functional---a peak/strain bound in the PDE interpretation. In other words, unless feasibility \emph{excludes localization}, the ``capacity'' route is not easier than classical peak-channel criteria; it implicitly contains them.
+
+\paragraph{What we do instead: an SBT-legal Navier--Stokes variant.}
+Rather than chasing Clay as stated, we formalize and study a sharpened program: define an operational notion of \emph{SBT-legal} initial data that forbids extreme localization at dyadic scales, motivated by the channelization/anti-localization hinge required to escape the wavepacket obstruction. Concretely, we implement a certificate that measures anti-localization metrics per shell (normalized concentration factors, burst ratios, and effective channel counts), and we show (numerically) that typical smooth random seeds pass while intentionally constructed localized shell wavepackets fail immediately. This does not prove global regularity for all smooth data; it clarifies a precise, testable boundary between ``legal'' and ``illegal'' regimes for the Six Birds program.
+
+\paragraph{Contributions.}
+The repository accompanying this paper provides:
+\begin{itemize}
+\item a mechanized No-Zeno algebra chain (Lean) and a mechanized route-capacity polynomial-growth theorem;
+\item mechanized discrete lemmas capturing (i) anti-localization from delocalized finite channels and (ii) the ICAP$\Rightarrow$peak-control no-go under localization-rich feasibility;
+\item a manifest-driven, deterministic figure generator producing all paper artifacts and metadata;
+\item a concrete SBT-legality certificate and an explicit illegal-vs-legal initial condition demo.
+\end{itemize}
+
+\paragraph{Reading guide.}
+Section~2 recalls the Six Birds framework and maps it to the Navier--Stokes multiscale objects used here. Sections~3--4 present the No-Zeno and route-capacity logic (Lean-mechanized). Section~5 states the no-go obstruction and its discrete mechanization. Sections~6--7 define the SBT-legal certificate and present the reproducible diagnostics and figures. We conclude with limitations and open questions in Section~8.

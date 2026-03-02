@@ -1,0 +1,56 @@
+% ============================
+% BH: Echo transfer + time-domain realizability (BH-T3)
+% ============================
+
+Once the interior is packaged into $R_0(\omega)$ (or $Z(\omega)$), the exterior barrier $V(x)$ plays the role of a partially reflecting mirror: it converts a single interface reflectivity into an infinite train of delayed echoes. This subsection makes that statement precise in two steps. First, we write the frequency-domain transfer function that sums multiple reflections (BH-T3). Second, we show that the same packaged response can be realized in a time-domain simulation by a passive boundary with internal state, together with a discrete energy ledger that certifies non-injection (P6).
+
+\paragraph{Barrier scattering data.}
+Fix a reference location $x=x_{\mathrm{ref}}$ near the peak of the barrier and let $\Delta x := x_{\mathrm{ref}}-x_0>0$ denote the cavity length. For each $\omega$ we define the barrier reflection and transmission amplitudes $(r(\omega),t(\omega))$ by solving the exterior scattering problem on $(-\infty,+\infty)$ for the chosen barrier potential, with the standard normalization that in the far right region the solution decomposes into an incoming and outgoing plane wave. In the toy models we compute $(r,t)$ numerically and verify unitarity $|r|^2+|t|^2\simeq 1$ to high accuracy, consistent with a real potential and conservative propagation outside the interface.
+
+\paragraph{BH-T3: cavity/echo transfer function.}
+Let $R_0(\omega)$ be the inner-interface reflectivity (defined at $x_0$ with the conventions of \S\ref{sec:bh-conventions}). The net reflectivity seen by an exterior observer is obtained by summing the direct reflection from the barrier and the infinite series of round trips between barrier and interface. The result is the familiar geometric-series formula
+\begin{equation}
+  R_{\mathrm{out}}(\omega)
+  \;=\;
+  r(\omega)\,e^{-2 i\omega\Delta x}
+  \; + \;
+  \frac{t(\omega)^2\,R_0(\omega)}{1 - R_0(\omega)\,r(\omega)\,e^{2 i\omega\Delta x}}.
+  \label{eq:bh-echo-transfer}
+\end{equation}
+Equivalently, the cavity ``build-up factor'' is
+\begin{equation}
+  H(\omega) \;:=\; \frac{1}{1 - R_0(\omega)\,r(\omega)\,e^{2 i\omega\Delta x}},
+  \label{eq:bh-echo-H}
+\end{equation}
+so that the second term in \eqref{eq:bh-echo-transfer} is $t(\omega)^2 R_0(\omega)\,H(\omega)$.
+This transfer function is the operational bridge between interior packaging and observable echoes: once $(r,t)$ are fixed by the exterior barrier and $R_0$ is fixed by the interior interface, $R_{\mathrm{out}}$ is determined.
+
+\paragraph{Numerical validation (frequency domain).}
+We validate \eqref{eq:bh-echo-transfer} in two regimes. With $R_0$ constant (frequency-independent), the predicted $R_{\mathrm{out}}(\omega)$ agrees with a full exterior ODE solve with inner boundary condition to $\sim 10^{-7}$ absolute error across a representative band. We also validate the same transfer formula when $R_0(\omega)$ is frequency-dependent via a passive Debye family $Z(\omega)$ mapped to $R_0(\omega)$ by the Cayley transform \eqref{eq:bh-passiveZ}--\eqref{eq:bh-RY}; the agreement remains at the $\sim 10^{-7}$ level. These checks ensure that \eqref{eq:bh-echo-transfer} is not merely a heuristic but a quantitatively accurate reduction of the full scattering problem in the modeled setting.
+
+\paragraph{Time-domain realizability: a passive boundary with memory.}
+The frequency-domain object $Z(\omega)$ is physically meaningful only if it corresponds to a realizable time-domain boundary. A standard realizable class is a sum of first-order relaxation elements (Debye terms). In time domain we implement the boundary condition at $x_0$ by introducing auxiliary states $q_k(t)$ and imposing
+\begin{align}
+  \psi_x(x_0,t) &= a_0\,\psi_t(x_0,t) + \sum_{k} a_k\,q_k(t),
+  \label{eq:bh-td-bc}\\
+  \dot q_k(t) &= -\,b_k\,q_k(t) + b_k\,\psi_t(x_0,t),
+  \label{eq:bh-td-q}
+\end{align}
+with parameters $a_0\ge 0$, $a_k\ge 0$, $b_k>0$.
+This realizes the passive frequency response
+\[
+  Z(\omega)=a_0+\sum_k \frac{a_k}{1-i\omega/b_k},
+\]
+and thus defines $R_0(\omega)$ via \eqref{eq:bh-RZ} (equivalently via \eqref{eq:bh-RY}). When coupled to the exterior wave equation by a finite-difference time-domain scheme, this boundary generates an echo train whose peak spacing is set primarily by the cavity round-trip time $\simeq 2\Delta x$, consistent with \eqref{eq:bh-echo-transfer}.
+
+\paragraph{Discrete energy ledger (P6 certificate of non-injection).}
+To keep the accounting explicit, we track a discrete energy for the time-domain scheme consisting of the usual field energy plus stored boundary energy. Writing $\psi_t\approx(\psi^n-\psi^{n-1})/\Delta t$ and using centered finite differences for $\psi_x$, we define
+\begin{equation}
+  E^n \;\approx\; \sum_j \frac{1}{2}\Big(\psi_t^2 + \psi_x^2 + V\,\psi^2\Big)\Delta x
+  \; + \; \frac{1}{2}\sum_k \frac{a_k}{b_k}\,q_k^2.
+  \label{eq:bh-discrete-energy}
+\end{equation}
+In passive cases the boundary term is nonnegative and plays the role of an internal energy register. Numerically, this ledger is non-increasing up to small discretization error: in the BH demos the maximum relative energy increase is $\lesssim 5\times 10^{-3}$ over long runs, consistent with a boundary that does not inject net energy into the exterior. This is the time-domain companion to the frequency-domain passivity inequality \eqref{eq:bh-passiveR}--\eqref{eq:bh-passiveZ}.
+
+\paragraph{Stability note.}
+Long-time stability is sensitive to how the auxiliary states are updated. We therefore use an exact exponential update for $q_k$ and a predictor--corrector evaluation of $\psi_t$ at the boundary, which reduces stiffness sensitivity and suppresses spurious growth at larger Courant factors. These are implementation details rather than new physics, but they ensure the realizability evidence is not an artifact of an overly restrictive time step.

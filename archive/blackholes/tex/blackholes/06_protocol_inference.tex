@@ -1,0 +1,50 @@
+% ============================
+% BH: Inference as protocol (P3) + superradiance ledger hook
+% ============================
+
+The interface EFT packages the interior into a boundary response $Z(\omega)$ (or $R_0(\omega)$), but in practice we do not measure $Z(\omega)$ directly. We measure time-domain signals and then apply an extraction procedure to infer a frequency-domain reflectivity. In Six Primitives Theory (SBT), this extraction map is part of the theory: it is a \emph{protocol} (P3). Different protocols can yield different inferred objects even if the underlying dynamics are the same, and a protocol can fail if its assumptions are violated. In the BH setting the relevant protocol choice is how we operationally define ``incoming'' and ``outgoing'' amplitudes in a region where $V(x)\approx 0$.
+
+\paragraph{Protocol: free-region two-point extraction of $R_{\mathrm{out}}(\omega)$.}
+Assume we have a time-domain simulation (or data) for the exterior field $\psi(x,t)$, and choose two nearby probe points $x_1<x_2$ in a region where the potential is negligible so that the frequency-domain field obeys the plane-wave form \eqref{eq:bh-decomp}. Let $y_i:=x_i-x_0$ and let $\Psi_i(\omega)$ denote the complex Fourier coefficient of $\psi(x_i,t)$ at frequency $\omega$ under the global $\exp(-i\omega t)$ convention.\footnote{Discrete FFT conventions differ by phase/sign (and sometimes by complex conjugation) depending on the forward/inverse definition; in the demo we explicitly align the FFT coefficients with the paper’s global $\exp(-i\omega t)$ convention (see the BH-16 script).}
+Then for each $\omega$ the two-point model is
+\begin{equation}
+  \Psi_1(\omega) \;=\; A_{\mathrm{in}}(\omega)e^{-i\omega y_1} + A_{\mathrm{out}}(\omega)e^{+i\omega y_1},
+  \qquad
+  \Psi_2(\omega) \;=\; A_{\mathrm{in}}(\omega)e^{-i\omega y_2} + A_{\mathrm{out}}(\omega)e^{+i\omega y_2},
+  \label{eq:bh-two-point}
+\end{equation}
+which is a $2\times 2$ linear system for $(A_{\mathrm{in}},A_{\mathrm{out}})$. We define the extracted net reflectivity by
+\begin{equation}
+  R_{\mathrm{out}}(\omega) \;:=\; \frac{A_{\mathrm{out}}(\omega)}{A_{\mathrm{in}}(\omega)}.
+  \label{eq:bh-Rout-extract}
+\end{equation}
+In practice, this protocol must be paired with simple admissibility gates: we band-limit to frequencies where $|A_{\mathrm{in}}(\omega)|$ is not too small (to avoid dividing by noise), and we place probes in a region where $V\approx 0$ so the plane-wave model is valid. These gates are not arbitrary; they are part of the operational definition of the observable we claim to infer.
+
+\paragraph{BH-16 end-to-end demonstration: waveform $\rightarrow$ fit $Z(\omega)$ $\rightarrow$ replay.}
+With the extraction protocol fixed, we can close the loop from time-domain data back to the packaged interface object. In the BH-16 demo we:
+(i) run a finite-difference time-domain simulation with a realizable passive boundary (a Debye-type $Z(\omega)$ realized by auxiliary states),
+(ii) apply the two-point protocol \eqref{eq:bh-two-point}--\eqref{eq:bh-Rout-extract} in a free exterior region to obtain an empirical $R_{\mathrm{out}}(\omega)$ over a band,
+(iii) fit a passive Debye family $Z(\omega)=a_0+a_1/(1-i\omega/b_1)$ (with $a_0,a_1\ge 0$, $b_1>0$) by matching the cavity transfer relation \eqref{eq:bh-echo-transfer} using the known barrier coefficients $(r(\omega),t(\omega))$, and
+(iv) replay the time-domain simulation with the recovered parameters.
+In the toy setting, the recovered parameters agree with the ground truth at the few-percent level and the replayed waveform matches the original echo train with small relative error on the echo window (see Figs.~\ref{fig:bh-fdtd-fit-waveform}--\ref{fig:bh-fdtd-fit-R-error}). The point is not astrophysical parameter inference; the point is \emph{closure identifiability}: a single packaged interface response can be inferred consistently from exterior signals when the protocol is correctly specified.
+
+\paragraph{Failure mode (and why it matters).}
+A naive alternative is to infer $R_{\mathrm{out}}(\omega)$ by dividing a ``true'' waveform spectrum by a baseline spectrum (a ratio estimator), implicitly assuming a factorization $F(\omega)\approx S(\omega)\,R_{\mathrm{out}}(\omega)$ with a shared incident spectrum $S(\omega)$ across runs. In our BH-16 development this estimator fails when the observer does not see a clean incident component or when the baseline does not share the same effective incident spectrum at the measurement point. This failure is not a bug; it is a P3 lesson: \emph{the extraction protocol is a modeling assumption with testable preconditions.} The two-point protocol makes those preconditions explicit (free region, sufficient incident amplitude, correct phase convention), and thereby restores stable inference.
+
+\paragraph{Superradiance ledger hook: when $|R_0|>1$ is not a contradiction.}
+All passivity statements in \S\ref{sec:bh-accounting} are explicitly \emph{non-superradiant ledger} statements: the interior has no free-energy source accessible to the exterior mode. Kerr black holes change the ledger: in superradiant bands, wave amplification can occur by extracting rotational energy. In interface language, this means the effective reflectivity can satisfy $|R_0(\omega)|>1$ in a band without violating accounting, provided the energy budget includes the hole's spin reservoir.
+
+The main structural consequence is that the cavity stability condition becomes a gain condition. In a simple cavity model, the round-trip complex gain is
+\begin{equation}
+  G(\omega) \;:=\; R_0(\omega)\,r(\omega),
+  \label{eq:bh-roundtrip-g}
+\end{equation}
+and when $|G(\omega)|>1$ the multiple-reflection series that underlies \eqref{eq:bh-echo-transfer} indicates an instability (a ``black-hole bomb'' mechanism in the classic story). A crude pole estimate for the unstable mode is obtained by solving $1-G(\omega)e^{2i\omega\Delta x}=0$ for complex $\omega$, giving an imaginary part
+\begin{equation}
+  \omega_I \;\approx\; \frac{1}{2\Delta x}\,\ln|G(\omega_R)|.
+  \label{eq:bh-growth}
+\end{equation}
+The repo includes a toy demonstration of this ledger-aware regime: when an active-band $R_0(\omega)$ is chosen so that $|R_0(\omega)r(\omega)|>1$ over a band, the echo amplitudes grow geometrically and the pole estimate \eqref{eq:bh-growth} tracks the observed growth rate. We do not implement Kerr/Teukolsky mode mixing here; the superradiance module is a hook that clarifies how the inequality $|R_0|\le 1$ is replaced by a ledger-dependent constraint rather than ``violated.''
+
+\paragraph{Takeaway.}
+In interface EFT terms, the observable is not ``the interior'' but the packaged interface response $Z(\omega)$ inferred under a specified protocol. Protocol correctness (P3) is therefore part of the theory. Accounting (P6) still governs admissibility, but the ledger must match the physical sector: in non-superradiant sectors it enforces $|R_0|\le 1$, while in superradiant sectors it predicts when cavity gain can trigger an instability.

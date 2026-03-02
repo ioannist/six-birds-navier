@@ -1,0 +1,7 @@
+% BH-T2 theorem stub (draft-only)
+\begin{theorem}[BH-T2 Passivity implies |R(\omega)| \le 1 (non-superradiant)]
+Assume \(\omega>0\), exp(-i\omega t) convention, and Re\,Z(\omega) \ge 0.
+Then \(\left|\tfrac{1-Z}{1+Z}\right| \le 1\).
+\end{theorem}
+\noindent\textit{Lean mechanization:} formal/BlackHoles/Impedance.lean, lemma abs_R_from_Z_le_one_of_re_nonneg.\\
+\noindent\textit{Numeric evidence:} python/scripts/bh04_passivity_checks.py.

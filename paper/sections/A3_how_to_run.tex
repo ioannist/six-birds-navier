@@ -1,0 +1,34 @@
+\section{How to run (commands and entry points)}\label{app:how-to-run}
+
+All commands below are run from the repository root.
+
+\subsection{Fast checks (CI-style)}
+\begin{verbatim}
+./check_python.sh
+./check_lean.sh
+\end{verbatim}
+
+\subsection{Generate all paper figures from the manifest}
+The manifest lives at \nolinkurl{paper/figures_manifest.json}.
+To generate all figures (including slow ones) into \texttt{python/artifacts/paper/}:
+\begin{verbatim}
+python python/scripts/ns_paper_figures.py --include-slow --clean
+\end{verbatim}
+To also include optional figures:
+{\small
+\begin{verbatim}
+python python/scripts/ns_paper_figures.py --include-slow --include-optional --clean
+\end{verbatim}
+}
+
+\subsection{Determinism verification}
+To re-run the manifest and verify deterministic metadata hashes for the fast set:
+\begin{verbatim}
+python python/scripts/ns_paper_figures.py --clean --verify-determinism
+\end{verbatim}
+
+\subsection{Build the paper PDF}
+\begin{verbatim}
+./check_paper.sh
+\end{verbatim}
+The paper sources live under \texttt{paper/}.

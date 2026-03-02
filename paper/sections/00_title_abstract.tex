@@ -1,0 +1,29 @@
+\begin{abstract}
+Energy estimates for 3D incompressible Navier--Stokes control $L^2$ norms but do not prevent
+highly localized gradient peaks, which is why global regularity is typically reduced to
+``peak-channel'' criteria (e.g.\ Beale--Kato--Majda \citep{bkm_1984}).
+We develop a multiscale \emph{decision scaffold}, inspired by the Six-Primitives/Six-Birds framework,
+that separates (i) system-agnostic inequality logic, (ii) Navier--Stokes-facing hinge assumptions,
+and (iii) numerical diagnostics.
+
+Operationally, we (A) mechanize in Lean a No-Zeno engine: refinement events are encoded by crossing
+times, and Zeno cascades are ruled out under work/capacity/divergence hypotheses; (B) mechanize a
+route-stability $\Rightarrow$ polynomial-capacity lemma; and (C) mechanize a discrete no-go theorem:
+if the feasible interface inputs at a scale admit highly localized tests, then any uniform ICAP-style
+capacity certificate forces a pointwise positive-gain bound---the discrete analogue of a peak/strain
+control in the PDE interpretation.
+Motivated by this obstruction, we propose an \emph{SBT-legal} variant in which feasibility excludes
+strong localization, and we operationalize legality as a reproducible certificate based on
+per-shell anti-localization and channel diagnostics.
+In numerical demos, typical smooth random seeds pass the certificate with $\max_j \kappa_j=O(1)$,
+while intentionally localized shell wavepackets fail immediately (e.g.\ $\max_j\kappa_j\sim 10^2$).
+
+These results clarify exactly where a Clay-style proof would require a genuinely new Navier--Stokes
+inequality (a provable channelization/delocalization-to-anti-localization hinge) and provide a
+reproducible workflow for testing such hypotheses.
+We do not claim a proof of Clay regularity, nor do we prove that the legality certificate is preserved
+under the classical Navier--Stokes flow; PDE-facing implications are stated explicitly as OPEN
+assumptions.
+\end{abstract}
+
+\noindent\textbf{keywords:} Navier--Stokes; multiscale scaffold; No-Zeno engine; route capacity; SPT-legality; peak-channel regularity; Six Birds framework

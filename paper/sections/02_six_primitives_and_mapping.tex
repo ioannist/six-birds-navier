@@ -1,0 +1,81 @@
+\section{Six Birds recap and mapping to Navier--Stokes objects}
+\label{sec:six_primitives_mapping}
+
+This section gives a compact, self-contained recap of the Six Birds framework and fixes the specific mathematical objects used throughout the rest of the paper. Our presentation is intentionally operational: we only introduce the parts of the framework that are used in the No-Zeno scaffold and in the ``SBT-legal'' diagnostics. For the broader theory and motivation we refer to the original Six Birds paper \citep{tsiokos_2026_18365949}. For standard Navier--Stokes background see, e.g., \citet{temam_ns} or \citet{majda_bertozzi_vif}.
+
+\subsection{Six Birds as an interface calculus (one paragraph each)}
+\label{sec:six_primitives_recap}
+
+We use the Six Birds as a \emph{structured way to talk about multiscale elimination} without committing to a particular closure ansatz. In the language of \citet{tsiokos_2026_18365949}, each ``primitive'' is a recurring move that appears across physical and abstract systems; here we specialize them to a dyadic-scale analysis of incompressible Navier--Stokes.
+
+\paragraph{P1: Rewrite (change of description).}
+We choose a representation in which scale is explicit. In this repository that is a Littlewood--Paley decomposition into dyadic shells \citep{bahouri2011fourier}:
+\[
+u(t,x)=\sum_{j\ge 0} u_j(t,x),\qquad u_j:=\Delta_j u,\qquad u_{\le j}:=G_j u.
+\]
+This is not a modeling assumption; it is a change of coordinates that turns ``fine scales'' into explicit indices.
+
+\paragraph{P2: Feasibility / gating (what inputs are allowed).}
+Not every formal ``port signal'' should be regarded as physically admissible. We formalize admissibility in two places:
+(i) in the definition of the packaged bridge, where only low-pass histories for which a coupled high-pass IVP is well-posed are allowed, and
+(ii) in the paper's ``SBT-legality certificate,'' which empirically tests whether a given initial condition is \emph{anti-localized} across shells (ruling out wavepacket-like concentration).
+
+\paragraph{P3: Route dependence (noncommuting reductions).}
+Eliminating degrees of freedom in different orders can yield different effective descriptions. The paper isolates a route-mismatch quantity and proves an abstract Lean theorem showing that \emph{summable} mismatch plus tame local inflation yields \emph{polynomial} growth of effective capacity. This is the only place the framework can plausibly add leverage beyond classical one-shot estimates.
+
+\paragraph{P4: Sectorization / quantization (finite channel structure).}
+Interactions are not arbitrary; they often decompose into a bounded number of ``channels'' (sectors/atoms). In this repo we treat channelization as a measurable property: we estimate an effective channel count $m_j$ per shell (via pooled SVD/PCA diagnostics) and measure delocalization of the learned channels. The paper also mechanizes a finite-dimensional lemma showing that a finite set of delocalized channels forces anti-localization bounds for feasible inputs.
+
+\paragraph{P5: Packaging (turn eliminated structure into an effective object).}
+Packaging converts ``everything above scale $j$'' into a causal, memoryful \emph{bridge object} acting on the retained variables through an interface. For Navier--Stokes we define a canonical packaged bridge $Z_j$ by coupling a low-pass history to a high-pass IVP and reading off the induced subgrid influence on shell $j$. This is a definition, not a fit: $Z_j$ is not assumed linear or time-invariant.
+
+\paragraph{P6: Accounting (passivity-like inequalities).}
+Accounting is the constraint that the packaged bridge is not arbitrary: it must respect an energy/work ledger in the spirit of dissipativity/passivity formulations \citep{willems1972dissipative1}. In the No-Zeno engine we use a positive-work functional $W_j^+$ as the currency, and (optionally) a storage functional $S_j$ to define a ``frontier'' process whose advance requires fresh work.
+
+\subsection{Canonical Navier--Stokes objects fixed in this repo}
+\label{sec:ns_object_mapping}
+
+We now list the NS objects that serve as the paper's \emph{single source of truth}. The goal is that later sections can refer back here without ambiguity.
+
+\paragraph{Dyadic shells and ports.}
+On $\mathbb{T}^3$, let $\Delta_j$ be the standard Littlewood--Paley shell operators and $G_j$ the low-pass operator. Define
+\[
+u_j:=\Delta_j u,\qquad u_{\le j}:=G_j u,\qquad U_j:=\mathrm{Ran}(\Delta_j)\cap L^2_\sigma(\mathbb{T}^3).
+\]
+The \emph{port input at scale $j$} is $u_j(t)\in U_j$.
+
+\paragraph{Environment influence and closure term.}
+Write the nonlinear term as $\mathrm{NL}(u):=\mathcal{P}\nabla\cdot(u\otimes u)$ where $\mathcal{P}$ is the Leray projector. The low-pass evolution sees an ``environment influence'' consisting of the nonlinear interactions involving $u_{>j}$. The repository records the canonical algebraic identities in the blow-up docs and uses them for diagnostic computations (not as a closure model).
+
+\paragraph{Packaged bridge object $Z_j$.}
+Fix $T>0$ and $s>5/2$. For a low-pass history $v$ with $G_j v=v$ on $[0,T]$, solve the coupled high-pass IVP for $w$ driven by $v$ (when well-posed), and define
+\[
+Z_j[v](t)\in U_j
+\quad\text{as the induced shell-$j$ output extracted from the canonical subgrid term.}
+\]
+The formal, fully specified definition (spaces + causality + coupling) is in
+\nolinkurl{docs/fluids/blowup/ns_bridge_object.md}.
+We emphasize: $Z_j$ is not assumed linear, time-invariant, or computable; it is a mathematically meaningful object attached to the NS evolution.
+
+\paragraph{Power and positive-work currency.}
+Given a port input $u_j(t)$ and a bridge output $y_j(t):=Z_j[u_{\le j}](t)$ (or a suitable proxy when discussing abstract inequalities), define the instantaneous power and its positive part:
+\[
+p_j(t):=\langle u_j(t),y_j(t)\rangle_{L^2},\qquad p_j^+(t):=\max(p_j(t),0),
+\]
+and the positive work on a window $[s,t]$:
+\[
+W_j^+[s,t]:=\int_s^t p_j^+(\tau)\,d\tau.
+\]
+This is the ``accounting currency'' used in the No-Zeno scaffold.
+
+\paragraph{Capacity and the No-Zeno engine (abstract, mechanized).}
+The abstract engine uses inequalities of the form
+\[
+W_j^+[s,t]\le \Lambda(j)\int_s^t \|u_j(\tau)\|_{L^2}^2\,d\tau,
+\]
+together with a work-quantum condition (frontier advance forces $W_j^+\ge \theta$) and a divergence condition on $\sum 1/\Lambda(j)$.
+All purely algebraic steps of this chain are mechanized in Lean (see \texttt{formal/Fluids/*.lean}) and summarized in
+\texttt{docs/fluids/blowup/clay\_chain\_scaffold.md}.
+
+\paragraph{Route mismatch and capacity growth (abstract, mechanized; NS evidence only).}
+The repository mechanizes an abstract theorem: if a depth-indexed capacity sequence obeys a tame multiplicative inflation bound with summable additive mismatch, then capacity growth is polynomial in depth (not exponential). This is a general statement about reductions/packaging routes; connecting it to NS is currently supported by diagnostics (not a proof), and the exact status is recorded in \texttt{docs/fluids/blowup/theorem\_inventory\_blowup.md}.

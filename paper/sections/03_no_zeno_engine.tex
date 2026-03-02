@@ -1,0 +1,107 @@
+\section{The No-Zeno engine (mechanized algebra)}\label{sec:no-zeno-engine}
+
+This section isolates the \emph{pure inequality logic} behind our ``No-Zeno'' decision engine.
+Nothing here is specific to Navier--Stokes: the same argument applies to \emph{any} multiscale
+process whose refinement events admit (i) an increment lower bound and (ii) a divergence check.
+All PDE content enters later only through attempting to justify the hypotheses (WORK/CAP/DIV).
+
+\paragraph{Mechanization boundary.}
+All results in this section are mechanized in Lean in a discrete setting:
+crossing times are sequences $t:\N\to\R$ and hypotheses are stated using finite sums over $\N$.
+Continuous-time integral inequalities are used later only as motivational analogues and are not
+formalized in this paper.
+
+\subsection{Crossing times and the Zeno condition}
+
+Let $t:\N\to\R$ be an increasing sequence of \emph{crossing times}, where $t(n)$ is interpreted as
+the first time a multiscale ``frontier'' reaches level $n$ (e.g.\ a shell index threshold).
+Define increments
+\[
+\Delta t_n := t(n+1)-t(n)\qquad (n\in\N).
+\]
+
+\begin{definition}[Zeno cascade]\label{def:zeno}
+We say a \emph{Zeno cascade} occurs if the crossing times are bounded above:
+\[
+\exists\,T\in\R\ \ \text{s.t.}\ \ \forall n\in\N,\ t(n)\le T.
+\]
+Equivalently, $\sup_n t(n)<\infty$, i.e.\ the frontier reaches arbitrarily fine levels in finite time.
+\end{definition}
+
+\subsection{Increment lower bounds imply No-Zeno}
+
+The basic mechanism is: if each increment $\Delta t_n$ is bounded below by a nonnegative
+quantity whose partial sums are unbounded, then $t(n)$ cannot remain bounded.
+
+\begin{definition}[Increment certificate]\label{def:phi}
+Let $\Phi:\N\to\R$ be a nonnegative sequence. We say $\Phi$ is an \emph{increment certificate}
+for $t$ if for all $n$,
+\[
+\Phi(n)\ \le\ t(n+1)-t(n).
+\]
+\end{definition}
+
+\begin{theorem}[Unbounded partial sums imply no finite upper bound]\label{thm:unbounded-sums-no-zeno}
+Assume $\Phi$ is an increment certificate for $t$ and that its partial sums are unbounded:
+\[
+\forall M\in\R,\ \exists n\in\N\ \text{s.t.}\ M \le \sum_{k=0}^{n-1}\Phi(k).
+\]
+Then $t$ has no finite upper bound, hence no Zeno cascade occurs.
+\end{theorem}
+
+\begin{proof}[Proof idea]
+The increment inequality telescopes to
+$t(n)\ge t(0)+\sum_{k=0}^{n-1}\Phi(k)$.
+If the partial sums on the right are unbounded, then $t(n)$ cannot be bounded above.
+\end{proof}
+
+\subsection{WORK/CAP/DIV form}
+
+For the applications we care about, the increment certificate is produced from a
+\emph{work/capacity} inequality.
+
+\begin{definition}[WORK/CAP/DIV]\label{def:work-cap-div}
+Let $w,\mathrm{Cap}:\N\to\R$ be sequences with $\mathrm{Cap}(n)>0$.
+\begin{itemize}
+\item \textbf{WORK:} $w(n)$ is the ``work quantum'' required to advance from level $n$ to $n+1$.
+\item \textbf{CAP:} $\mathrm{Cap}(n)$ is the ``capacity'' available at level $n$ (a bound relating work
+to input energy and/or throughput on the crossing interval).
+\item \textbf{WORK$\times$CAP inequality:} for all $n$,
+\[
+w(n)\ \le\ \mathrm{Cap}(n)\,\bigl(t(n+1)-t(n)\bigr).
+\]
+\item \textbf{DIV:} the ratios $w(n)/\mathrm{Cap}(n)$ have unbounded partial sums:
+\[
+\forall M\in\R,\ \exists n\in\N\ \text{s.t.}\ M \le \sum_{k=0}^{n-1}\frac{w(k)}{\mathrm{Cap}(k)}.
+\]
+\end{itemize}
+\end{definition}
+
+\begin{theorem}[WORK/CAP $\Rightarrow$ increment lower bound]\label{thm:workcap-increment}
+Assume $\mathrm{Cap}(n)>0$ and
+\[
+w(n)\ \le\ \mathrm{Cap}(n)\,(t(n+1)-t(n)).
+\]
+Then $w(n)/\mathrm{Cap}(n)\ \le\ t(n+1)-t(n)$.
+\end{theorem}
+
+\begin{theorem}[WORK+CAP+DIV $\Rightarrow$ No-Zeno]\label{thm:workcap-no-zeno}
+Assume the WORK$\times$CAP inequality and DIV from Definition~\ref{def:work-cap-div}.
+Then $t$ has no finite upper bound, hence no Zeno cascade occurs.
+\end{theorem}
+
+\subsection{Dyadic wrapper (``doubling'' language)}
+
+Sometimes one only checks crossings along a dyadic subsequence (``each doubling of scale'').
+Define a dyadic-sampled ratio
+\[
+\Phi_{\mathrm{dyad}}(j) := \frac{w(2^j)}{\mathrm{Cap}(2^j)}.
+\]
+A dyadic version of Theorem~\ref{thm:workcap-no-zeno} follows by applying the same logic to
+the sampled times $j\mapsto t(j)$ together with the dyadic increment hypotheses.
+
+\begin{remark}[Mechanization note]
+All results in this section are mechanized in Lean in this repository:
+\texttt{formal/Fluids/Zeno.lean} (increment certificates and ``no finite upper bound'' from unbounded sums)
+and \texttt{formal/Fluids/ZenoWorkCap.lean} (the WORK/CAP division step and its dyadic wrapper), using Lean 4 and the mathlib ecosystem \citep{lean4,demoura2015lean,mathlib2020}.
+\end{remark}

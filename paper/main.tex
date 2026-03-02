@@ -1,0 +1,94 @@
+\documentclass[11pt]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+
+% Math + symbols
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{microtype}
+
+% Figures + tables
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{subcaption}
+\usepackage{float}
+
+% Colors
+\usepackage{xcolor}
+
+% Page styling
+\usepackage{fancyhdr}
+\usepackage[margin=1in]{geometry}
+
+% Links
+\usepackage{hyperref}
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue!70!black,
+  citecolor=green!50!black,
+  urlcolor=blue!80!black,
+  bookmarksnumbered=true,
+  pdfauthor={Ioannis Tsiokos},
+  pdftitle={Six Birds for Navier--Stokes: A Mechanized No-Zeno Scaffold}
+}
+
+% References
+\usepackage{cleveref}
+\crefname{section}{section}{sections}
+\crefname{table}{table}{tables}
+\crefname{figure}{figure}{figures}
+
+% Bibliography
+\usepackage[numbers]{natbib}
+\usepackage{orcidlink}
+
+% Local macros
+\input{macros.tex}
+
+% Prevent widows and orphans
+\widowpenalty=10000
+\clubpenalty=10000
+\raggedbottom
+
+\title{Six Birds for Navier--Stokes: A Mechanized No-Zeno Scaffold}
+\author{Ioannis Tsiokos\,\orcidlink{0009-0009-7659-5964}}
+\date{15 February 2026}
+
+\newcommand{\printaffiliation}{%
+  \begin{center}\small \end{center}%
+}
+
+\fancypagestyle{firstpage}{%
+  \fancyhf{}
+  \fancyfoot[C]{\scriptsize Automorph Inc., Wilmington, DE, USA \quad \texttt{ioannis@automorph.io} \quad DOI: TBD \quad \textcopyright\ 2026 \quad CC-BY 4.0 \quad Preprint --- not peer reviewed.}
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}
+}
+
+\begin{document}
+\maketitle
+\thispagestyle{firstpage}
+\printaffiliation
+
+\input{sections/00_title_abstract.tex}
+
+\input{sections/01_introduction.tex}
+\input{sections/02_six_primitives_and_mapping.tex}
+\input{sections/03_no_zeno_engine.tex}
+\input{sections/04_route_capacity.tex}
+\input{sections/05_no_go_icap.tex}
+\input{sections/06_spt_legal_ns.tex}
+\input{sections/07_experiments_reproducibility.tex}
+\input{sections/08_discussion.tex}
+
+\appendix
+\input{sections/A1_theorem_index.tex}
+\input{sections/A2_figure_table.tex}
+\input{sections/A3_how_to_run.tex}
+\input{sections/A4_numerical_method.tex}
+
+\bibliographystyle{plainnat}
+\bibliography{refs}
+
+\end{document}

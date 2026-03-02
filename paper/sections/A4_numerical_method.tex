@@ -1,0 +1,37 @@
+\section{Numerical method (minimal specification)}\label{app:numerics}
+
+All Navier--Stokes experiments in this repository use a Fourier pseudo-spectral discretization \citep{canuto1988spectral} on
+\(\T^3\) on an \(N\times N\times N\) grid. Fields are represented by Fourier coefficients \(\hat u(k)\),
+and spatial derivatives are computed spectrally. Incompressibility is enforced by applying the
+Leray projector in Fourier space, \(P(k)=I-\frac{k\otimes k}{|k|^2}\) for \(k\neq 0\) (and \(P(0)=I\)).
+
+\paragraph{De-aliasing.}
+Nonlinear terms are evaluated in physical space and transformed back to Fourier space.
+To control aliasing, we apply a fixed de-aliasing mask corresponding to the \emph{2/3 rule} \citep{orszag1971aliasing}
+(as implemented by \texttt{dealias\_mask\_3d} in the code). We report the resulting effective cutoff
+\(k_{\mathrm{cut}}\) in the figure metadata, and use it when defining shell windows and
+normalizations (e.g.\ in route-capacity diagnostics).
+
+\paragraph{Time integration.}
+We use a fixed time step \(\Delta t\) and advance the semi-discrete system using
+\emph{an integrating-factor RK4 scheme} (\texttt{\_step\_ifrk4} in \texttt{ns3d\_spectral.py}).
+The linear dissipative operator
+\[
+L(k)=-(\nu |k|^2 + \mu |k|^{2\alpha})
+\]
+is handled exactly through exponentials \(E=\exp(L\Delta t)\), \(E_{1/2}=\exp(L\Delta t/2)\),
+while the nonlinear/forcing term is advanced with RK4 stages in the integrating-factor form.
+All figures record \((N,\Delta t,t_{\max},\nu,\mu,\alpha)\) and forcing parameters in the printed
+\texttt{FIGURE\_CONFIG} and stored \texttt{.npz} metadata.
+
+\paragraph{Forcing.}
+When forcing is enabled, scripts pass a deterministic Fourier-space forcing callback
+\texttt{forcing\_hat\_fn}. In the paper diagnostics this is typically built from a seeded random field,
+projected to divergence-free form, truncated to low wavenumbers \(|k|\le k_{\mathrm{force}}\),
+de-aliased, and RMS-rescaled to the configured amplitude \texttt{forcing\_amp}. The forcing is
+therefore deterministic given the script seed and configuration.
+
+\paragraph{Scope.}
+These simulations are used as \emph{diagnostics} for our multiscale certificates and hinge
+metrics. We do not treat low-resolution runs as evidence about continuum blow-up or regularity,
+and we explicitly separate mechanized algebraic claims (Lean) from numerical evidence (Python).

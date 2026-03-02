@@ -1,0 +1,102 @@
+{
+  "config": {
+    "N": 16,
+    "alpha": 2.0,
+    "burst_threshold": 50.0,
+    "dt": 0.0005,
+    "energy_threshold": 0.95,
+    "forcing_amp": 0.01,
+    "k_force": 2,
+    "k_init": 10,
+    "kappa_threshold": 10.0,
+    "m95_threshold": 10.0,
+    "mu": 0.0,
+    "no_evolve": true,
+    "nu": 0.001,
+    "out_json": "python/artifacts/spt_legal_cert.json",
+    "record_u_hat_every": 20,
+    "require_m95": false,
+    "script": "ns_spt_legal_certify.py",
+    "seed": 0,
+    "t_max": 0.0,
+    "window_c": 1.0
+  },
+  "metrics": {
+    "L": 6.283185307179586,
+    "L_max": [
+      1.4608160011367224,
+      1.6534283925073747,
+      2.565770796779316
+    ],
+    "L_mean": [
+      1.4608160011367224,
+      1.6534283925073747,
+      2.565770796779316
+    ],
+    "N": 16,
+    "baseline_fraction": [
+      0.125,
+      0.015625,
+      0.001953125
+    ],
+    "burst_ratio": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "energy_threshold": 0.95,
+    "j_values": [
+      1,
+      2,
+      3
+    ],
+    "kappa_max_over_time": [
+      0.7304080005683612,
+      0.5511427975024582,
+      0.641442699194829
+    ],
+    "kappa_mean": [
+      0.7304080005683612,
+      0.5511427975024582,
+      0.641442699194829
+    ],
+    "m95": [
+      1,
+      1,
+      1
+    ],
+    "max_conc": [
+      0.1826020001420903,
+      0.02583481863292773,
+      0.0050112710874596015
+    ],
+    "mean_conc": [
+      0.1826020001420903,
+      0.02583481863292773,
+      0.0050112710874596015
+    ],
+    "n_snapshots": 1,
+    "window_c": 1.0,
+    "windows": [
+      8,
+      4,
+      2
+    ]
+  },
+  "reasons": [],
+  "schema_version": "ns_spt_legal_cert.v1",
+  "summary": {
+    "max_burst_ratio": 1.0,
+    "max_kappa_max_over_time": 0.7304080005683612,
+    "max_m95": 1,
+    "n_shells": 3,
+    "n_snapshots": 1
+  },
+  "thresholds": {
+    "burst_threshold": 50.0,
+    "kappa_threshold": 10.0,
+    "m95_threshold": null,
+    "require_m95": false
+  },
+  "verdict": "PASS"
+}

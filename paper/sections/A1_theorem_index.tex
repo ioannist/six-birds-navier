@@ -1,0 +1,55 @@
+\clearpage
+\section{Mechanized theorem index (Lean)}\label{app:theorem-index}
+
+This appendix is the source of truth for what is mechanized in Lean.
+All Lean results listed here are discrete (\(\mathbb{N}\)-indexed sums and finite-dimensional analogues), not continuum PDE formalizations.
+
+\begin{table}[H]
+\centering
+\footnotesize
+\renewcommand{\arraystretch}{1.15}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{>{\raggedright\arraybackslash}p{0.18\linewidth}
+                >{\raggedright\arraybackslash}p{0.22\linewidth}
+                >{\raggedright\arraybackslash}p{0.18\linewidth}
+                >{\raggedright\arraybackslash}p{0.30\linewidth}}
+\toprule
+\textbf{Paper statement} & \textbf{Lean theorem name} & \textbf{Lean file path} & \textbf{Hypotheses / conclusion (one line)} \\
+\midrule
+Section~\ref{sec:no-zeno-engine}, Theorem~\ref{thm:unbounded-sums-no-zeno}
+& \nolinkurl{no_finite_upper_bound_of_increments_ge_of_sum_unbounded}
+& \nolinkurl{formal/Fluids/Zeno.lean}
+& If \(\Phi(n)\le t(n+1)-t(n)\) and partial sums of \(\Phi\) are unbounded, then \(t\) has no finite upper bound. \\
+
+Section~\ref{sec:no-zeno-engine}, Theorem~\ref{thm:workcap-increment}
+& \nolinkurl{workcap_div_le_increment}
+& \nolinkurl{formal/Fluids/ZenoWorkCap.lean}
+& From \(w(n)\le \mathrm{Cap}(n)\Delta t_n\) and \(\mathrm{Cap}(n)>0\), derive \(w(n)/\mathrm{Cap}(n)\le \Delta t_n\). \\
+
+Section~\ref{sec:no-zeno-engine}, Theorem~\ref{thm:workcap-no-zeno}
+& \nolinkurl{no_finite_upper_bound_of_workcap_of_sum_unbounded}
+& \nolinkurl{formal/Fluids/ZenoWorkCap.lean}
+& Combines work/cap division with unbounded partial sums of \(w/\mathrm{Cap}\) to conclude no finite upper bound on crossing times. \\
+
+Section~\ref{sec:route-capacity}, Theorem~\ref{thm:route-capacity}
+& \nolinkurl{route_capacity_poly_bound}; \nolinkurl{route_capacity_poly_bound_of_bounded_sum}
+& \nolinkurl{formal/Fluids/RouteCapacity.lean}
+& Recurrence \(C_{n+1}\le r_n C_n+e_n\), tame \(r_n\), and bounded mismatch sum imply polynomial bound \(C_n\lesssim (n+1)^p\). \\
+
+Section~\ref{sec:route-capacity} (capacity aggregation step used in scaffold)
+& \nolinkurl{max_sum_le_sum_max}; \nolinkurl{icap_sum_le_card_mul}
+& \nolinkurl{formal/Fluids/ECTCap.lean}
+& Moves \(\max(\cdot,0)\) through finite sums and bounds aggregated ICAP by sector count times per-atom bound. \\
+
+Section~\ref{sec:spt-legal}, Lemma~\ref{lem:channel-antiloc}
+& \nolinkurl{mass_cell_le_card_mul_deloc_mul_coeffEnergy}
+& \nolinkurl{formal/Fluids/AntiLocalization.lean}
+& In a finite-cell model (\texttt{Fintype}), \(m\) delocalized channels imply cell-mass bound \(\le m\kappa\mu(B)\sum_r a_r^2\). \\
+
+Section~\ref{sec:no-go-icap}, Theorem~\ref{thm:icap-no-go}
+& \nolinkurl{icap_implies_pointwise_pos_bound_of_basis_tests}
+& \nolinkurl{formal/Fluids/IcapNoGo.lean}
+& If ICAP holds for all inputs (including basis tests), then each pointwise positive gain is bounded by the ICAP constant. \\
+\bottomrule
+\end{tabular}
+\end{table}

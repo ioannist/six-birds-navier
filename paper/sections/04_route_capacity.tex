@@ -1,0 +1,107 @@
+\section{Route-stability implies polynomial capacity growth}\label{sec:route-capacity}
+
+One of the few places where the Six Birds viewpoint suggests genuinely new leverage beyond
+classical energy methods is \emph{route dependence} of multiscale reductions.
+In our language, a ``route'' is a choice of elimination path (coarse-graining schedule),
+and the question is whether taking the reduction in one step is approximately the same as composing
+many small reductions. In Six Birds terms, this is the \emph{route mismatch} primitive.
+
+This section isolates a clean system-agnostic inequality statement:
+\emph{if route mismatch is summable and per-step inflation is sufficiently tame,
+then effective capacity cannot grow exponentially with depth.}
+The statement and proof are purely algebraic and are mechanized in Lean in this repository.
+
+\subsection{Abstract setup: capacity recursion with mismatch}
+
+Let $C:\N\to\R$ be a nonnegative sequence, interpreted as an ``effective capacity'' after $n$
+reduction steps along some canonical reduction ladder. Let $e:\N\to\R$ be a nonnegative ``mismatch''
+sequence which measures non-additivity/non-associativity error in the same currency.
+Fix an integer $p\in\N$.
+
+We assume a one-step recurrence of the form
+\begin{equation}\label{eq:route-rec}
+C(n+1)\ \le\ r(n)\,C(n)\ +\ e(n),
+\end{equation}
+where the step factor $r(n)$ is \emph{tame} in the sense
+\begin{equation}\label{eq:r-tame}
+r(n)\ \le\ \Big(\frac{n+2}{n+1}\Big)^p,
+\end{equation}
+and the mismatch is \emph{summable/bounded in partial sums}:
+\begin{equation}\label{eq:e-bounded}
+\exists E\ge 0\ \ \text{s.t.}\ \ \sum_{k=0}^{n-1} e(k)\ \le\ E\quad\text{for all }n\in\N.
+\end{equation}
+
+The point of \eqref{eq:r-tame} is that the multiplicative inflation along the ladder is at most
+polynomial: the telescoping product
+\[
+\prod_{k=0}^{n-1}\Big(\frac{k+2}{k+1}\Big)^p = (n+1)^p
+\]
+is exactly polynomial (not exponential). The only remaining question is whether the additive mismatch
+accumulates in a controlled way; \eqref{eq:e-bounded} enforces that.
+
+\subsection{Mechanized theorem: polynomial capacity bound}
+
+\begin{theorem}[Route-stability $\Rightarrow$ polynomial capacity]\label{thm:route-capacity}
+Assume $C(0)\ge 0$, $e(n)\ge 0$ for all $n$, and the recursion \eqref{eq:route-rec} holds with
+the tame bound \eqref{eq:r-tame}. Then for all $n\in\N$,
+\[
+C(n)\ \le\ \Big(C(0)+\sum_{k=0}^{n-1} e(k)\Big)\,(n+1)^p.
+\]
+In particular, if \eqref{eq:e-bounded} holds for some $E\ge 0$, then
+\[
+C(n)\ \le\ (C(0)+E)\,(n+1)^p,
+\]
+so $C(n)$ cannot grow exponentially in depth.
+\end{theorem}
+
+\begin{remark}[Proof idea (one paragraph)]
+Iterate \eqref{eq:route-rec}. Each step contributes a multiplicative factor $r(k)$ in front of the
+previous capacity, plus an additive mismatch term transported forward by later $r(\cdot)$ factors.
+Using \eqref{eq:r-tame}, the transported factors telescope to $(n+1)^p$, yielding the stated bound.
+\end{remark}
+
+\begin{remark}[Mechanization in Lean]
+Theorem~\ref{thm:route-capacity} is proved in Lean in the file
+\nolinkurl{formal/Fluids/RouteCapacity.lean}.
+The main lemma names are
+\nolinkurl{route_capacity_poly_bound} and
+\nolinkurl{route_capacity_poly_bound_of_bounded_sum}.
+\end{remark}
+
+\subsection{Interpretation in Six Birds terms}
+
+In Six Birds language, the role of Theorem~\ref{thm:route-capacity} is to isolate a precise
+form of the route-mismatch primitive:
+
+\begin{itemize}
+\item The recursion \eqref{eq:route-rec} says: as we eliminate deeper structure, the effective bridge
+``capacity'' can inflate by a tame per-step factor $r(n)$, but also suffers a route mismatch penalty
+$e(n)$ which captures noncommutativity/nonassociativity of reductions.
+\item The tame-step condition \eqref{eq:r-tame} says: each additional depth step is close to
+identity in a controlled way (polynomially close after telescoping).
+\item Summability/boundedness \eqref{eq:e-bounded} says: route mismatch does not accumulate without
+bound; i.e.\ there is no hidden ``holonomy'' that builds up linearly in depth.
+\end{itemize}
+
+This theorem does \emph{not} prove any PDE statement. Its job is narrower: it provides a clean
+abstract hinge showing that \emph{if} a system admits route-stable packaging in the precise sense
+above, then exponential capacity growth is ruled out as a matter of algebra.
+
+\subsection{Diagnostic-only NS evidence (not a theorem)}
+
+Our Python pipeline contains diagnostic scripts that \emph{estimate} capacity-like quantities and
+route mismatch in a Navier--Stokes truncation ladder. These experiments are strictly evidence:
+they do not define the mathematical bridge object, and they do not certify the hypotheses of
+Theorem~\ref{thm:route-capacity} for the PDE.
+
+Concretely, see:
+\begin{itemize}
+\item \nolinkurl{python/scripts/nsbu21_route_capacity_numbers.py} (extracts $C(n)$-like sequences),
+\item \nolinkurl{python/scripts/nsbu23_route_capacity_hypothesis_check.py}\\
+(checks tame-step and mismatch trends against the abstract hypotheses).
+\end{itemize}
+
+The corresponding figures are generated via the manifest-driven tool
+\nolinkurl{python/scripts/ns_paper_figures.py} and stored under
+\nolinkurl{python/artifacts/paper/}. We emphasize again: these are diagnostics only, included to make
+the abstract hinge falsifiable and reproducible in controlled regimes.

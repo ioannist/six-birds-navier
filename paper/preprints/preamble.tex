@@ -1,0 +1,35 @@
+% Packages not pre-loaded by mdpi.cls
+\usepackage{mathtools}
+\usepackage[section]{placeins}
+\usepackage{xurl}
+\renewcommand{\ttdefault}{lmtt} % Latin Modern Typewriter (Type 1)
+\renewcommand\linenumberfont{\normalfont\scriptsize\fontfamily{lmss}\selectfont}
+
+\graphicspath{{figures/}}
+
+% Lowercase aliases for MDPI theorem environments.
+\newenvironment{theorem}{\begin{Theorem}}{\end{Theorem}}
+\newenvironment{lemma}{\begin{Lemma}}{\end{Lemma}}
+\newenvironment{definition}{\begin{Definition}}{\end{Definition}}
+\newenvironment{corollary}{\begin{Corollary}}{\end{Corollary}}
+\newenvironment{proposition}{\begin{Proposition}}{\end{Proposition}}
+\newenvironment{remark}{\begin{Remark}}{\end{Remark}}
+
+\DeclareUnicodeCharacter{03B1}{\ensuremath{\alpha}}
+\DeclareUnicodeCharacter{2192}{\ensuremath{\to}}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\T}{\mathbb{T}}
+\newcommand{\ip}[2]{\left\langle #1, #2 \right\rangle}
+\newcommand{\norm}[1]{\left\| #1 \right\|}
+\newcommand{\uLtwo}{\norm{u}_{L^2}}
+\newcommand{\w}{\omega}
+
+% Allow line breaks at underscores in \nolinkurl (for long identifiers/paths)
+\makeatletter
+\g@addto@macro\UrlBreaks{\do\_}
+\makeatother
+
+% Draft helper (kept for compatibility with any stray TODOs)
+\newcommand{\todo}[1]{\textcolor{red}{[TODO: #1]}}

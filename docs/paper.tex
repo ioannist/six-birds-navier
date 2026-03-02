@@ -1,0 +1,1215 @@
+\documentclass[11pt]{article}
+
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{hyperref}
+
+\newtheorem{definition}{Definition}
+\newtheorem{lemma}{Lemma}
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}{Corollary}
+\newtheorem{proposition}{Proposition}
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+\newtheorem{example}{Example}
+
+\title{Six Birds Theory}
+\author{Ioannis Tsiokos}
+\date{29 Jan 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We present a math-only framework in which \emph{layers} arise as fixed points of idempotent operators and \emph{open-endedness} requires changing the operator rather than iterating it.
+Order-theoretic closure operators and dynamics-induced endomaps $E_{\tau,f}$ (built from a Markov kernel, a coarse-graining lens, and a timescale) are treated uniformly via the abstraction of idempotent endomaps and their fixed points.
+We define a computable total-variation idempotence defect for $E_{\tau,f}$ and show that small retention error implies approximate idempotence, yielding robust packaged “objects” at a given scale and language.
+To prevent spurious directionality, we define arrow-of-time as path-space KL divergence and prove that coarse-graining cannot increase it (data processing); we further formalize the protocol-trap principle showing that autonomous protocol holonomy does not generate sustained asymmetry unless a genuine affinity is present in the lifted dynamics.
+Finally, we give a finite forcing-style counting lemma: definable predicates are exponentially rare relative to a partition-language, so generic predicate extensions are overwhelmingly non-definable, providing a mathematically clean anti-saturation mechanism for strict ladder climbing.
+\end{abstract}
+
+\tableofcontents
+
+% Scope IDs: see docs/spec/theorem-inventory.md and paper-contract.md
+% Main-text claims include: T-CL-01, T-AOT-01, T-AOT-02, T-ACC-01, T-IC-01, T-IC-02, T-P1-01, T-P2-01, T-FOR-01, T-FOR-02.
+\section{Introduction}
+This paper develops a math-only framework for closure ladders and dynamics-induced endomaps on
+finite state spaces. We connect order-theoretic closure to idempotent endomaps, quantify
+path-space asymmetry via KL, and express autonomy/drive conditions as graph 1-form obstructions.
+Computational evidence appears only in appendices.
+
+\subsection{The organizing picture: a three-certificate loop}\label{sec:big-picture}
+
+The results of this paper can be read as a minimal calculus for building hierarchical structure while keeping directionality honest.
+The core observation is that three notions often conflated in informal discussions are logically distinct and have distinct mathematical \emph{certificates}:
+
+\begin{itemize}
+  \item \textbf{Stability / objects (packaging).} A layer is specified by an idempotent endomap (exact or approximate); its fixed points are the “objects” at that layer.
+  In order theory this is a closure operator; in dynamics it is the induced endomap $E_{\tau,f}$.
+  The certificate is (approximate) idempotence, quantified by the TV defect $\delta_{\tau,f}$.
+  \item \textbf{Novelty / open-endedness (non-derivability).} Iterating a fixed closure/packaging rule saturates by idempotence.
+  Strict ladder climbing therefore requires changing the language/closure rule.
+  The certificate is \emph{non-definability}: a new predicate is not measurable with respect to the old partition-language.
+  Our finite forcing lemma makes this generic: when there is hidden volume ($N-K>0$), uniformly random predicate extensions are overwhelmingly non-definable.
+  \item \textbf{Directionality / irreversibility (audit).} Arrow-of-time is defined on path space as $\Sigma_T(\rho)=D_{\mathrm{KL}}(\mathbb P_{\rho,T}\|\mathcal R_*\mathbb P_{\rho,T})$.
+  The certificate is either positive path-space KL or, under the accounted regime, a non-exact log-ratio 1-form (nonzero cycle affinities).
+  Data processing ensures coarse-graining cannot create this certificate, and the protocol-trap theorem ensures it is not an artifact of hiding an internal clock.
+\end{itemize}
+
+These certificates compose into a simple loop:
+choose a language (lens) $f$, induce a packaging endomap $E_{\tau,f}$ from dynamics and timescale, extract its (approximate) fixed points as objects, then adjoin a generic non-definable predicate to obtain a strict language extension and repeat—while auditing any apparent arrow-of-time via path-space KL and affinity.
+The main text develops each piece of this loop in a representation-independent way and keeps all nonessential computational evidence in the appendices.
+
+\paragraph{Roadmap.}
+Section~\ref{sec:closure} develops the order-closure backbone and the saturation principle.
+Section~\ref{sec:idempotent-endo} isolates idempotent endomaps as the unifying abstraction and introduces the induced empirical endomap $E_{\tau,f}$ with a computable idempotence defect and a qualified layer-birth criterion.
+Section~\ref{sec:acc} formulates \textbf{A\_AUT}+\textbf{A\_REV}+\textbf{A\_ACC} as a graph 1-form exactness statement and defines affinities.
+Section~\ref{sec:aot} defines arrow-of-time as path reversal asymmetry, proves data processing, and formalizes the protocol-trap/clock-audit principle (including the corrected autonomous reading of protocol holonomy).
+Section~\ref{sec:forcing} gives the finite forcing lemma as an anti-saturation move for strict language extension.
+Section~\ref{sec:primitives} summarizes the primitives P1--P6 as closure-changing operations, and Section~\ref{sec:examples} gives a few surgical examples.
+
+\section{Related work}\label{sec:related}
+
+This paper is written to be largely self-contained; we briefly situate four standard ingredients that
+we use as mathematical tools.
+
+\paragraph{Closure operators, reflections, and idempotents.}
+Closure operators on preorders/lattices are classical objects in order theory: extensive, monotone,
+and idempotent endomaps whose fixed points form a ``closed'' substructure.
+In categorical language, (order-theoretic) closure operators are the thin-category shadow of
+reflective subcategories and idempotent monads: a reflector is left adjoint to the inclusion of the
+full subcategory of fixed points, and the universal property characterizes the ``least closed object
+above'' a given one.
+Our main text uses the order-theoretic formulation, and the Lean scaffold mechanizes the thin
+(preorder) instance. See, e.g., \cite{DaveyPriestley2002,MacLane1998,Borceux1994}.
+
+\paragraph{Coarse-graining of Markov dynamics and lumpability.}
+State aggregation and lumpability for finite Markov chains provide exact hypotheses under which a
+coarse observation of a Markov chain is itself Markov (or approximately so after subsampling).
+We use coarse-graining primarily as a measurable map (a ``lens'') and emphasize statements that are
+valid without assuming exact lumpability (notably, data-processing for relative entropy).
+When we do speak about induced macro-dynamics, the relevant classical references are the standard
+Markov chain texts that treat aggregation/lumpability and time reversal; see
+\cite{KemenySnell1960,Norris1997}.
+
+\paragraph{Path-space relative entropy and data processing.}
+Relative entropy/KL divergence and the data processing inequality are standard in information theory:
+pushforward under a measurable map cannot increase KL. We apply this at the level of path measures,
+so that coarse observation cannot create time-reversal asymmetry.
+The use of path-space relative entropy between forward and time-reversed Markov path measures as a
+measure of irreversibility also appears in the literature on reversible Markov chains and (more
+recently) stochastic thermodynamics; we cite these only as orientation since our arguments are finite
+and measure-theoretic. See, e.g., \cite{CoverThomas2006,CsiszarKorner2011,Kelly1979,Seifert2012}.
+
+\paragraph{Definability rarity and the forcing analogy.}
+In our finite setting, ``definable from a language'' is treated as measurability with respect to a
+finite $\sigma$-algebra (equivalently: being constant on the blocks of a partition). Our ``finite
+forcing lemma'' is a counting statement: when blocks have nontrivial internal volume, predicates that
+are definable from the coarse language form an exponentially small subset of all predicates, so a
+random predicate extension is generically non-definable.
+The term ``forcing'' is used only as an analogy to the role of generic extensions in set theory; our
+results are finite and do not invoke infinitary semantics. Background references include standard
+finite model theory and set-theory texts, e.g.\ \cite{Libkin2004,Cohen1963,Kunen2011}.
+
+% Scope IDs: see docs/spec/theorem-inventory.md and paper-contract.md
+\section{Conventions and notation}
+\subsection{Finite state spaces, distributions, and kernels}
+
+Throughout, $Z$ denotes a finite set (the microstate space). We write $\Delta(Z)$ for the probability simplex on $Z$.
+We represent distributions as row vectors $\mu \in \Delta(Z)$ and Markov kernels as row-stochastic matrices $P$ so that the time-$1$ update is $\mu \mapsto \mu P$.
+All logarithms are natural logs.
+
+\subsection{Paths, time reversal, and relative entropy}
+
+Fix a horizon $T \in \mathbb{N}$. A path is $z_{0:T} := (z_0,z_1,\dots,z_T)\in Z^{T+1}$.
+Given an initial distribution $\rho\in\Delta(Z)$ and a time-homogeneous kernel $P$, the forward path law is
+\[
+\mathbb{P}_{\rho,T}(z_{0:T}) \;=\; \rho(z_0)\prod_{t=0}^{T-1} P(z_t,z_{t+1}).
+\]
+Let $R:Z^{T+1}\to Z^{T+1}$ be path reversal, $R(z_0,\dots,z_T)=(z_T,\dots,z_0)$, and let $R_*\mathbb{P}_{\rho,T}$ denote the pushforward law.
+
+For probability measures $p,q$ on a finite set, we use the KL divergence
+\[
+D_{\mathrm{KL}}(p\|q) := \sum_x p(x)\log\frac{p(x)}{q(x)},
+\]
+with the conventions $0\log(0/q):=0$ and $p(x)>0,\,q(x)=0 \Rightarrow D_{\mathrm{KL}}(p\|q)=+\infty$.
+
+\begin{definition}[Finite-horizon path reversal asymmetry]\label{def:path-asymmetry}
+For any initial distribution $\rho$ and horizon $T$, define the path reversal asymmetry
+\[
+\Sigma_T(\rho) \;:=\; D_{\mathrm{KL}}\!\big(\mathbb{P}_{\rho,T}\,\|\,R_*\mathbb{P}_{\rho,T}\big)\in[0,\infty].
+\]
+\end{definition}
+
+\begin{remark}[Stationarity is not needed for $\Sigma_T$ or data processing]
+Definition~\ref{def:path-asymmetry} makes sense for any initial distribution $\rho$ (it may be $+\infty$ if reverse-support is missing).
+The data processing inequality for KL is purely measure-theoretic and therefore applies to $\Sigma_T(\rho)$ without any stationarity assumption.
+Stationarity enters only when one wants a steady-state interpretation (e.g.\ relating $\Sigma_T(\pi)$ to entropy production and/or considering long-time rates).
+\end{remark}
+
+\subsection{Coarse-graining lenses}
+
+A (deterministic) coarse-graining or \emph{lens} is a map $f:Z\to X$ to a finite set $X$.
+The pushforward of $\mu\in\Delta(Z)$ is $(f_*\mu)(x):=\sum_{z:f(z)=x}\mu(z)$.
+On path space we use the coordinatewise lens $f^{T+1}:Z^{T+1}\to X^{T+1}$, and write $f_*\mathbb{P}_{\rho,T}$ for the induced macro path law.
+
+\subsection{Support graphs and discrete 1-forms}
+
+Given a kernel $P$ on $Z$, its directed support has an edge $z\to z'$ whenever $P(z,z')>0$.
+When microreversibility holds (support is bidirected), we also use the induced undirected support graph with edge $\{z,z'\}$ whenever $P(z,z')>0$ and $P(z',z)>0$.
+
+On bidirected support edges we use the antisymmetric edge 1-form
+\[
+a(z,z') \;:=\; \log\frac{P(z,z')}{P(z',z)}.
+\]
+For a directed cycle $\gamma=(z_0\!\to z_1\!\to\cdots\to z_m=z_0)$ in the bidirected support, its \emph{cycle integral} is
+\[
+\oint_\gamma a \;:=\; \sum_{i=0}^{m-1} a(z_i,z_{i+1}).
+\]
+If $a$ is exact, i.e.\ there exists $\Phi:Z\to\mathbb{R}$ with $a(z,z')=\Phi(z')-\Phi(z)$ on all bidirected edges, then $\oint_\gamma a=0$ for every cycle $\gamma$.
+
+\subsection{Assumption bundles}
+
+We will cite standing hypotheses by short tags (e.g.\ \textbf{A\_FIN}+\textbf{A\_LENS}) rather than repeating prose.
+Use the following as the canonical assumption bundle list in this manuscript (tag spellings are aligned with \texttt{docs/spec/theorem-inventory.md}):
+
+\begin{description}
+  \item[\textbf{A\_FIN}] Finite state spaces (all measures and sums are finite; measurability is automatic).
+  \item[\textbf{A\_AUT}] Autonomy: time-homogeneous dynamics; any protocol/phase variables are included in the state (no external schedule in main-text statements).
+  \item[\textbf{A\_REV}] Microreversibility on support: $P(z,z')>0 \Rightarrow P(z',z)>0$ (bidirected support).
+  \item[\textbf{A\_ACC}] Accounting/1-form decomposition: the antisymmetric log-ratio 1-form admits a decomposition into an exact part plus fixed affinity components (graph $H^1$ viewpoint).
+  \item[\textbf{A\_NULL}] Null regime: all affinities vanish (the 1-form is exact / detailed-balance-like in the sense used here).
+  \item[\textbf{A\_STAT}] A stationary distribution $\pi$ exists (full support when required by context).
+  \item[\textbf{A\_LENS}] A specified coarse-graining lens $f:Z\to X$ is part of the statement.
+\end{description}
+
+% Scope IDs: see docs/spec/theorem-inventory.md and paper-contract.md
+\section{Order-closure and closure ladders}\label{sec:closure}
+\subsection{Order-theoretic closure and fixed points}
+
+We begin with the minimal order-theoretic notion of closure. This section is intentionally
+agnostic about dynamics, probability, or measurement; those enter later. The only idea we
+need is that a closure operator defines a notion of ``completion,'' and its fixed points
+constitute the ``objects'' at that level.
+
+\begin{definition}[Closure operator]\label{def:closure-operator}
+Let $(L,\le)$ be a preorder. A map $c:L\to L$ is a \emph{closure operator} if for all $x,y\in L$:
+\begin{enumerate}
+  \item (Extensive) $x \le c(x)$.
+  \item (Monotone) $x \le y \Rightarrow c(x)\le c(y)$.
+  \item (Idempotent) $c(c(x)) = c(x)$.
+\end{enumerate}
+\end{definition}
+
+\begin{definition}[Closed points / objects]\label{def:closed-points}
+Given a closure operator $c:L\to L$, its \emph{closed points} (or \emph{objects at level $c$}) are
+the fixed points
+\[
+\mathrm{Fix}(c) \;:=\; \{x\in L : c(x)=x\}.
+\]
+\end{definition}
+
+The order on $L$ induces a natural order on closure operators: we write $c \le d$ if
+$c(x)\le d(x)$ for all $x\in L$ (pointwise order). Intuitively, $d$ is ``stronger'' than $c$ if it
+closes more aggressively.
+
+\begin{lemma}[Closed points are antitone in closure strength]\label{lem:closed-antitone}
+Assume \textbf{A\_FIN}.
+If $c \le d$ are closure operators on $L$, then $\mathrm{Fix}(d)\subseteq \mathrm{Fix}(c)$.
+Equivalently: if $d(x)=x$ then $c(x)=x$.
+\end{lemma}
+
+\begin{proof}
+Let $x\in \mathrm{Fix}(d)$, so $d(x)=x$. By extensiveness, $x\le c(x)$. By $c\le d$ we have
+$c(x)\le d(x)=x$. Hence $x\le c(x)\le x$, so $c(x)=x$.
+\end{proof}
+
+\subsection{Closure ladders and saturation}
+
+Idempotence implies that repeatedly applying a \emph{fixed} closure rule cannot yield unbounded novelty.
+
+\begin{lemma}[One-step stabilization under iteration]\label{lem:closure-iterate-stabilizes}
+Assume \textbf{A\_FIN}.
+Let $c$ be a closure operator on $L$. Define the iterate $c^{(n)}$ by $c^{(0)}=\mathrm{id}$ and
+$c^{(n+1)} = c\circ c^{(n)}$. Then for all $x\in L$ and all integers $n\ge 1$,
+\[
+c^{(n)}(x) = c(x).
+\]
+\end{lemma}
+
+\begin{proof}
+For $n=1$ the statement is trivial. If $c^{(n)}(x)=c(x)$ for some $n\ge 1$, then
+$c^{(n+1)}(x)=c(c^{(n)}(x))=c(c(x))=c(x)$ by idempotence.
+\end{proof}
+
+\begin{corollary}[Closure saturates]\label{cor:closure-saturates}
+Assume \textbf{A\_FIN}.
+Fix a closure operator $c$. For any $x\in L$, the sequence
+$x,\; c(x),\; c(c(x)),\; c(c(c(x))),\dots$ stabilizes after one closure step:
+it is constant from the second term onward.
+\end{corollary}
+
+Thus, any notion of open-endedness based purely on repeated application of a single closure rule is
+structurally limited. To obtain a strict hierarchy of ``new objects,'' one must change the closure rule.
+
+\begin{definition}[Strictly stronger closure]\label{def:strictly-stronger}
+For closure operators $c,d$ on $L$, write $c \prec d$ (``$d$ is strictly stronger than $c$'') if
+$c\le d$ and there exists an $x\in L$ such that $d(x)\neq c(x)$.
+\end{definition}
+
+\begin{definition}[Closure ladder]\label{def:closure-ladder}
+A \emph{closure ladder} is a sequence of closure operators $(c_n)_{n\in\mathbb N}$ on $L$ such that
+$c_n \prec c_{n+1}$ for all $n$. The fixed-point sets form a nested chain
+\[
+\mathrm{Fix}(c_0)\supseteq \mathrm{Fix}(c_1)\supseteq \mathrm{Fix}(c_2)\supseteq \cdots
+\]
+by Lemma~\ref{lem:closed-antitone}.
+\end{definition}
+
+\begin{remark}[Lean formalization note]\label{rem:lean-closure}
+The order-theoretic closure operator used here is formalized in the repository using mathlib's
+\texttt{ClosureOperator}. The basic closure and ladder API lives in
+\texttt{formal/ClosureLadder/Basic.lean}. In particular, the iterate-stabilization statement
+Lemma~\ref{lem:closure-iterate-stabilizes} corresponds to Lean lemmas
+\texttt{closure\*iterate\*succ} and \texttt{closure\*iterate\*ge\*one}, and ladder monotonicity
+corresponds to \texttt{ladder\*mono}.
+\end{remark}
+
+\begin{remark}[Interpretation]
+The key structural fact is that closure is idempotent: once a closure rule is fixed, repeated application cannot yield an unbounded novelty stream.
+Mathematically, ``objects at a level'' are exactly fixed points, and a closure ladder can only climb by changing the closure rule (not by iterating the old one).
+This is the precise content behind the slogan ``closure saturates.''
+\end{remark}
+
+% Scope IDs: see docs/spec/theorem-inventory.md and paper-contract.md
+\section{Idempotent endomaps and dynamics-induced ``closures''}\label{sec:idempotent-endo}
+\subsection{Idempotent endomaps}
+
+The common mathematical nucleus behind both order-theoretic closures and the
+dynamics-induced operators used later is \emph{idempotence}.  In this section we
+package that nucleus in a way that avoids conflating two different notions:
+\emph{order-closures} (which require an ambient preorder) versus \emph{idempotent
+endomaps} (which require no order at all).
+
+\begin{definition}[Idempotent endomap]
+Let $A$ be a set (or type). An \emph{idempotent endomap} on $A$ is a function
+$e : A \to A$ such that $e \circ e = e$, i.e.\ $e(e(a)) = e(a)$ for all $a\in A$.
+\end{definition}
+
+\begin{definition}[Fixed points]
+For an endomap $e : A \to A$ define its fixed-point set
+\[
+\mathrm{Fix}(e) := \{a\in A : e(a)=a\}.
+\]
+We interpret $\mathrm{Fix}(e)$ as the collection of ``objects packaged by $e$''.
+\end{definition}
+
+\begin{lemma}[Idempotents split]
+Assume \textbf{A\_FIN}.
+Let $e : A \to A$ be an idempotent endomap. Let $i:\mathrm{Fix}(e)\hookrightarrow A$
+denote inclusion, and define $r:A\to \mathrm{Fix}(e)$ by $r(a):=e(a)$ (viewed as an
+element of $\mathrm{Fix}(e)$).
+Then $r\circ i = \mathrm{id}_{\mathrm{Fix}(e)}$ and $i\circ r = e$.
+In particular, $e$ restricts to the identity on $\mathrm{Fix}(e)$ and
+$\mathrm{Fix}(e)$ canonically identifies with the image of $e$.
+\end{lemma}
+
+\begin{proof}
+For $a\in A$, idempotence gives $e(e(a))=e(a)$, so $e(a)\in \mathrm{Fix}(e)$ and
+$r$ is well-defined. For $x\in \mathrm{Fix}(e)$ we have $r(i(x))=e(x)=x$, hence
+$r\circ i=\mathrm{id}$. Finally, for $a\in A$, $(i\circ r)(a)=i(e(a))=e(a)$ by
+definition of $i$, so $i\circ r=e$.
+\end{proof}
+
+\begin{remark}[Order-closures as a special case]
+If $L$ is a preorder and $c:L\to L$ is an order-closure (extensive, monotone,
+idempotent), then forgetting the order yields an idempotent endomap on the
+underlying set. The converse is false: an idempotent endomap need not be monotone
+or extensive with respect to any nontrivial order.  In particular, the
+dynamics-induced operators $E_{\tau,\Pi}$ (defined later on probability simplices)
+are treated as \emph{(approximate) idempotent endomaps} with fixed points and
+idempotence defects measured in a chosen metric, rather than as order-closures.
+\end{remark}
+
+\begin{remark}[Formalization note]
+The constructions in this subsection are formalized in Lean.
+See \texttt{formal/ClosureLadder/IdempotentEndo.lean} for the definitions
+\texttt{ClosureLadder.IdempotentEndo} and \texttt{ClosureLadder.IdempotentEndo.FixedPoints},
+and the bridge lemma \texttt{ClosureLadder.ClosureOperator.toIdempotentEndo}.
+\end{remark}
+
+\subsection{Dynamics-induced empirical endomaps}
+\label{sec:empirical-closure}
+
+Throughout this section we assume \textbf{A\_FIN} and fix a finite state space $Z$.
+Let $P$ be a (row-stochastic) Markov kernel on $Z$, and let $\Delta(Z)$ denote the simplex
+of probability distributions on $Z$ (row vectors).
+Fix a \emph{lens} $f:Z\to X$ (assumption \textbf{A\_LENS}), with fibers (blocks)
+$B_x:=f^{-1}(x)$.
+
+\begin{definition}[Coarse map and canonical lift; \textbf{D-IC-01}]
+\label{def:D-IC-01}
+Let $Q_f:\Delta(Z)\to \Delta(X)$ be the pushforward (coarse-graining) map
+\[
+(Q_f\mu)(x) \;:=\; \sum_{z\in B_x}\mu(z).
+\]
+Fix a \emph{canonical lift} $U_f:\Delta(X)\to \Delta(Z)$ specified by a choice of
+\emph{prototype} distributions $(u_x)_{x\in X}$ with $\mathrm{supp}(u_x)\subseteq B_x$ and
+$\sum_{z\in B_x}u_x(z)=1$, by setting
+\[
+(U_f\nu)(z) \;:=\; \sum_{x\in X}\nu(x)\,u_x(z).
+\]
+Equivalently, $U_f\delta_x=u_x$ and $Q_f U_f = \mathrm{id}_{\Delta(X)}$.
+
+For an integer time scale $\tau\ge 1$, define the \emph{induced empirical endomap}
+\[
+E_{\tau,f}:\Delta(Z)\to \Delta(Z),
+\qquad
+E_{\tau,f}(\mu) \;:=\; U_f\bigl(Q_f(\mu P^\tau)\bigr).
+\]
+\end{definition}
+
+\begin{remark}[Not an order-closure]
+The map $E_{\tau,f}$ is an affine endomap of $\Delta(Z)$ (indeed a Markov kernel on $Z$),
+and it is always idempotent as an \emph{endomap} only in special regimes.
+We treat $E_{\tau,f}$ within the ``fixed points of (approx) idempotents'' framework
+(\S\ref{sec:idempotent-endo}), not as an order-closure operator.
+See the repo spec note \texttt{docs/spec/empirical-vs-order-closure.md}.
+\end{remark}
+
+\begin{definition}[TV idempotence defect; \textbf{D-IC-02}]
+\label{def:D-IC-02}
+Let $\|\cdot\|_{\mathrm{TV}}$ denote total variation on $\Delta(Z)$, i.e.
+$\|\mu-\nu\|_{\mathrm{TV}}=\tfrac12\|\mu-\nu\|_1$.
+The \emph{idempotence defect} of $E_{\tau,f}$ is
+\[
+\delta_{\tau,f}
+\;:=\;
+\sup_{\mu\in \Delta(Z)} \bigl\|E_{\tau,f}(E_{\tau,f}(\mu)) - E_{\tau,f}(\mu)\bigr\|_{\mathrm{TV}}.
+\]
+Since $\mu\mapsto \| \mu M\|_1$ is convex for fixed $M$ and $\Delta(Z)$ is the convex hull
+of the Dirac masses $(\delta_z)_{z\in Z}$, the supremum is attained on extreme points:
+\[
+\delta_{\tau,f}
+\;=\;
+\max_{z\in Z} \bigl\|\delta_z(E_{\tau,f}^2 - E_{\tau,f})\bigr\|_{\mathrm{TV}}
+\;=\;
+\frac12\max_{z\in Z}\sum_{z'\in Z}\bigl|(E_{\tau,f}^2 - E_{\tau,f})(z,z')\bigr|.
+\]
+\end{definition}
+
+\begin{definition}[Prototype stability at scale $\tau$]
+For each $x\in X$ define the (scale-$\tau$) stability of the prototype $u_x$ by
+\[
+s_{\tau,f}(x) \;:=\; \bigl\|E_{\tau,f}(u_x)-u_x\bigr\|_{\mathrm{TV}}
+\;=\;
+\bigl\|U_f(Q_f(u_xP^\tau)) - U_f(\delta_x)\bigr\|_{\mathrm{TV}}.
+\]
+We say $u_x$ is \emph{$\varepsilon$-stable} if $s_{\tau,f}(x)\le \varepsilon$.
+\end{definition}
+
+\begin{theorem}[Approximate idempotence from prototype retention; \textbf{T-IC-02}]
+\label{thm:T-IC-02}
+Assume \textbf{A\_FIN}+\textbf{A\_LENS} and fix $E_{\tau,f}$ as in Definition~\ref{def:D-IC-01}.
+Define a \emph{retention error}
+\[
+\varepsilon_{\tau,f}
+\;:=\;
+\max_{x\in X}\bigl\|Q_f(u_xP^\tau)-\delta_x\bigr\|_{\mathrm{TV}}.
+\]
+Then:
+\begin{enumerate}
+\item (Prototype stability bound) For all $x\in X$, $s_{\tau,f}(x)\le \varepsilon_{\tau,f}$.
+\item (Idempotence defect bound) $\delta_{\tau,f}\le \varepsilon_{\tau,f}$.
+In particular, if $\varepsilon_{\tau,f}=0$ then $E_{\tau,f}$ is exactly idempotent.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+Since $U_f$ is a stochastic map, it is a contraction in total variation.
+Thus for each $x$,
+\[
+\|E_{\tau,f}(u_x)-u_x\|_{\mathrm{TV}}
+=
+\|U_f(Q_f(u_xP^\tau)) - U_f(\delta_x)\|_{\mathrm{TV}}
+\le
+\|Q_f(u_xP^\tau)-\delta_x\|_{\mathrm{TV}}
+\le \varepsilon_{\tau,f}.
+\]
+This proves (1).
+
+For (2), write any $\mu\in\Delta(Z)$ as $\mu_1:=E_{\tau,f}(\mu)=\sum_{x\in X}w_x u_x$
+where $w:=Q_f(\mu P^\tau)\in \Delta(X)$ (so $w_x\ge 0$ and $\sum_x w_x=1$).
+Then by linearity,
+\[
+E_{\tau,f}(\mu_1) - \mu_1
+=
+\sum_{x\in X} w_x\bigl(E_{\tau,f}(u_x)-u_x\bigr).
+\]
+Taking TV norms and using the bound from (1),
+\[
+\|E_{\tau,f}(\mu_1) - \mu_1\|_{\mathrm{TV}}
+\le
+\sum_{x\in X}w_x \|E_{\tau,f}(u_x)-u_x\|_{\mathrm{TV}}
+\le
+\sum_{x\in X}w_x \varepsilon_{\tau,f}
+=
+\varepsilon_{\tau,f}.
+\]
+Now take the supremum over $\mu$ to obtain $\delta_{\tau,f}\le \varepsilon_{\tau,f}$.
+\end{proof}
+
+\begin{theorem}[Refinement can help or hurt; \textbf{T-IC-01}]
+\label{thm:T-IC-01}
+Assume \textbf{A\_FIN}+\textbf{A\_LENS}.
+There exist finite Markov kernels $P$ and times $\tau$ together with two lenses
+$f_{\mathrm{fine}}:Z\to X_{\mathrm{fine}}$ and $f_{\mathrm{coarse}}:Z\to X_{\mathrm{coarse}}$
+such that $f_{\mathrm{coarse}}$ is a coarsening of $f_{\mathrm{fine}}$ (the fine partition refines the coarse),
+and for a fixed stability threshold $\varepsilon>0$ the number of $\varepsilon$-stable prototypes
+for $E_{\tau,f}$ can either increase or decrease under refinement.
+
+More precisely, both behaviors occur:
+\begin{enumerate}
+\item (\emph{Refinement reveals objects}) in one example, refinement increases the number of
+$\varepsilon$-stable prototypes.
+\item (\emph{Refinement destroys objects}) in another example, refinement decreases the number of
+$\varepsilon$-stable prototypes.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}[Proof idea by explicit two-block constructions]
+The mechanism is controlled by the retention errors $\varepsilon_{\tau,f}$ of
+Theorem~\ref{thm:T-IC-02}.
+
+Consider a state space split into two blocks $B_0,B_1$ and a lift $U_f$ whose prototypes
+$u_0,u_1$ are supported on the blocks. If the dynamics jump from $B_0$ to $B_1$ with
+probability $p$ each step (and otherwise remain in the current block), then starting from $u_0$,
+the probability of exiting $B_0$ within $\tau$ steps is $1-(1-p)^\tau$.
+Hence $\|Q_f(u_0P^\tau)-\delta_0\|_{\mathrm{TV}}$ is on the order of $1-(1-p)^\tau$,
+and similarly for $u_1$.
+
+Now take a coarse lens that merges two metastable regions into one block, and a refinement that
+splits them. If $p$ is very small (relative to $\tau$), the refined prototypes have small
+retention error and are stable, so refinement increases the stable count.
+If $p$ is not small (relative to $\tau$), the refined prototypes rapidly mix across the split
+boundary, their retention errors exceed the stability threshold, and refinement decreases the
+stable count.  \qedhere
+\end{proof}
+
+\begin{remark}[Qualified ``layer birth'']
+The induced endomap $E_{\tau,f}$ packages a distribution by evolving for $\tau$ steps and then
+forgetting micro-detail below the lens $f$, re-instantiating it via the chosen prototypes.
+Theorem~\ref{thm:T-IC-02} shows that a small retention error implies small idempotence defect.
+In this regime, the (approximately) stable prototypes $u_x$ behave as emergent ``objects'' at
+scale $\tau$ in the language $f$.
+Refinement changes the lens and can therefore reveal or destroy such objects
+(Theorem~\ref{thm:T-IC-01}).
+\end{remark}
+
+\begin{remark}[Interpretation]
+Idempotent endomaps isolate the common nucleus behind both order-closures and dynamics-induced packaging: fixed points are the packaged objects, and idempotence means reapplying the packaging does nothing new.
+For empirical operators $E_{\tau,f}$ the right question is therefore not ``is this a closure operator?'' but ``how close is it to idempotent, and what are its stable fixed points at the chosen scale/lens?''
+Choosing a computable defect (TV/L1) turns this into an exact diagnostic rather than a metaphor.
+\end{remark}
+
+% Scope IDs: see docs/spec/theorem-inventory.md and paper-contract.md
+\section{AUT + REV + ACC regime and graph 1-forms}
+\label{sec:acc}
+
+This section isolates the representation-independent content behind the admissibility regime
+\textbf{A\_AUT}+\textbf{A\_REV}+\textbf{A\_ACC} that we use throughout: the obstruction to
+``no-drive'' behavior is a cohomological (cycle) obstruction on the bidirected support graph.
+Our presentation is discrete-time and purely graph-theoretic; any continuous-time (CTMC) reading
+is optional and out of scope for the main text.
+
+\subsection{Bidirected support and the log-ratio 1-form}
+
+Assume \textbf{A\_FIN} and let $P$ be a time-homogeneous Markov kernel on a finite state space $Z$.
+Write $P_{ij}:=P(i,j)$.
+Under \textbf{A\_REV} (microreversibility on support), we have
+\[
+P_{ij}>0 \implies P_{ji}>0,
+\]
+so every allowed transition comes with a reverse transition.
+
+Define the (undirected) \emph{support graph} $G=(Z,E)$ by declaring $\{i,j\}\in E$ iff $P_{ij}>0$
+(equivalently $P_{ji}>0$ by \textbf{A\_REV}). Let $\vec E$ be the corresponding set of
+\emph{oriented} edges: for each $\{i,j\}\in E$ we include both $(i,j)$ and $(j,i)$.
+
+\begin{definition}[Edge log-ratio 1-form]
+\label{def:edge-one-form}
+Assume \textbf{A\_FIN}+\textbf{A\_REV}. The \emph{antisymmetric edge 1-form} associated to $P$ is
+the function $a:\vec E\to \mathbb R$ defined by
+\[
+a_{ij} := a(i,j) := \log\frac{P_{ij}}{P_{ji}} \qquad \text{for } (i,j)\in \vec E.
+\]
+Then $a_{ji}=-a_{ij}$.
+\end{definition}
+
+\begin{remark}[Why \textbf{A\_REV} matters]
+If \textbf{A\_REV} fails, then ratios such as $P_{ij}/P_{ji}$ may be undefined, and many
+time-reversal quantities become infinite rather than merely nonzero. In this paper we treat
+\textbf{A\_REV} as the basic finiteness/admissibility condition for edge log-ratios.
+\end{remark}
+
+\subsection{Cycle integrals, exactness, and the null regime}
+
+A (simple) cycle in $G$ is a sequence $(v_0,v_1,\dots,v_m=v_0)$ such that $\{v_k,v_{k+1}\}\in E$
+for all $k$.
+
+\begin{definition}[Cycle integral / affinity along a cycle]
+\label{def:cycle-integral}
+Given an antisymmetric edge 1-form $a$ and an oriented cycle $\gamma=(v_0,\dots,v_m=v_0)$, define
+\[
+\mathcal A(\gamma) := \sum_{k=0}^{m-1} a_{v_k v_{k+1}}.
+\]
+Reversing the orientation negates $\mathcal A(\gamma)$.
+\end{definition}
+
+\begin{definition}[Exact 1-forms]
+\label{def:exact-one-form}
+An antisymmetric 1-form $a$ on $\vec E$ is \emph{exact} if there exists a potential
+$\Phi:Z\to\mathbb R$ such that for every $(i,j)\in \vec E$,
+\[
+a_{ij} = \Phi(j)-\Phi(i).
+\]
+We write $a=d\Phi$ in this case.
+\end{definition}
+
+\begin{lemma}[Exact forms have zero cycle integrals]
+\label{lem:exact-zero-cycles}
+Assume \textbf{A\_FIN}+\textbf{A\_REV}.
+If $a=d\Phi$ is exact, then $\mathcal A(\gamma)=0$ for every cycle $\gamma$ in $G$.
+\end{lemma}
+
+\begin{proof}
+Along a cycle $\gamma=(v_0,\dots,v_m=v_0)$ we have
+\[
+\mathcal A(\gamma)=\sum_{k=0}^{m-1}\big(\Phi(v_{k+1})-\Phi(v_k)\big)=\Phi(v_m)-\Phi(v_0)=0.
+\]
+\end{proof}
+
+\begin{theorem}[Cycle criterion for exactness]
+\label{thm:cycle-criterion-exact}
+Assume \textbf{A\_FIN}+\textbf{A\_REV} and let $a$ be an antisymmetric 1-form on the oriented edge
+set $\vec E$ of $G$. The following are equivalent:
+\begin{enumerate}
+\item $a$ is exact: $a=d\Phi$ for some $\Phi:Z\to\mathbb R$.
+\item $\mathcal A(\gamma)=0$ for every cycle $\gamma$ in $G$.
+\item $\mathcal A(\gamma)=0$ for every cycle $\gamma$ in some fixed cycle basis of $G$
+(e.g.\ a fundamental cycle basis from a spanning tree).
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}[Proof sketch]
+(1)$\Rightarrow$(2) is Lemma~\ref{lem:exact-zero-cycles}. (2)$\Rightarrow$(3) is immediate.
+
+For (3)$\Rightarrow$(1), fix a spanning tree $T$ of each connected component of $G$.
+Choose a root $r$ in each component and define $\Phi(r)=0$; for any vertex $v$ in that component,
+let $\Phi(v)$ be the sum of $a$ along the unique tree path from $r$ to $v$ (with signs determined
+by orientations).
+This makes $a_{ij}=\Phi(j)-\Phi(i)$ hold for every tree edge $(i,j)$.
+For any chord edge $e=(u,v)\notin T$, the fundamental cycle $\gamma_e$ is the tree path from $u$
+to $v$ together with $e$; the hypothesis $\mathcal A(\gamma_e)=0$ forces $a_{uv}=\Phi(v)-\Phi(u)$
+on the chord as well.
+Thus $a=d\Phi$ on all of $\vec E$.
+\end{proof}
+
+\begin{corollary}[Null regime as ``no-drive'' / detailed-balance-like]
+\label{cor:null-regime}
+In the \textbf{A\_NULL} regime (all cycle integrals vanish), the log-ratio 1-form $a$ is exact.
+Equivalently, there exists $\Phi:Z\to\mathbb R$ such that
+\[
+\log\frac{P_{ij}}{P_{ji}} = \Phi(j)-\Phi(i) \quad \text{for all } (i,j)\in \vec E.
+\]
+In particular, defining $\pi(i)\propto e^{\Phi(i)}$ yields the detailed balance relations
+$\pi(i)P_{ij}=\pi(j)P_{ji}$ on support.
+\end{corollary}
+
+\subsection{Accounting as coordinates on cycle space}
+
+Let $\beta_1(G)$ be the cycle rank of the undirected support graph.
+Choosing a cycle basis $(\gamma_1,\dots,\gamma_{\beta_1})$ defines a coordinate vector of
+\emph{affinities}
+\[
+A_r := \mathcal A(\gamma_r), \qquad r=1,\dots,\beta_1(G).
+\]
+Changing the cycle basis changes coordinates but not the underlying obstruction: $A=0$ in one
+basis iff $A=0$ in every basis (Theorem~\ref{thm:cycle-criterion-exact}).
+
+We regard \textbf{A\_ACC} as the decision to work with this decomposition viewpoint:
+the antisymmetric log-ratio 1-form $a$ splits into an exact (gauge) part plus a cycle/affinity
+part, and the affinity part vanishes exactly in the null regime \textbf{A\_NULL}.
+
+\begin{remark}[Implementation note for Appendix C]
+The repository includes a small graph-theoretic routine that computes cycle affinities and tests
+exactness on finite Markov kernels (reversible vs biased 3-cycle examples). We relegate all such
+numerical evidence to Appendix~C per the paper contract.
+\end{remark}
+
+\begin{remark}[Interpretation]
+The accounting regime is, at its core, a statement about a discrete 1-form on the bidirected support graph.
+``Drive'' is not a vague physical intuition here: it is exactly the cohomological obstruction to exactness, detected by nonzero cycle integrals.
+Affinities are simply coordinates for that obstruction in a chosen cycle basis; the null regime is the exact (no-cycle-obstruction) case.
+\end{remark}
+
+% Scope IDs: see docs/spec/theorem-inventory.md and paper-contract.md
+\section{Arrow-of-time as path reversal asymmetry; data processing; protocol trap}\label{sec:aot}
+
+Throughout this section we assume \textbf{A\_FIN}. Let $Z$ be a finite state space and let
+$P:Z\times Z\to [0,1]$ be a time-homogeneous Markov kernel.
+
+\begin{definition}[Forward path law and reversal (D-AOT-01)]
+Fix a horizon $T\in \mathbb N$ with $T\ge 1$ and an initial distribution $\rho\in\Delta(Z)$.
+The (forward) length-$T$ path law $\mathbb P_{\rho,T}$ is the probability measure on $Z^{T+1}$ defined by
+\[
+\mathbb P_{\rho,T}(z_0,\dots,z_T)
+:= \rho(z_0)\prod_{t=0}^{T-1} P(z_t,z_{t+1}).
+\]
+Let $\mathcal R:Z^{T+1}\to Z^{T+1}$ be the reversal map $\mathcal R(z_0,\dots,z_T)=(z_T,\dots,z_0)$, and write $\mathcal R_*\mu$ for pushforward of a measure $\mu$.
+Define the (finite-horizon) \emph{path reversal asymmetry}
+\[
+\Sigma_T(\rho)\;:=\; D_{\mathrm{KL}}\!\left(\mathbb P_{\rho,T}\,\middle\|\,\mathcal R_*\mathbb P_{\rho,T}\right)\in[0,\infty].
+\]
+We use the standard convention $D_{\mathrm{KL}}(p\|q)=+\infty$ if $p$ is not absolutely continuous with respect to $q$.
+\end{definition}
+
+\begin{remark}[Stationarity is not required (L-AOT-STAT-01)]
+The quantity $\Sigma_T(\rho)$ is defined for any initial distribution $\rho$; it can be strictly positive even in a detailed-balance chain when $\rho$ is not stationary (a boundary-term effect).
+Stationarity is only needed when we want a \emph{steady-state} interpretation (entropy production rate), not for the definition of $\Sigma_T$ or for the data-processing inequality below.
+\end{remark}
+
+\begin{definition}[Steady-state entropy production (D-AOT-EP-01)]
+Assume additionally \textbf{A\_STAT} and let $\pi$ be a stationary distribution for $P$.
+The (finite-horizon) steady-state entropy production is $\mathrm{EP}_T:=\Sigma_T(\pi)$.
+When a per-step rate is desired, we write $\mathrm{ep}:=\tfrac1T\Sigma_T(\pi)$ (and, under standard ergodicity conditions, one can pass to the limit $T\to\infty$).
+\end{definition}
+
+\subsection{Data processing: coarse-graining cannot create irreversibility}
+
+Now assume \textbf{A\_LENS} and fix a coarse-graining (lens) $f:Z\to X$.
+Let $f^{T+1}:Z^{T+1}\to X^{T+1}$ be the coordinatewise map $f^{T+1}(z_0,\dots,z_T)=(f(z_0),\dots,f(z_T))$.
+Define the observed path law $\mathbb Q_{\rho,T}:=(f^{T+1})_*\mathbb P_{\rho,T}$.
+
+\begin{theorem}[Data processing for path reversal asymmetry (T-AOT-01)]\label{thm:dpi_path}
+Under \textbf{A\_FIN}+\textbf{A\_LENS}, for every $T\ge 1$ and every initial distribution $\rho$,
+\[
+D_{\mathrm{KL}}\!\left(\mathbb Q_{\rho,T}\,\middle\|\,\mathcal R_*\mathbb Q_{\rho,T}\right)
+\;\le\;
+D_{\mathrm{KL}}\!\left(\mathbb P_{\rho,T}\,\middle\|\,\mathcal R_*\mathbb P_{\rho,T}\right)
+=\Sigma_T(\rho).
+\]
+\end{theorem}
+
+\begin{proof}[Proof sketch]
+The reversal map $\mathcal R$ commutes with coordinatewise coarse-graining: $\mathcal R\circ f^{T+1}=f^{T+1}\circ \mathcal R$.
+Hence $\mathcal R_*\mathbb Q_{\rho,T}=(f^{T+1})_*(\mathcal R_*\mathbb P_{\rho,T})$.
+The claim is then the usual contraction of KL under measurable maps: for any measurable $g$, $D_{\mathrm{KL}}(g_*p\|g_*q)\le D_{\mathrm{KL}}(p\|q)$.
+\end{proof}
+
+\begin{corollary}[No false positives from forgetting variables]
+Assume \textbf{A\_FIN}+\textbf{A\_LENS}.
+If the lifted system has zero path reversal asymmetry at horizon $T$, then every coarse observation has zero path reversal asymmetry at the same horizon.
+Coarse-graining can hide irreversibility (false negatives), but it cannot create it.
+\end{corollary}
+
+\subsection{Protocol trap: apparent stroboscopic arrows and the ``clock audit''}
+
+We now pin down a class of autonomous protocol models and the sense in which ``P3 requires P6''.
+Let $X$ be a microstate space and let $\Phi=\{0,1,\dots,m-1\}$ be a finite phase space.
+A \emph{protocol family} is a collection of kernels $\{K_\phi\}_{\phi\in\Phi}$ on $X$ together with a phase kernel $S$ on $\Phi$.
+
+\begin{definition}[Autonomous $m$-phase random-scan protocol (D-PROT-02)]
+Define an autonomous Markov chain on the product space $Z:=X\times \Phi$ by
+\[
+P\big((x,\phi),(x',\phi')\big)\;:=\; S(\phi,\phi')\,K_\phi(x,x').
+\]
+We call this the \emph{lifted} (phase-included) protocol model.
+\end{definition}
+
+\begin{theorem}[Protocol trap / hidden-drive principle (T-AOT-02)]\label{thm:protocol_trap}
+Assume \textbf{A\_FIN}+\textbf{A\_AUT}.
+Suppose:
+(i) the phase chain $S$ is reversible with stationary distribution $s$;
+(ii) each $K_\phi$ is reversible with respect to a \emph{common} stationary distribution $\pi$ on $X$.
+Then the product measure $\mu:=\pi\times s$ is stationary for the lifted chain on $Z=X\times\Phi$ and the lifted chain is reversible (hence $\Sigma_T(\mu)=0$ for all $T$).
+Consequently, by Theorem~\ref{thm:dpi_path} applied to the projection $X\times\Phi\to X$, the observed process on $X$ has zero path reversal asymmetry at every finite horizon.
+
+In particular, any \emph{apparent} arrow-of-time obtained by analysing a stroboscopic composition of kernels on $X$ must be traced to either:
+(a) an external schedule (violating \textbf{A\_AUT}), or
+(b) a driven/bias phase dynamics (nonzero affinity, cf.\ Section~\ref{sec:acc}).
+\end{theorem}
+
+\begin{corollary}[``P3 needs P6'' under autonomy (C-ACC-01)]
+Under \textbf{A\_AUT}+\textbf{A\_ACC}+\textbf{A\_NULL} (no affinities anywhere in the lifted state space), protocol holonomy alone does not yield sustained arrow-of-time in the autonomous accounted model.
+To obtain nonzero steady-state entropy production, one needs a nontrivial affinity component (P6) in the lifted dynamics (e.g.\ a biased phase cycle) or an external schedule.
+\end{corollary}
+
+\begin{remark}[What the ``protocol trap'' actually warns about]
+The theorem above is about \emph{true} path reversal asymmetry.
+In practice, one can still obtain a spurious ``arrow'' by fitting a one-step Markov model to a non-Markov observed process (for example, by replacing the hidden-phase model by a stroboscopic kernel on $X$).
+The cure is the clock audit: include the phase variable in the state, or work directly with path-space quantities that do not assume Markovianity at the observed level.
+\end{remark}
+
+\begin{remark}[Interpretation]
+Defining irreversibility as path-space KL makes a decisive separation: coarse observation cannot create time-reversal asymmetry (no false positives), though it can hide it (false negatives).
+The protocol trap is the concrete warning that an apparent arrow can be an artifact of hiding a clock/phase variable or fitting a one-step Markov model to a non-Markov observation.
+In an autonomous lifted model, holonomy alone does not manufacture sustained directionality unless there is a genuine affinity (a P6-type bias) in the lifted dynamics.
+\end{remark}
+
+% Scope IDs: see docs/spec/theorem-inventory.md and paper-contract.md
+\section{Generic extension and the finite forcing lemma}\label{sec:forcing}
+\subsection{Languages as partitions and definability}
+
+Assume \textbf{A\_FIN} and fix a finite microstate set $Z$.
+A \emph{language} (or \emph{lens}) is a finite-valued map $f:Z\to X$ (assumption \textbf{A\_LENS}), inducing the partition
+\[
+\Pi_f := \{B_x\}_{x\in X}, \qquad B_x := f^{-1}(x).
+\]
+We interpret $\Pi_f$ as the collection of distinctions expressible at the current layer.
+
+\begin{definition}[Predicates and definability]
+A (Boolean) \emph{predicate} is a function $h:Z\to\{0,1\}$.
+We say that $h$ is \emph{definable from the language $f$} (equivalently: $\Pi_f$-measurable) if it is constant on each block:
+\[
+\forall x\in X,\ \forall z,z'\in B_x,\quad h(z)=h(z').
+\]
+Equivalently, there exists $\tilde h:X\to\{0,1\}$ with $h=\tilde h\circ f$.
+\end{definition}
+
+Adjoining a new predicate $h$ refines the language by considering the joint lens
+\[
+(f,h): Z \to X\times\{0,1\}.
+\]
+This extension is \emph{trivial} precisely when $h$ was already definable from $f$.
+
+\subsection{Counting lemma: definable predicates are rare}
+
+Let $N:=|Z|$ and $K:=|X|$.
+
+\begin{lemma}[Counting definable predicates]\label{lem:count-definable}
+Assume \textbf{A\_FIN}+\textbf{A\_LENS}.
+The number of predicates definable from $f:Z\to X$ is exactly $2^K$.
+Consequently, if $h$ is sampled uniformly from $\{0,1\}^Z$, then
+\[
+\mathbb P(h \text{ is definable from } f)=\frac{2^K}{2^N}=2^{-(N-K)}.
+\]
+\end{lemma}
+
+\begin{proof}
+A definable predicate is determined by choosing one bit per block $B_x$ (the common value on that block), hence $2^K$ choices.
+There are $2^N$ total predicates on $Z$, so the stated probability follows.
+\end{proof}
+
+\subsection{Finite forcing: generic extensions are non-definable}
+
+The preceding lemma is the finite analogue of the forcing slogan: \emph{generic extensions add non-definable predicates}.
+To emphasize the “genericity” aspect, we also record a simple sufficient condition for a predicate to be \emph{strongly novel}.
+
+\begin{theorem}[Finite forcing lemma / physical forcing lemma]\label{thm:finite-forcing}
+Assume \textbf{A\_FIN}+\textbf{A\_LENS}.
+Let $f:Z\to X$ be a language with blocks $\Pi_f=\{B_x\}_{x\in X}$, and sample $h:Z\to\{0,1\}$ uniformly from $\{0,1\}^Z$ (i.i.d.\ fair bits across microstates).
+Then:
+\begin{enumerate}
+\item \textbf{Non-definability is generic:} $\mathbb P(h \text{ is not definable from } f)=1-2^{-(N-K)}$.
+\item \textbf{Block-splitting is typical when blocks are large:}
+for each block $B_x$,
+\[
+\mathbb P(h \text{ is constant on } B_x)=2^{1-|B_x|},
+\]
+and by a union bound,
+\[
+\mathbb P(\exists x\in X\text{ such that }h\text{ is constant on }B_x)\ \le\ \sum_{x\in X} 2^{1-|B_x|}.
+\]
+In particular, if every block has size at least $m\ge 2$, then
+\[
+\mathbb P(h \text{ splits every block}) \ \ge\ 1 - K\,2^{1-m}.
+\]
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+Item (1) is Lemma~\ref{lem:count-definable}.
+For item (2), on a block of size $|B_x|$, the only constant labelings are “all zeros” and “all ones”, each with probability $2^{-|B_x|}$, hence $2^{1-|B_x|}$ total.
+The union bound gives the stated inequality, and the final display uses $|B_x|\ge m$ for all $x$.
+\end{proof}
+
+\begin{corollary}[Generic language extension is strict]\label{cor:strict-language-extension}
+Assume \textbf{A\_FIN}+\textbf{A\_LENS}.
+With probability $1-2^{-(N-K)}$, the refined lens $(f,h):Z\to X\times\{0,1\}$ is a \emph{strict} refinement of $f$ (i.e.\ it distinguishes at least one pair of microstates previously indistinguishable under $f$).
+\end{corollary}
+
+\begin{proof}
+If the refinement were not strict, then $h$ would be constant on each block of $f$, i.e.\ definable from $f$.
+The complement event has probability $1-2^{-(N-K)}$ by Theorem~\ref{thm:finite-forcing}(1).
+\end{proof}
+
+\begin{remark}[Why this is the anti-saturation move]
+Closure (or packaging) at a fixed language saturates by idempotence: repeated closure steps do not create an infinite strict chain.
+Corollary~\ref{cor:strict-language-extension} exhibits a mathematically clean \emph{extension step}: adjoining a generic predicate changes the language itself in a way that is overwhelmingly not reconstructible from the old distinctions.
+This is the finite “forcing-style” mechanism we use to justify strict ladder climbing via language/closure change.
+\end{remark}
+
+\begin{remark}[Interpretation]
+The forcing-style extension step is a finite counting phenomenon: when a language has hidden volume inside its blocks, the predicates definable from that language form an exponentially small subset of all predicates.
+Therefore a random new predicate is overwhelmingly likely to be non-definable, giving a clean ``anti-saturation'' move: change the language, then re-close.
+This is the finite proxy for the role that generic extensions play in infinitary logic.
+\end{remark}
+
+% Scope IDs: see docs/spec/theorem-inventory.md and paper-contract.md
+\section{Primitives P1--P6 as closure-changing operations}\label{sec:primitives}
+Primitives P1--P6 form a vocabulary of operations that change (i) the admissible transition
+structure (support graph and cycle space), (ii) the available idempotent endomaps (packaging and
+fixed points), and (iii) the affinity data encoded by the graph 1-form. These are not ratchets by
+themselves; directionality is certified by path reversal asymmetry and/or non-exactness of the
+log-ratio 1-form under the \textbf{A\_AUT}+\textbf{A\_REV}+\textbf{A\_ACC} regime.
+
+\subsection{Definitions of P1--P6}
+
+\begin{definition}[P1: operator rewrite]
+P1 is a rewrite of the substrate operator: replace a Markov kernel $P$ by a new kernel $P'$ (or a
+finite family $\{P^{(m)}\}$), thereby changing the endomap $\mu\mapsto \mu P^\tau$ and the induced
+empirical endomap $E_{\tau,f}$. This is a change in the operator itself, not an external schedule.
+\end{definition}
+
+\begin{definition}[P2: gating / constraints]
+P2 restricts the support graph by deleting edges (setting selected $P_{ij}=0$) and renormalizing
+rows, or equivalently restricting to a subgraph on which the kernel lives. Cycle-rank claims are
+interpreted on the undirected support graph justified by \textbf{A\_REV}.
+\end{definition}
+
+\begin{definition}[P3: autonomous protocol holonomy]
+P3 is modeled in the autonomous lifted form on $Z:=X\times\Phi$. The phase $\phi\in\Phi$ evolves
+by an internal kernel $S$, and conditioned on $\phi$ the microstate updates by $K_\phi$.
+No external schedule is assumed in the main text; externally scheduled stroboscopic protocols are
+non-autonomous and fall outside \textbf{A\_AUT}.
+\end{definition}
+
+\begin{definition}[P4: sectors / invariants]
+P4 is a conserved sector label: the support decomposes into disconnected components (block
+structure), or equivalently $P$ is block diagonal up to permutation, so evolution preserves a
+sector coordinate.
+\end{definition}
+
+\begin{definition}[P5: packaging]
+P5 is an idempotent endomap $e$ whose fixed points $\mathrm{Fix}(e)$ are the packaged objects at a
+given layer. This is an endomap notion (Section~\ref{sec:idempotent-endo}), not an order-closure.
+\end{definition}
+
+\begin{definition}[P6: affinity / non-exact drive]
+P6 is the presence of a nontrivial cohomology class of the antisymmetric log-ratio 1-form
+$a_{ij}=\log(P_{ij}/P_{ji})$ on the bidirected support. P6 is ``on'' iff some cycle integral is
+nonzero, i.e.\ $a$ is not exact.
+\end{definition}
+
+\subsection{Two load-bearing propositions}
+
+\begin{theorem}[P2 gating shrinks cycle space (T-P2-01)]
+Assume \textbf{A\_FIN}+\textbf{A\_REV}.
+Let $G=(V,E)$ be an undirected support graph and let $G'=(V,E')$ be obtained by deleting edges.
+Then
+\[
+\beta_1(G')\le \beta_1(G),
+\qquad
+\beta_1(G):=|E|-|V|+c(G),
+\]
+where $c(G)$ is the number of connected components.
+\end{theorem}
+
+\begin{proof}
+Deleting a single edge reduces $|E|$ by one and increases $c(G)$ by at most one. Hence
+$|E|-|V|+c(G)$ cannot increase. Iterating over all deleted edges yields the claim.
+\end{proof}
+
+\begin{theorem}[P1 can change cycle rank and spectral gap (T-P1-01)]
+Assume \textbf{A\_FIN}+\textbf{A\_REV}.
+P1 rewrites can increase or decrease cycle rank and can increase or decrease a metastability proxy
+(the spectral gap of a reversible lazy random walk).
+\end{theorem}
+
+\begin{proof}[Proof sketch]
+(Cycle rank.) Adding an edge within an existing connected component leaves $c(G)$ unchanged and
+increases $|E|$ by one, so $\beta_1(G)$ increases by one. More general rewires can change $c(G)$
+and thus increase or decrease $\beta_1$.
+
+(Spectral gap.) By rewriting edge weights or topology, one can create or remove bottlenecks.
+Highly connected graphs have large gaps, while nearly decomposable graphs have small gaps; thus
+P1 can increase or decrease the gap by explicit constructions (see Appendix~C for examples).
+\end{proof}
+
+\begin{remark}[Evidence pointers]
+Appendix~C records finite graph and kernel witnesses for the P1 and P2 behaviors described above,
+including explicit cycle-rank changes and spectral-gap increases/decreases.
+\end{remark}
+
+\begin{remark}[Interpretation]
+The primitives form a minimal control panel for what kinds of fixed points (objects) and obstructions (affinities) can exist.
+P1/P2 change the transition structure (weights/topology), P5 extracts fixed points (packaging), and P6 is the genuine non-exactness that certifies sustained directional structure under autonomy and accounting.
+Nothing in P1--P5 is teleological by itself: directionality is certified by path-space asymmetry and/or nonzero affinities, not by a coarse description that forgets variables.
+\end{remark}
+
+% Scope IDs: see docs/spec/theorem-inventory.md and paper-contract.md
+\section{Examples}
+\label{sec:examples}
+
+This section gives a few finite examples that instantiate the preceding definitions and results.
+They introduce no new machinery and are included purely for intuition and for checking that the
+assumption tags match the intended use-cases.
+
+\subsection{A biased three-cycle: a non-exact graph 1-form}
+\label{subsec:ex:3cycle}
+
+Let $Z=\{0,1,2\}$ and consider the Markov kernel $P$ defined by the parameters $(p,q,s)$ with
+$p,q,s>0$ and $p+q+s=1$, where from each $i\in Z$,
+\[
+P(i,i)=s,\qquad P(i,i+1\bmod 3)=p,\qquad P(i,i-1\bmod 3)=q.
+\]
+This satisfies \textbf{A\_FIN}+\textbf{A\_REV}. The antisymmetric edge 1-form
+$a_{ij}:=\log\!\big(P_{ij}/P_{ji}\big)$ is therefore defined on each bidirected edge.
+
+Along the directed cycle $\gamma=(0\to 1\to 2\to 0)$, the cycle integral (affinity) is
+\[
+\oint_{\gamma} a
+= \log\frac{P_{01}}{P_{10}}+\log\frac{P_{12}}{P_{21}}+\log\frac{P_{20}}{P_{02}}
+= 3\log\frac{p}{q}.
+\]
+For instance with $(p,q,s)=(0.7,0.2,0.1)$ we get $|\oint_\gamma a|\approx 3.7583\neq 0$, hence the 1-form
+is not exact and no global potential $\Phi$ can satisfy $a_{ij}=\Phi_j-\Phi_i$ on all edges (cf.\ Section~\ref{sec:acc}).
+
+\subsection{Protocol trap: external schedule vs autonomous lifted model}
+\label{subsec:ex:protocol-trap}
+
+We illustrate the difference between an externally scheduled protocol and an autonomous lifted model.
+Let $Z=\{0,1,2\}$ and let $K_0,K_1$ be two kernels that are each reversible w.r.t.\ the uniform distribution
+(on $Z$), but do not commute (so the composition depends on order). One concrete instance used in our
+reproducibility artifacts is:
+\[
+K_0=
+\begin{pmatrix}
+0.573333 & 0.393333 & 0.033333\\
+0.393333 & 0.573333 & 0.033333\\
+0.033333 & 0.033333 & 0.933333
+\end{pmatrix},
+\qquad
+K_1=
+\begin{pmatrix}
+0.933333 & 0.033333 & 0.033333\\
+0.033333 & 0.573333 & 0.393333\\
+0.033333 & 0.393333 & 0.573333
+\end{pmatrix},
+\]
+for which $\max_{i,j}|(K_0K_1-K_1K_0)_{ij}|\approx 1.296\times 10^{-1}$.
+
+\emph{Externally scheduled (not autonomous):}
+if one applies $K_0$ then $K_1$ in a fixed periodic order but hides the schedule variable, the
+stroboscopic one-step kernel on $Z$ is $K:=K_1K_0$, which can exhibit positive steady-state entropy
+production (positive time-reversal asymmetry in the one-step Markov description).
+
+\emph{Autonomous lifted model (clock included in state):}
+define an augmented state space $Z\times \Phi$ where $\Phi=\{0,1\}$ is a phase variable, and define a
+time-homogeneous Markov chain that (i) updates $z\in Z$ using $K_\phi$ conditional on the current phase,
+and (ii) updates $\phi$ using a Markov kernel $S$ on $\Phi$. If $S$ is unbiased/reversible (no phase
+affinity) and both $K_0,K_1$ are reversible w.r.t.\ a common $\pi$, then the lifted model exhibits
+vanishing steady-state entropy production (and hence vanishing path reversal asymmetry at stationarity),
+whereas introducing a phase bias (nontrivial affinity in the $\Phi$-subsystem) yields strictly positive
+entropy production. This is the clean mathematical form of the slogan “P3 needs P6” in autonomous models:
+noncommuting actions alone do not create sustained directionality unless the protocol degree of freedom
+itself is driven.
+
+\subsection{Finite forcing count: definability is exponentially rare}
+\label{subsec:ex:forcing-count}
+
+Let $Z$ be a finite set with $|Z|=N$, and let a “language” be represented by a partition $\Pi$ of $Z$
+into $K$ blocks (equivalently a lens $f:Z\to X$ with $|X|=K$). A predicate $h:Z\to\{0,1\}$ is definable
+from $\Pi$ iff it is constant on each block of $\Pi$, so the number of definable predicates is exactly $2^K$,
+while the total number of predicates is $2^N$. Therefore, if $h$ is sampled uniformly from $\{0,1\}^Z$,
+\[
+\mathbb P(h\text{ is definable from }\Pi)=\frac{2^K}{2^N}=2^{-(N-K)}.
+\]
+For example, when $(N,K)=(16,4)$, this gives $2^{-(16-4)}=2^{-12}\approx 2.44\times 10^{-4}$, i.e.\
+a uniformly random new predicate is overwhelmingly likely to be non-definable from the old language.
+This is the finite counting core behind the “generic extension” step in Section~\ref{sec:forcing}.
+
+\section{Discussion and scope boundary}
+\subsection{What the theory does and does not claim}\label{sec:discussion-claims}
+
+The organizing loop in Section~\ref{sec:big-picture} separates three roles that are often conflated:
+packaging (idempotence and fixed points), extension (non-definability), and directionality (path-space KL / affinities).
+The paper’s contribution is to make these roles explicit and composable, with certificates that are stable under coarse observation (DPI) and robust to hidden-clock artifacts (protocol audit).
+
+Equally important are the non-claims.
+We do not claim that closure ladders arise automatically in arbitrary dynamics, nor that any particular choice of lens $f$ or timescale $\tau$ is preferred.
+We also do not claim that protocol holonomy by itself yields sustained directionality under autonomy; on the contrary, the lifted-model statements formalize that sustained asymmetry requires a genuine affinity (a non-exact 1-form component) or an externally imposed schedule (which lies outside \textbf{A\_AUT}).
+Finally, the finite forcing lemma is used only as a \emph{finite proxy} for generic extension: it justifies that strict language extension is cheap and typical when there is hidden volume, not that all forms of novelty reduce to random predicates.
+
+\subsection*{Recap: what this paper establishes}
+
+\paragraph{Summary of contributions.}
+This paper isolates a small mathematical spine for ``closure ladder'' behavior in finite settings:
+(i) order-theoretic closure ladders and the saturation obstruction from idempotence;
+(ii) a unifying abstraction via idempotent endomaps and fixed points, allowing dynamics-induced operators $E_{\tau,f}$ to be treated without conflating them with order-closures;
+(iii) a DTMC-friendly accounting regime in which affinities are cycle integrals of an antisymmetric log-ratio 1-form on the bidirected support graph;
+(iv) an arrow-of-time diagnostic as path-space KL together with data processing, ensuring coarse-graining cannot create irreversibility;
+and (v) a finite ``forcing'' lemma showing that generic predicate extensions are overwhelmingly non-definable from the old language, providing a clean anti-saturation move for strict ladder climbing.
+
+\paragraph{How to interpret primitives without teleology.}
+Primitives P1--P6 are a deliberately small \emph{complete vocabulary} of closure-changing operations in this framework: the theory is stated so that each primitive names a distinct kind of mathematical ingredient that can be present or absent, and together they span the mechanisms by which the ambient structure (and hence available fixed points/objects) can change.
+P1 rewrites or replaces the operative kernel (changing the substrate operator itself); P2 gates feasibility by restricting support (edge deletion / renormalization); P3 introduces autonomous protocol holonomy by including a phase variable in the state (no external schedule in main-text claims); P4 introduces discrete sector structure/invariants (state-space decomposition); P5 is packaging as (approx) idempotent fixed-point extraction; and P6 is the non-exact affinity content (cycle obstruction) that certifies genuine driven directionality under autonomy/accounting.
+None of P1--P5 is teleological on its own: directionality is certified by path-space asymmetry and/or nonzero affinities, and apparent arrows created by hiding variables or imposing an external schedule are separated from true irreversibility by the path-space definition and the protocol clock audit.
+
+\paragraph{Limitations (by design).}
+We stay in finite state spaces and emphasize graph-theoretic and measure-theoretic statements.
+Computational artifacts in the repository serve only as reproducible sanity checks and are not used as proof premises.
+We also avoid the continuous-time interpretation layer (stochastic thermodynamics identities, physical units, estimation/sample-complexity), which would require additional modeling choices outside the present math-only scope.
+
+\appendix
+
+\section{Appendix A: Reproducibility checklist}
+This repository is intended to be mechanically checkable at three levels:
+(i) a claim/dependency registry, (ii) a small Lean formalization core, and
+(iii) a deterministic Python evidence harness.
+
+\subsection*{A.1 Repository integrity checks (from repo root)}
+Run the following commands from the repository root:
+\begin{verbatim}
+python3 scripts/check_deps_dag.py
+python3 scripts/check_kb_pointers.py
+python3 scripts/check_paper_contract.py
+./check_lean.sh
+\end{verbatim}
+
+\subsection*{A.2 Python evidence harness (deterministic tests)}
+The Python code lives under \texttt{python/} and is run in an isolated virtual environment.
+From the repository root:
+\begin{verbatim}
+python3 -m venv python/.venv
+python/.venv/bin/pip install -q pytest numpy
+python/.venv/bin/pip install -e python
+cd python && .venv/bin/python -m pytest -q
+\end{verbatim}
+
+\subsection*{A.3 Notes on tool availability}
+A \LaTeX{} toolchain is not required to run the checks above.
+If you wish to compile the PDF locally, install one of \texttt{latexmk}, \texttt{pdflatex}, or \texttt{tectonic} and run:
+\begin{verbatim}
+./build_paper.sh
+\end{verbatim}
+
+\section{Appendix B: Lean formalization map}
+The Lean development provides a minimal mechanized backbone for the order-theoretic and
+``thin packaging'' parts of the theory. It is intentionally small: no probability theory
+or Markov chain results are mechanized in Lean for this paper.
+
+\subsection*{B.1 What is mechanized}
+The following items are implemented in Lean under \texttt{formal/}:
+
+\begin{itemize}
+  \item \textbf{Order-closure and closure ladders} (order-theoretic closure operators, fixed points, strict ladder relation, and iterate stabilization).
+  \item \textbf{Thin packaging / reflection} for closure operators, expressed via the Galois insertion associated to a closure operator.
+  \item \textbf{Idempotent endomaps} and fixed-point subtypes; bridge lemma from order-closures to idempotent endomaps.
+\end{itemize}
+
+\subsection*{B.2 File map and key declarations}
+\begin{itemize}
+  \item \texttt{formal/ClosureLadder/Basic.lean}:
+    closure operators, closed subtype, strict ladder relation, and iterate stabilization.
+    Key lemmas used in the manuscript include \texttt{ladder\*mono},
+    \texttt{closure\*iterate\*succ}, and \texttt{closure\*iterate\*ge\*one}.
+  \item \texttt{formal/ClosureLadder/Packaging.lean}:
+    reflection-style lemmas for the closed subtype (thin-category packaging anchor).
+  \item \texttt{formal/ClosureLadder/IdempotentEndo.lean}:
+    the structure \texttt{IdempotentEndo}, its fixed-point subtype, and the bridge
+    \texttt{ClosureOperator.toIdempotentEndo}.
+  \item \texttt{formal/ClosureLadder.lean}:
+    umbrella import module.
+\end{itemize}
+
+\subsection*{B.3 How to build}
+From the repository root:
+\begin{verbatim}
+./check_lean.sh
+\end{verbatim}
+This script performs a cache fetch (when available) and then runs \texttt{lake build}.
+
+\section{Appendix C: Python evidence map}
+The repository contains a small deterministic Python harness (finite-state Markov kernels,
+path laws, KL divergence, coarse-graining pushforwards, graph cycle utilities, and related
+diagnostics). These computations are \emph{evidence and sanity checks} for the mathematical
+definitions and theorem statements; they are not used as premises in any proof.
+
+\subsection*{C.1 How to run}
+See Appendix~A.2 for a one-shot test run via \texttt{pytest}. All tests are deterministic
+(fixed seeds or no randomness).
+
+\subsection*{C.2 Evidence by theme (tests and scripts)}
+The following tests and scripts witness the main diagnostic phenomena discussed in the paper:
+
+\paragraph{Path reversal asymmetry and data processing (DPI).}
+Tests include randomized DPI checks, strict hiding examples, and nonstationary initial distributions.
+Representative files:
+\begin{verbatim}
+python/tests/test_paths_kl_dpi.py
+python/tests/test_paths_dpi_randomized.py
+python/tests/test_paths_dpi_nonstationary_init.py
+python/tests/test_paths_strict_hiding.py
+python/scripts/dpi_sweep.py
+\end{verbatim}
+
+\paragraph{Protocol trap and the ``P3 needs P6'' correction under autonomy.}
+Tests separate externally scheduled noncommuting kernels from autonomous phase-included models,
+including m-phase protocols and the ``protocol clock audit''.
+Representative files:
+\begin{verbatim}
+python/tests/test_protocol_trap_external_vs_autonomous.py
+python/tests/test_protocol_clock_audit_phi_included.py
+python/tests/test_protocol_mphase_random_scan.py
+python/tests/test_protocol_stroboscopic.py
+python/scripts/protocol_trap_demo.py
+\end{verbatim}
+
+\paragraph{Graph topology effects of P2 (edge deletion) and P1 (rewrites).}
+Tests verify cycle-rank monotonicity under edge deletion, show cycle-rank increases under edge addition,
+and demonstrate spectral-gap changes (including a decisive gap-decrease rewrite).
+Representative files:
+\begin{verbatim}
+python/tests/test_graph_p2_cycle_rank_monotone.py
+python/tests/test_graph_p1_edge_add_beta1_delta.py
+python/tests/test_p1_spectral_gap_decrease.py
+python/scripts/graph_p1_p2_demo.py
+python/scripts/p1_gap_decrease_demo.py
+\end{verbatim}
+
+\paragraph{Dynamics-induced empirical endomap and idempotence defect.}
+Tests implement the induced empirical endomap, the total-variation idempotence defect, and show that
+refinement can help or hurt depending on leakage and timescale.
+Representative files:
+\begin{verbatim}
+python/tests/test_empirical_closure_idempotence_defect_tv.py
+python/tests/test_empirical_closure_refinement_reveals_objects.py
+python/tests/test_empirical_closure_refinement_can_hurt.py
+python/scripts/empirical_closure_demo.py
+python/scripts/refinement_help_hurt_sweep.py
+\end{verbatim}
+
+\paragraph{Finite forcing / definability rarity.}
+Tests include exact enumeration for small cases, Monte Carlo checks, and a contrast with fixed-weight sampling.
+Representative files:
+\begin{verbatim}
+python/tests/test_forcing_exact_enumeration.py
+python/tests/test_forcing_monte_carlo_matches_theory.py
+python/tests/test_forcing_fixed_weight_differs.py
+python/scripts/forcing_sweep.py
+\end{verbatim}
+
+\paragraph{ACC as graph 1-form exactness and cycle affinities.}
+Tests compute the antisymmetric log-ratio 1-form, cycle integrals, and potential reconstruction when exact.
+Representative files:
+\begin{verbatim}
+python/tests/test_acc_graph_one_form.py
+\end{verbatim}
+
+\bibliographystyle{alpha}
+\bibliography{refs}
+
+\end{document}

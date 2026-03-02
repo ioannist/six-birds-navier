@@ -1,0 +1,12 @@
+- Domain/fields: T^3, divergence-free u(t,x), Leray projector P_Leray (𝒫).
+- Dyadic shells/projectors: S_j = {k: 2^j ≤ |k| < 2^{j+1}}, P_j, G_j, u_j := P_j u, u_{≤j} := G_j u.
+- Truncation ladder: depth n with cutoff K_n (or grid N_n), restriction R_n (spectral truncation; see `python/src/nswave/coarse_grain.py`).
+- Nonlinearity: NL(u) := P_Leray ∇·(u⊗u); observed-at-level-0 NL_0(u) := R_0 NL(u).
+- Incremental closure at depth n: τ_n(t) := NL_0(u^{(n+1)}(t)) − NL_0(u^{(n)}(t)), u^{(n)} := R_n u.
+- Closure forcing convention: C_n := −τ_n (sign matches `python/scripts/nsbu04_sgs_frequency_response.py`).
+- Port signals: u_{0,j}(t) := P_j u^{(0)}(t), y_{n,j}(t) := P_j C_n(t).
+- Power/work: p_{n,j}(t) := ⟨u_{0,j}(t), y_{n,j}(t)⟩_{L^2}, p_{n,j}^+(t) := max(p_{n,j}(t),0), W_{n,j}^+[s,t] := ∫_s^t p_{n,j}^+(τ)dτ.
+- Capacity: Λ(n,j) minimal s.t. W_{n,j}^+[s,t] ≤ Λ(n,j)∫_s^t ‖u_{0,j}(τ)‖_2^2 dτ; cumulative C(j,n) := ∑_{m=0}^{n-1} Λ(m,j).
+- Composition: ∑_{m=0}^{n-1} τ_m ≡ NL_0(u^{(n)}) − NL_0(u^{(0)}).
+- Route mismatch (lemma-relevant): y_route(n,j)(t) := y_direct(n,j)(t) − ∑_{m< n} y_inc(m,j)(t), e_route(n,j) := capacity_L2_ratio(u_{0,j}, y_route(n,j), dt); for deterministic truncation, y_direct ≡ ∑ y_inc so e_route ≈ 0.
+- Positive-work certificate slack (diagnostic): slack_poswork(n,j) := max(0, C_sum(n,j) − Λ_direct(n,j)); not used as lemma mismatch.

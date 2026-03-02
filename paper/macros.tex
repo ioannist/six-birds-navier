@@ -1,0 +1,25 @@
+% Notation macros (minimal to start)
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\T}{\mathbb{T}}
+
+\newcommand{\ip}[2]{\left\langle #1, #2 \right\rangle}
+\newcommand{\norm}[1]{\left\| #1 \right\|}
+
+\newcommand{\uLtwo}{\norm{u}_{L^2}}
+\newcommand{\w}{\omega}
+
+% Theorem environments
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{definition}{Definition}
+\newtheorem{remark}{Remark}
+
+% Allow line breaks at underscores in \nolinkurl (for long identifiers/paths)
+\makeatletter
+\g@addto@macro\UrlBreaks{\do\_}
+\makeatother
+
+% Draft helpers
+\newcommand{\todo}[1]{\textcolor{red}{[TODO: #1]}}
