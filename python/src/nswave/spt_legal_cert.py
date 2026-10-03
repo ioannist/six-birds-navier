@@ -66,6 +66,8 @@ def compute_spt_legal_metrics(
         raise ValueError("u_hat_hist must have shape (T, 3, N, N, N)")
     if hist.shape[2] != N or hist.shape[3] != N or hist.shape[4] != N:
         raise ValueError("u_hat_hist shape does not match N")
+    if hist.shape[0] == 0:
+        raise ValueError("u_hat_hist must contain at least one snapshot")
     if window_c <= 0:
         raise ValueError("window_c must be positive")
     if not (0.0 < energy_threshold <= 1.0):
@@ -76,7 +78,7 @@ def compute_spt_legal_metrics(
     k_mag = np.sqrt(k2)
     k_max = float(np.max(k_mag))
     j_max = int(np.floor(np.log2(max(k_max, 1.0))))
-    j_values = np.arange(1, j_max + 1, dtype=int)
+    j_values = np.arange(0, j_max + 1, dtype=int)
 
     if j_values.size == 0:
         return {
@@ -116,13 +118,13 @@ def compute_spt_legal_metrics(
 
     mean_conc = np.mean(conc, axis=0)
     max_conc = np.max(conc, axis=0)
-    f_j, L_mean, kappa_mean = localization_factors(
+    f_j, L_mean, channel_kappa_mean = localization_factors(
         mean_conc,
         N=N,
         windows=np.array(windows, dtype=int),
         j_values=j_values,
     )
-    _, L_max, kappa_max = localization_factors(
+    _, L_max, channel_kappa_max = localization_factors(
         max_conc,
         N=N,
         windows=np.array(windows, dtype=int),
@@ -143,8 +145,13 @@ def compute_spt_legal_metrics(
         "max_conc": _as_float_list(max_conc),
         "L_mean": _as_float_list(L_mean),
         "L_max": _as_float_list(L_max),
-        "kappa_mean": _as_float_list(kappa_mean),
-        "kappa_max_over_time": _as_float_list(kappa_max),
+        # The paper's kappa is concentration divided by volume fraction.
+        # The older channel-normalized quantity remains separately named.
+        "kappa_normalization": "raw_over_baseline",
+        "kappa_mean": _as_float_list(L_mean),
+        "kappa_max_over_time": _as_float_list(L_max),
+        "channel_kappa_mean": _as_float_list(channel_kappa_mean),
+        "channel_kappa_max_over_time": _as_float_list(channel_kappa_max),
         "burst_ratio": _as_float_list(burst_ratio),
         "m95": _as_int_list(m95),
     }
@@ -159,24 +166,49 @@ def certificate_verdict(cert: dict[str, Any]) -> tuple[bool, list[str]]:
     m95_vals = [int(v) for v in metrics.get("m95", []) if v is not None]
 
     reasons: list[str] = []
+    if cert.get("schema_version") != "ns_spt_legal_cert.v2":
+        reasons.append("certificate schema is not ns_spt_legal_cert.v2")
+    if metrics.get("kappa_normalization") != "raw_over_baseline":
+        reasons.append("kappa normalization does not match the paper definition")
     if kappa_vals.size == 0:
         reasons.append("no shell metrics available (empty kappa_max_over_time)")
     if burst_vals.size == 0:
         reasons.append("no shell metrics available (empty burst_ratio)")
+    if kappa_vals.size != burst_vals.size:
+        reasons.append("kappa and burst metrics have different shell counts")
+    if kappa_vals.size and (not np.all(np.isfinite(kappa_vals)) or np.any(kappa_vals < 0)):
+        reasons.append("kappa metrics must be finite and nonnegative")
+    if burst_vals.size and (not np.all(np.isfinite(burst_vals)) or np.any(burst_vals < 0)):
+        reasons.append("burst metrics must be finite and nonnegative")
 
     kappa_threshold = float(thresholds.get("kappa_threshold", 10.0))
     burst_threshold = float(thresholds.get("burst_threshold", 50.0))
     require_m95 = bool(thresholds.get("require_m95", False))
     m95_threshold_raw = thresholds.get("m95_threshold")
     m95_threshold = None if m95_threshold_raw is None else float(m95_threshold_raw)
+    if not np.isfinite(kappa_threshold) or kappa_threshold < 0:
+        reasons.append("kappa threshold must be finite and nonnegative")
+    if not np.isfinite(burst_threshold) or burst_threshold < 0:
+        reasons.append("burst threshold must be finite and nonnegative")
+    if m95_threshold is not None and (not np.isfinite(m95_threshold) or m95_threshold < 0):
+        reasons.append("m95 threshold must be finite and nonnegative")
 
-    if kappa_vals.size:
+    baseline = np.asarray(metrics.get("baseline_fraction", []), dtype=float)
+    raw = np.asarray(metrics.get("max_conc", []), dtype=float)
+    if (baseline.size != kappa_vals.size or raw.size != kappa_vals.size
+            or not np.all(np.isfinite(baseline)) or np.any(baseline <= 0)
+            or not np.all(np.isfinite(raw)) or np.any(raw < 0)):
+        reasons.append("raw concentration or baseline fractions are invalid")
+    elif not np.allclose(kappa_vals, raw / baseline, rtol=1e-10, atol=1e-12):
+        reasons.append("kappa metrics do not equal raw concentration divided by baseline")
+
+    if kappa_vals.size and np.all(np.isfinite(kappa_vals)):
         max_kappa = float(np.max(kappa_vals))
         if max_kappa > kappa_threshold:
             reasons.append(
                 f"max_kappa_max_over_time={max_kappa:.6e} exceeds kappa_threshold={kappa_threshold:.6e}"
             )
-    if burst_vals.size:
+    if burst_vals.size and np.all(np.isfinite(burst_vals)):
         max_burst = float(np.max(burst_vals))
         if max_burst > burst_threshold:
             reasons.append(
@@ -216,7 +248,7 @@ def make_spt_legal_certificate(
     }
 
     cert = {
-        "schema_version": "ns_spt_legal_cert.v1",
+        "schema_version": "ns_spt_legal_cert.v2",
         "config": config,
         "thresholds": thresholds,
         "summary": summary,
@@ -230,5 +262,5 @@ def make_spt_legal_certificate(
 
 def write_cert_json(cert: dict[str, Any], path: Path) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    text = json.dumps(cert, sort_keys=True, indent=2)
+    text = json.dumps(cert, sort_keys=True, indent=2, allow_nan=False)
     path.write_text(text + "\n", encoding="utf-8")

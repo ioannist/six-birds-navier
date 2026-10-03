@@ -45,7 +45,7 @@ def test_spt_legal_cert_schema_on_plane_wave():
 
     assert ok, reasons
     assert cert["verdict"] == "PASS"
-    assert cert["schema_version"] == "ns_spt_legal_cert.v1"
+    assert cert["schema_version"] == "ns_spt_legal_cert.v2"
     assert "metrics" in cert
     assert "summary" in cert
     assert "thresholds" in cert
@@ -54,3 +54,35 @@ def test_spt_legal_cert_schema_on_plane_wave():
     assert np.all(np.isfinite(np.asarray(metrics["max_conc"], dtype=float)))
     assert np.all(np.isfinite(np.asarray(metrics["kappa_max_over_time"], dtype=float)))
     assert np.all(np.isfinite(np.asarray(metrics["burst_ratio"], dtype=float)))
+    assert np.allclose(
+        metrics["kappa_max_over_time"],
+        np.asarray(metrics["max_conc"]) / np.asarray(metrics["baseline_fraction"]),
+    )
+    assert metrics["j_values"][0] == 0
+
+
+def test_certificate_uses_paper_volume_normalization_and_rejects_nonfinite_values():
+    metrics = {
+        "j_values": [3],
+        "n_snapshots": 1,
+        "max_conc": [0.25],
+        "baseline_fraction": [1 / 64],
+        "kappa_normalization": "raw_over_baseline",
+        "kappa_max_over_time": [16.0],
+        "burst_ratio": [1.0],
+        "m95": [1],
+    }
+    thresholds = {"kappa_threshold": 10.0, "burst_threshold": 50.0}
+    cert = make_spt_legal_certificate(config={}, metrics=metrics, thresholds=thresholds)
+    assert cert["verdict"] == "FAIL"
+    assert any("exceeds kappa_threshold" in reason for reason in cert["reasons"])
+
+    cert["metrics"]["kappa_max_over_time"] = [float("nan")]
+    ok, reasons = certificate_verdict(cert)
+    assert not ok
+    assert any("finite" in reason for reason in reasons)
+
+    cert["metrics"]["kappa_max_over_time"] = [4.0]
+    ok, reasons = certificate_verdict(cert)
+    assert not ok
+    assert any("do not equal" in reason for reason in reasons)

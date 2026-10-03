@@ -1,0 +1,13 @@
+relation,identifier,scheme,resource_type,bibkey,title
+Cites,10.1007/978-3-642-16830-7,DOI,publication-book,bahouri2011fourier,Fourier Analysis and Nonlinear Partial Differential Equations
+Cites,10.1007/BF01212349,DOI,publication-article,bkm_1984,Remarks on the breakdown of smooth solutions for the 3-D Euler equations
+Cites,10.1007/978-3-642-84108-8,DOI,publication-book,canuto1988spectral,Spectral Methods in Fluid Dynamics
+Cites,10.1007/978-3-319-21401-6_26,DOI,publication-conferencepaper,demoura2015lean,The Lean theorem prover (system description)
+Cites,978-0-521-63948-4,ISBN,publication-book,majda_bertozzi_vif,Vorticity and Incompressible Flow
+Cites,10.1145/3372885.3373824,DOI,publication-conferencepaper,mathlib2020,The Lean mathematical library
+Cites,"10.1175/1520-0469(1971)028<1074:OTEOAI>2.0.CO;2",DOI,publication-article,orszag1971aliasing,On the elimination of aliasing in finite-difference schemes by filtering high-wavenumber components
+Cites,10.1007/BF00253344,DOI,publication-article,serrin1962interior,On the interior regularity of weak solutions of the Navier-Stokes equations
+Cites,978-1-4704-7786-8,ISBN,publication-book,temam_ns,Navier-Stokes Equations: Theory and Numerical Analysis
+Cites,https://lean-lang.org/,URL,other,lean4,The Lean 4 Theorem Prover and Programming Language
+Cites,2602.00134,arXiv,publication-preprint,tsiokos_2026_18365949,Six Birds: Foundations of Emergence Calculus
+Cites,10.1007/BF00276493,DOI,publication-article,willems1972dissipative1,Dissipative dynamical systems part I: General theory

@@ -10,6 +10,17 @@ This repository contains the **Navier--Stokes instantiation** for the paper:
 
 This paper is the Navier--Stokes-focused instantiation of the emergence/interface calculus introduced in *Six Birds: Foundations of Emergence Calculus*. It formalizes a non-claiming decision scaffold: mechanized abstract inequalities in Lean, plus reproducible diagnostics and certificates in Python.
 
+## Current conditional Navier theorem
+
+The later conditional Navier manuscript is maintained in the sibling
+`six-birds-needles` repository at `paper/needles_ns/main.tex`. Its current
+spectral Hilbert XI and physical PDE Lean sources are under
+`lean/SixBirdsNeedles/NSCore/`, principally `SharedXiStrongClosure.lean` and
+`PhysicalClassicalReturn.lean`. That paper's older physical-window/BG route
+has a separate hypothesis. This repository's No-Zeno scaffold and its
+`review/implementation/needles/` copy are historical campaign artifacts,
+not the source of the current conditional theorem.
+
 ## What this repository provides
 
 The Navier--Stokes instantiation implements:
