@@ -1,0 +1,51 @@
+% ============================
+% BH: Conventions + mappings (lock for signs)
+% ============================
+
+The interface EFT reduces interior physics to a boundary response object, but this reduction is only meaningful once the phase and sign conventions are fixed. In this section we lock the conventions used throughout the BH code and figures. The reason to be strict here is practical: small sign errors (especially in the $\omega$ convention and in the Cayley transforms) flip the direction of the passivity inequality and can make an apparently ``physical'' boundary response behave as an active energy source.
+
+\paragraph{Time and Fourier convention.}
+We use the global time dependence $\exp(-i\omega t)$ with real $\omega>0$.
+Derivatives ${}'$ denote derivatives with respect to the tortoise-like coordinate $x$.
+We define the local boundary coordinate
+\[
+  y \;:=\; x - x_0,
+\]
+so that $y=0$ at the inner interface point $x=x_0$.
+
+\paragraph{Plane-wave decomposition and reflectivity.}
+In any region where the potential is negligible (locally $V(x)\approx 0$), solutions can be expanded as a superposition of left- and right-moving modes. With our $\exp(-i\omega t)$ convention we write
+\begin{equation}
+  \psi(y,\omega) \;=\; A_{\mathrm{in}}(\omega)\,e^{-i\omega y} \; + \; A_{\mathrm{out}}(\omega)\,e^{+i\omega y},
+  \qquad
+  R(\omega) \;:=\; \frac{A_{\mathrm{out}}(\omega)}{A_{\mathrm{in}}(\omega)}.
+  \label{eq:bh-decomp}
+\end{equation}
+We will use $R_0(\omega)$ to denote the reflectivity \emph{at the inner interface} and $R_{\mathrm{out}}(\omega)$ for the net reflectivity observed in the far exterior.
+
+\paragraph{Admittance and impedance.}
+At the inner interface $x=x_0$ we parameterize the boundary response by the admittance
+$Y(\omega)=\psi'(x_0,\omega)/\psi(x_0,\omega)$ (when $\psi(x_0,\omega)\neq 0$),
+or equivalently by the normalized impedance $Z(\omega)= iY(\omega)/\omega$, so that
+$\psi'(x_0,\omega) = -i\omega Z(\omega)\psi(x_0,\omega)$ (see \S\ref{sec:bh-interface}).
+
+\paragraph{Mapping identities (signs matter).}
+With the conventions above, the interface parameterizations $(Y,Z,R_0)$ are related by the following identities:
+\begin{align}
+  &Y(\omega) \;=\; -\,i\omega\,Z(\omega),
+  \qquad
+  Z(\omega) \;=\; \frac{i\,Y(\omega)}{\omega}, \label{eq:bh-YZ}\\[4pt]
+  &R_0(\omega) \;=\; \frac{1 - Z(\omega)}{1 + Z(\omega)},
+  \qquad
+  Z(\omega) \;=\; \frac{1 - R_0(\omega)}{1 + R_0(\omega)}, \label{eq:bh-RZ}\\[4pt]
+  &R_0(\omega) \;=\; \frac{i\omega + Y(\omega)}{i\omega - Y(\omega)},
+  \qquad
+  Y(\omega) \;=\; -\,i\omega\,\frac{1 - R_0(\omega)}{1 + R_0(\omega)}.
+  \label{eq:bh-RY}
+\end{align}
+These are simple algebraic consequences of \eqref{eq:bh-decomp} evaluated at $y=0$.
+We will repeatedly use the Cayley transform between $Z$ and $R_0$ because $Z$ is natural for ledger/causality constraints, while $R_0$ is natural for echo transfer functions.
+
+\paragraph{Implementation lock.}
+All BH scripts and tests are consistent with \eqref{eq:bh-decomp}--\eqref{eq:bh-RY}; the repo includes a dedicated sanity check for the round-trip mappings and special cases (e.g.\ $Z=1\Rightarrow R_0=0$, $Z=0\Rightarrow R_0=1$).
+When reading later results, treat these conventions as part of the model specification: changing them changes the meaning of ``passive,'' ``absorbing,'' and ``reflecting'' in the statements that follow.

@@ -1,0 +1,86 @@
+\section{Route stability limits capacity growth}\label{sec:route-capacity}
+
+DIV needs a capacity that grows slowly with depth. One place where the Six Birds viewpoint suggests
+leverage beyond one-shot estimates is \emph{route dependence}. A route is an order in which scales
+are eliminated. If eliminating two scales at once is close to eliminating them one at a time, the
+capacity cannot inflate quickly from one depth to the next. This section turns that idea into an
+abstract inequality and proves it in Lean.
+
+\subsection{Capacity recursion with mismatch}
+
+Let $C:\N\to\R$ be a \emph{nonnegative} sequence, read as the effective capacity after $n$
+reduction steps, and let $e:\N\to\R$ be a nonnegative mismatch sequence in the same currency.
+Fix $p\in\N$ and assume the one-step recurrence
+\begin{equation}\label{eq:route-rec}
+C(n+1)\ \le\ r(n)\,C(n)+e(n),
+\end{equation}
+where the step factor is \emph{tame}:
+\begin{equation}\label{eq:r-tame}
+r(n)\ \le\ \Bigl(\frac{n+2}{n+1}\Bigr)^p.
+\end{equation}
+The tame factors telescope, $\prod_{k=0}^{n-1}\bigl((k+2)/(k+1)\bigr)^p=(n+1)^p$, so multiplicative
+inflation along the ladder is at most polynomial. The remaining question is whether the additive
+mismatch accumulates. We ask for bounded partial sums:
+\begin{equation}\label{eq:e-bounded}
+\sum_{k=0}^{n-1}e(k)\ \le\ E\qquad\text{for all }n,\ \text{for some }E\ge0.
+\end{equation}
+
+\begin{theorem}[Route stability gives polynomial capacity]\label{thm:route-capacity}
+Let $C\ge0$ and $e\ge0$ satisfy \eqref{eq:route-rec} with tame factors \eqref{eq:r-tame}. Then for all $n$
+\[
+C(n)\ \le\ \Bigl(C(0)+\sum_{k=0}^{n-1}e(k)\Bigr)(n+1)^p.
+\]
+If moreover \eqref{eq:e-bounded} holds, then $C(n)\le(C(0)+E)(n+1)^p$, so $C$ grows at most
+polynomially in the depth.
+\end{theorem}
+
+\begin{proof}
+Because $C(n)\ge0$, the tame bound may replace $r(n)$ in \eqref{eq:route-rec}:
+$C(n+1)\le((n+2)/(n+1))^pC(n)+e(n)$. Iterating, each mismatch term is transported forward by later
+tame factors, whose products are at most $(n+1)^p$, and the bound follows by induction.
+\end{proof}
+
+Nonnegativity of every $C(n)$ is used in the first step. Without it, an upper bound on $r(n)$ does
+not bound $r(n)C(n)$.
+
+With $p\le1$ and a constant work quantum, \cref{thm:route-capacity} produces a capacity that
+satisfies the DIV comparison of \cref{sec:no-zeno-engine}. For $p\ge2$ the bound alone does not
+decide DIV.
+
+\begin{remark}[Mechanization]
+\Cref{thm:route-capacity} is in \nolinkurl{formal/Fluids/RouteCapacity.lean}. The lemmas
+\nolinkurl{route_capacity_poly_bound} and \nolinkurl{route_capacity_poly_bound_of_bounded_sum}
+assume the recurrence with the tame factor already substituted. The adapters
+\nolinkurl{route_capacity_poly_bound_of_tame_factor} and
+\nolinkurl{route_capacity_poly_bound_of_tame_factor_of_bounded_sum} start from an actual factor
+$r(n)$ and use $C(n)\ge0$ to make the substitution.
+\end{remark}
+
+\subsection{Aggregating channels}
+
+A capacity can also be assembled from parts. If the port at depth $j$ splits into $m_j$ atoms,
+with powers $a_1,\dots,a_{m_j}$ summing to the total power, then pointwise in time
+$\max\bigl(\sum_r a_r,0\bigr)\le\sum_r\max(a_r,0)$. If every atom satisfies ICAP with the same
+constant $\Lambda_0$, the aggregate satisfies ICAP with $\Lambda(j)\le m_j\Lambda_0$. Both steps are
+mechanized (\nolinkurl{max_sum_le_sum_max}, \nolinkurl{icap_sum_le_card_mul} in
+\nolinkurl{formal/Fluids/ECTCap.lean}). For unforced Navier--Stokes, $B(j)=\|u_0\|_{L^2}^2$ then gives
+$\mathrm{Cap}(j)\le\|u_0\|_{L^2}^2\Lambda_0 m_j$. With $m_j\le C_0(j+1)$ this is linear in $j$, and
+DIV holds. No Navier--Stokes atom decomposition with a uniform per-atom constant is constructed
+here; that is an open hypothesis.
+
+\subsection{Interpretation}
+
+In Six Birds language, \eqref{eq:route-rec} says that each additional depth step may inflate the
+capacity by a tame factor and pays a route-mismatch penalty for the noncommutativity of
+reductions. Condition \eqref{eq:e-bounded} says that this mismatch does not build up, so there is
+no hidden ``holonomy'' that grows with depth. \Cref{thm:route-capacity} proves no statement about
+the PDE. It shows that \emph{if} a system admits route-stable packaging in this sense, exponential
+capacity growth is ruled out by algebra alone.
+
+The repository includes diagnostics that estimate capacity-like sequences along a Navier--Stokes
+truncation ladder (\nolinkurl{nsbu21_route_capacity_numbers.py}) and compare their step factors
+and mismatch with the hypotheses above (\nolinkurl{nsbu23_route_capacity_hypothesis_check.py}).
+They use the supplied-power sign of \eqref{eq:power} and an explicit two-stage nested composition.
+Their results are sampled, finite-window ratios. A decaying normalized mismatch, or a step factor
+within a fixed tolerance over finitely many depths, establishes neither \eqref{eq:e-bounded} nor a
+polynomial law. \Cref{sec:experiments} reports them with that status.

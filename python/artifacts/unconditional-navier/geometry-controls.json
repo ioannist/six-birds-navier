@@ -1,0 +1,64 @@
+{
+  "scope": "Exact original initial jets after cutoff of potential; no time-integrated source or simulated path.",
+  "polynomial_potential": [
+    "x^4+x^3y+x^3z+x^3-x^2y+x^2z-x^2-xy^2z-xy^2+xyz^2-xz^2+xz-x+y^2z^2-y^2+yz^3-yz^2-yz+z^4-z^3-z^2+z+1",
+    "-x^3+x^2y-x^2z^2+xy^2z-xy^2-xyz^2-xyz-xy-xz^3+y^4-y^3z-y^3-y^2z^2+y^2z-yz^3-yz-y+z^4-z^2-1",
+    "x^4-x^3y-x^3z+x^3-x^2y-x^2z^2-x^2-xy^3-xyz^2+xz^3-xz^2-xz+x+y^4-y^3+y^2z^2-y^2z-y^2+yz^3-yz^2-yz+z^3-z"
+  ],
+  "omega_origin": [
+    "2",
+    "1",
+    "4"
+  ],
+  "domega_columns": [
+    [
+      "6",
+      "4",
+      "-5"
+    ],
+    [
+      "0",
+      "-6",
+      "10"
+    ],
+    [
+      "3",
+      "-2",
+      "0"
+    ]
+  ],
+  "K_origin": "3558",
+  "contractions": {
+    "T_A": "4605",
+    "T_mix": "4053",
+    "T_gradA": "812",
+    "V_cross": "15974",
+    "gradJ_squared": "40614"
+  },
+  "complete_(D-nu_Delta)K_coefficients_constant_nu": [
+    "18940",
+    "-145124"
+  ],
+  "direct_DK_coefficients_constant_nu": [
+    "18940",
+    "-90664"
+  ],
+  "DeltaK_origin": "54460",
+  "Gaussian_point": "(1,2,0)",
+  "Gaussian_omega2": "144 exp(-10)",
+  "Gaussian_stretching": "720 exp(-15)",
+  "Gaussian_alpha": "5 exp(-5), reverses for -U",
+  "small_product_threshold_coefficient_of_nu4": "27/65536",
+  "positive_viscous_bending_jet": {
+    "local_velocity": "(0,0,y-x^2/2+x^2*y/4)",
+    "omega": "(1+x^2/4,x-x*y/2,0)",
+    "K_origin": "1",
+    "DeltaK_origin": "0",
+    "gradJ_squared_origin": "1/2",
+    "V_cross_origin": "-1/2",
+    "complete_viscous_(D-nu_Delta)K_origin": "+nu",
+    "scope": "Falsifies pointwise nonpositivity only; cutoff of a curl potential preserves the actual Schwartz jet. No global integral or singularity assertion."
+  },
+  "correctness_bridge": "Plain polynomial derivatives, full direct material prolongation and independent split RHS agree; cutoff potential preserves these original solenoidal jets.",
+  "unpaid": "General local-direction dose, signed bending propagation, swirl source/shear doses, and unconditional original Clay(A)."
+}

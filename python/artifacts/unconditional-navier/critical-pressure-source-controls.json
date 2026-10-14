@@ -1,0 +1,25 @@
+{
+  "scope": "Exact periodic triad, coefficients and scaling algebra only; compactification, nonlocal errors and actual NS derivative are separate proofs.",
+  "pressure_modes": {
+    "(-2, -1, -1)": "-I/12",
+    "(-1, -2, -2)": "I/18",
+    "(-1, -1, -1)": "-1/6",
+    "(-1, 0, 0)": "-I/2",
+    "(-1, 1, 1)": "1/6",
+    "(0, -1, -1)": "I/4",
+    "(0, 1, 1)": "-I/4",
+    "(1, -1, -1)": "1/6",
+    "(1, 0, 0)": "I/2",
+    "(1, 1, 1)": "-1/6",
+    "(1, 2, 2)": "-I/18",
+    "(2, 1, 1)": "I/12"
+  },
+  "mean_p_d3_v3": "1/6",
+  "pressure_sup_bound": "22/9",
+  "boost": 2048,
+  "periodic_pressure_work_lower": "136",
+  "envelope_counted_once": "-616*a**4/3 + 1024*a**3/3",
+  "fixed_energy_identity": true,
+  "fixed_critical_mass_identity": true,
+  "native_gradient_mass": "E_g*Z_g/(E_g + E_v - E_v/lambda) + Z_v*lambda"
+}

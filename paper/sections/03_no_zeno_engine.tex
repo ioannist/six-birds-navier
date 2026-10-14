@@ -1,0 +1,126 @@
+\section{The No-Zeno engine}\label{sec:no-zeno-engine}
+
+This section isolates the inequality logic of the scaffold. Nothing in it is specific to
+Navier--Stokes. It applies to any multiscale process whose refinement events come with an
+increment lower bound and a divergence check. The theorems are mechanized in Lean in a discrete
+setting: crossing times form a sequence $t:\N\to\R$ and all hypotheses are stated with finite sums.
+The continuous-time arguments that would produce those hypotheses are separate. The one used here
+is proved on paper in \cref{lem:work-quantum}.
+
+\subsection{Crossing times and Zeno cascades}
+
+Let $t:\N\to\R$ be a sequence of crossing times, where $t(n)$ is read as the time at which the
+frontier reaches level $n$, and write $\Delta t_n:=t(n+1)-t(n)$.
+
+\begin{definition}[Zeno cascade]\label{def:zeno}
+A \emph{Zeno cascade} occurs if the crossing times are bounded above: there is $T\in\R$ with
+$t(n)\le T$ for every $n$. In words, the frontier reaches every level before a finite time.
+\end{definition}
+
+\begin{definition}[Increment certificate]\label{def:phi}
+A sequence $\Phi:\N\to\R$ is an \emph{increment certificate} for $t$ if
+$\Phi(n)\le t(n+1)-t(n)$ for every $n$.
+\end{definition}
+
+\begin{theorem}[Unbounded partial sums exclude a Zeno cascade]\label{thm:unbounded-sums-no-zeno}
+Let $\Phi$ be an increment certificate for $t$ whose partial sums are unbounded: for every
+$M\in\R$ there is $n$ with $M\le\sum_{k=0}^{n-1}\Phi(k)$. Then $t$ has no finite upper bound, so
+no Zeno cascade occurs.
+\end{theorem}
+
+\begin{proof}
+The increment inequality telescopes to $t(n)\ge t(0)+\sum_{k=0}^{n-1}\Phi(k)$, and the right-hand
+side is unbounded.
+\end{proof}
+
+If, in addition, every $\Phi(n)$ is nonnegative, then $t$ is nondecreasing; Lean proves this as a
+separate lemma. The theorem itself needs neither monotonicity nor nonnegativity.
+
+\subsection{WORK, CAP and DIV}
+
+In applications the increment certificate comes from a work quantum and a capacity.
+
+\begin{definition}[WORK/CAP/DIV]\label{def:work-cap-div}
+Let $w,\mathrm{Cap}:\N\to\R$ with $\mathrm{Cap}(n)>0$ for every $n$.
+\begin{itemize}
+\item \textbf{WORK$\times$CAP:} $w(n)\le \mathrm{Cap}(n)\,\bigl(t(n+1)-t(n)\bigr)$ for every $n$.
+Here $w(n)$ is the work needed to advance from level $n$ to level $n+1$, and $\mathrm{Cap}(n)$
+bounds the work that can be delivered per unit time at level $n$.
+\item \textbf{DIV:} the ratios $w(n)/\mathrm{Cap}(n)$ have unbounded partial sums.
+\end{itemize}
+\end{definition}
+
+\begin{theorem}[Work and capacity give an increment bound]\label{thm:workcap-increment}
+If $\mathrm{Cap}(n)>0$ and $w(n)\le\mathrm{Cap}(n)\,(t(n+1)-t(n))$, then
+$w(n)/\mathrm{Cap}(n)\le t(n+1)-t(n)$.
+\end{theorem}
+
+\begin{theorem}[WORK, CAP and DIV exclude a Zeno cascade]\label{thm:workcap-no-zeno}
+Under WORK$\times$CAP and DIV, the crossing times have no finite upper bound.
+\end{theorem}
+
+\begin{proof}
+\Cref{thm:workcap-increment} makes $w/\mathrm{Cap}$ an increment certificate, and
+\cref{thm:unbounded-sums-no-zeno} applies.
+\end{proof}
+
+\paragraph{Dyadic sampling.}
+Sometimes crossings are only checked at each doubling of scale. Lean also proves the sampled
+version: if $\mathrm{Cap}(2^j)>0$, $w(2^j)\le\mathrm{Cap}(2^j)\,(t(j+1)-t(j))$ for every $j$, and the
+ratios $w(2^j)/\mathrm{Cap}(2^j)$ have unbounded partial sums, then $j\mapsto t(j)$ has no finite
+upper bound.
+
+\subsection{Where the hypotheses would come from}
+
+The engine is only as useful as its inputs. Two steps connect it to the bridge of
+\cref{sec:six_primitives_mapping}.
+
+\begin{lemma}[A storage frontier forces a work quantum]\label{lem:work-quantum}
+Assume the storage $S_j$ is continuous, the power $p_j$ is locally integrable, the passivity
+inequality $S_j(t)-S_j(s)\le W_j^+[s,t]$ holds, and the crossing $t_{j+1}$ defined in
+\cref{sec:capacity-frontier} is attained. Then $W_j^+[t_j,t_{j+1}]\ge\theta$.
+\end{lemma}
+
+\begin{proof}
+The running maximum $A(t)=\sup_{\tau\in[t_j,t]}(S_j(\tau)-S_j(t_j))$ is continuous, so
+$A(t_{j+1})\ge\theta$. By compactness some $\tau^\ast\in[t_j,t_{j+1}]$ attains it, and
+$\theta\le S_j(\tau^\ast)-S_j(t_j)\le W_j^+[t_j,\tau^\ast]\le W_j^+[t_j,t_{j+1}]$, since $p_j^+\ge0$.
+\end{proof}
+
+Combining \cref{lem:work-quantum} with a capacity bound $W_j^+[t_j,t_{j+1}]\le\mathrm{Cap}(j)\,\Delta t_j$
+gives WORK$\times$CAP with $w(j)=\theta$. The lemma is a continuous-time argument. It is not part of
+the Lean development, which only performs the division and summation steps.
+
+\paragraph{Checking DIV.}
+DIV is a statement about a series, so only the right comparisons decide it. With a constant work
+quantum $\theta>0$:
+\begin{itemize}
+\item if $\mathrm{Cap}(j)\le K(j+1)^\alpha$ eventually, with $K>0$ and $\alpha\le1$, then
+$\sum_j\theta/\mathrm{Cap}(j)=\infty$ and DIV holds;
+\item if $\mathrm{Cap}(j)\ge k(j+1)^\alpha$ eventually with $k>0$ and $\alpha>1$, or
+$\mathrm{Cap}(j)\ge k\,2^{\beta j}$ with $k,\beta>0$, then the series converges and this capacity cannot
+certify DIV.
+\end{itemize}
+An \emph{upper} bound that grows faster than linearly decides nothing: $\mathrm{Cap}(j)=1$ satisfies
+every such bound and has a divergent reciprocal series. Conversely, a convergent comparison series
+only leaves No-Zeno unproved. It does not show that the actual crossing increments have a finite
+sum, and it does not show that blow-up occurs.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=0.86\linewidth]{figures/toy_zeno_gallery.pdf}
+  \caption{\textbf{Toy Zeno gallery.} Crossing times $t_J=\sum_{j<J}\Delta t_j$ for three explicit
+  sequences with $\Delta t_j=w(j)/\mathrm{Cap}(j)$. With exponentially growing capacity (DIV fails)
+  or a vanishing work quantum (WORK fails), the times converge to the same limit $2$ (both have $\Delta t_j=2^{-j}$, so their curves
+  coincide) and a Zeno cascade occurs. With
+  linear capacity and constant work, DIV holds and $t_J$ grows without bound. The figure is purely
+  mathematical; it illustrates why both WORK and DIV are needed.}
+  \label{fig:toy-zeno}
+\end{figure}
+
+\begin{remark}[Mechanization]
+\Cref{thm:unbounded-sums-no-zeno} and the monotonicity lemma are in \nolinkurl{formal/Fluids/Zeno.lean};
+\cref{thm:workcap-increment,thm:workcap-no-zeno} and the dyadic version are in
+\nolinkurl{formal/Fluids/ZenoWorkCap.lean}. Lean names are listed in \cref{app:theorem-index}.
+The development uses Lean~4 and mathlib \citep{lean4,demoura2015lean,mathlib2020}.
+\end{remark}

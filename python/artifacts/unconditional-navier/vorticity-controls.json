@@ -1,0 +1,55 @@
+{
+  "scope": "Exact original Schwartz initial-state nonlinear branches and explicit false-applicability controls, not PDE evolution/global all-data source.",
+  "gaussian_coefficients_relative_to_(pi/3)^(3/2)": {
+    "transport": "23936/81",
+    "stretching": "35200/81",
+    "sum": "19712/27"
+  },
+  "gamma3_weighted_fourier_bridge": "Signed velocity Fourier pairing W=-(T+S)/(2*pi)^6; vorticity nonlinear production is +(T+S)/(2*pi)^6. Viscous dissipation is separate and quadratic.",
+  "swirl_control": {
+    "original_convection_polynomial": [
+      [
+        "-4x"
+      ],
+      [
+        "-4y"
+      ],
+      [
+        "0"
+      ]
+    ],
+    "convection_gaussian_rate": 2,
+    "eta_initial": "0",
+    "eta_initial_time_derivative": "-16*z*exp(-2*(r^2+z^2))",
+    "point_r1_z1": "-16*exp(-4), nonzero"
+  },
+  "compact_stream_swirl_jet": {
+    "strain": [
+      [
+        -1,
+        1,
+        0
+      ],
+      [
+        1,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        1
+      ]
+    ],
+    "c_u_r_over_r": 0,
+    "characteristic_polynomial_ascending": [
+      "1",
+      "-2",
+      "0",
+      "1"
+    ],
+    "middle_eigenvalue": "(sqrt(5)-1)/2, strictly between 0 and 1",
+    "original_state_bridge": "Parent written cutoff STREAM construction preserves divergence, jet and Schwartz compact support."
+  },
+  "unpaid": "All-data signed cone source and all-data applicability to no-swirl scalar/strain certificate."
+}

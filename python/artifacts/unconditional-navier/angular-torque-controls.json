@@ -1,0 +1,8 @@
+{
+  "status": "PASS",
+  "scope": "Exact bounded radial weight derivative/gradient/Laplacian and mean-zero Schwartz initial covariance/torque algebra. No evolved moment persistence, endpoint source estimate, globality, or numerical NS trajectory certified.",
+  "cutoff_laplacian": "(6 - 2*r**2/length**2)/(1 + r**2/length**2)**3",
+  "gradient_squared_ratio": "(1+r^2/L^2)^(-3) <= 1",
+  "initial_reynolds_torque": "4*eps**2*kappa*r**2*(r**2 - 1)*exp(-2*r**2 - 2*z**2)",
+  "signed_initial_torque_integral": 0
+}

@@ -1,0 +1,143 @@
+\section{Six Birds vocabulary and the Navier--Stokes objects}
+\label{sec:six_primitives_mapping}
+
+This section introduces the parts of the Six Birds framework \citep{tsiokos_2026_18365949} that the
+scaffold uses, and it fixes the Navier--Stokes objects that later sections refer to. For standard
+Navier--Stokes background see \citet{temam_ns} or \citet{majda_bertozzi_vif}.
+
+\subsection{Six moves for multiscale elimination}
+\label{sec:six_primitives_recap}
+
+The Six Birds framework describes six recurring structural moves. Here they serve as a vocabulary
+for eliminating fine scales without committing to a closure model.
+
+\begin{description}
+\item[P1, rewrite.] Choose coordinates in which scale is explicit. We use dyadic Fourier shells.
+This is a change of description, not a modelling assumption.
+\item[P2, feasibility.] Decide which interface signals are admissible. Feasibility appears twice:
+in the domain of the packaged bridge, and in the anti-localization restriction of
+\cref{sec:spt-legal}.
+\item[P3, route dependence.] Eliminating scales in different orders can give different effective
+descriptions. \Cref{sec:route-capacity} turns a bound on this mismatch into a bound on capacity
+growth.
+\item[P4, sectorization.] Interactions may decompose into a small number of channels. We treat the
+channel count as a measurable quantity and prove that few spread-out channels force
+anti-localization.
+\item[P5, packaging.] Turn everything above a cutoff into one causal object, the bridge, that acts
+on the retained scales. The bridge is defined below; it is not fitted.
+\item[P6, accounting.] Constrain the bridge by an energy ledger, in the spirit of dissipativity
+theory \citep{willems1972dissipative1}. The currency is the positive work that the bridge supplies
+to a shell.
+\end{description}
+
+\subsection{Shells, projections and the closure force}
+\label{sec:ns_object_mapping}
+
+Work on the periodic box $\T^3=(\R/2\pi\mathbb{Z})^3$ with zero-mean, divergence-free velocity
+fields, viscosity $\nu>0$ and no external force. For $j\ge 0$ let
+\[
+\mathcal K_j=\{k\in\mathbb{Z}^3:\ 2^j\le |k|<2^{j+1}\}.
+\]
+Let $\Delta_j$ be the \emph{sharp} orthogonal Fourier projection onto the modes in $\mathcal K_j$, let $G_j$
+project onto $|k|<2^{j+1}$, and set $H_j=I-G_j$. Every nonzero frequency on this box has $|k|\ge 1$,
+so a zero-mean field decomposes as $u=\sum_{j\ge0}\Delta_j u$. We write
+\[
+u_j:=\Delta_j u,\qquad u_{\le j}:=G_j u,\qquad u_{>j}:=H_j u.
+\]
+Because the projections are sharp, $\Delta_j^2=\Delta_j$, $G_j^2=G_j$, $\Delta_jG_j=\Delta_j$ and
+$G_jH_j=0$, and all of them commute with derivatives and with the Leray projection $\mathcal P$.
+Smooth, overlapping Littlewood--Paley multipliers \citep{bahouri2011fourier} do not have these
+identities. A smooth-filter version of the constructions below would need a separate argument.
+
+Write $\mathrm{NL}(u):=\mathcal P\nabla\cdot(u\otimes u)$, so that a strong solution satisfies
+$\partial_t u=\nu\Delta u-\mathrm{NL}(u)$. The \emph{closure force} at cutoff $j$ and its shell
+readout are
+\begin{equation}\label{eq:closure}
+C_{\le j}(u):=G_j\,\mathrm{NL}(G_ju)-G_j\,\mathrm{NL}(u),\qquad y_j(u):=\Delta_j C_{\le j}(u).
+\end{equation}
+With these signs the exact retained and shell equations read
+\[
+\partial_t u_{\le j}=\nu\Delta u_{\le j}-G_j\mathrm{NL}(u_{\le j})+C_{\le j}(u),
+\qquad
+\partial_t u_j=\nu\Delta u_j-\Delta_j\mathrm{NL}(u_{\le j})+y_j(u).
+\]
+Thus $y_j$ is the force that the eliminated scales add to shell $j$, and
+\begin{equation}\label{eq:power}
+p_j(t):=\langle u_j(t),y_j(t)\rangle_{L^2},\qquad p_j^+:=\max(p_j,0),\qquad
+W_j^+[s,t]:=\int_s^t p_j^+(\tau)\,d\tau
+\end{equation}
+are the power \emph{supplied} to the shell, its positive part, and the positive supplied work.
+The sign matters. Reversing it exchanges supplied and extracted power and changes $W_j^+$.
+
+\subsection{The packaged bridge}
+
+The bridge packages the eliminated scales as a causal map on resolved histories.
+
+\begin{definition}[Packaged bridge $Z_j$]\label{def:bridge}
+Fix $s>5/2$, $T>0$ and $u_0\in H^s$. A resolved history $v\in C([0,T];\mathrm{Ran}\,G_j)$ is
+\emph{admissible} if the high-mode problem
+\begin{equation}\label{eq:high-ivp}
+\partial_t w=\nu\Delta w-H_j\,\mathrm{NL}(v+w),\qquad w(0)=H_ju_0,
+\end{equation}
+has a unique strong solution $w\in C([0,T];H^s)\cap L^2(0,T;H^{s+1})$. For admissible $v$ set
+\[
+Z_j[v](t):=\Delta_j\bigl(\mathrm{NL}(v(t))-\mathrm{NL}(v(t)+w(t))\bigr).
+\]
+\end{definition}
+
+The input of $Z_j$ is the whole resolved history $v$, not only its shell-$j$ part. The power
+pairs the output with $\Delta_j v$. Changing other resolved shells can change the output while
+leaving $\Delta_j v$ untouched, so the bridge does not in general factor through a single-port map.
+We do not claim that every candidate history is admissible.
+
+\begin{proposition}[Causality and exact return]\label{prop:bridge-return}
+\leavevmode
+\begin{enumerate}
+\item The high-mode range is invariant: a solution of \eqref{eq:high-ivp} satisfies $H_jw=w$.
+\item If two admissible histories agree on $[0,t]$, the corresponding high-mode solutions and
+bridge outputs agree on $[0,t]$.
+\item If $u$ is a strong Navier--Stokes solution on $[0,T]$, then $v=G_ju$ is admissible and
+$Z_j[G_ju](t)=y_j(u(t))$ for $t\in[0,T]$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(1) Applying $G_j$ to \eqref{eq:high-ivp} leaves a heat equation for $G_jw$ with zero data, so
+$G_jw=0$. (2) Strong solutions on $[0,t]$ are unique. For two solutions $w_1,w_2$ driven by the
+same history, the difference $z$ obeys an $L^2$ energy estimate. The transport term with the full
+velocity cancels, $H_j$ drops out of the pairing with $z$, and the remaining terms are bounded by
+the strong gradients of $v,w_1,w_2$; Gr\"onwall gives $z=0$. (3) Applying $H_j$ to the
+Navier--Stokes equation shows that $w=H_ju$ solves \eqref{eq:high-ivp} with $v=G_ju$, and
+uniqueness identifies it with the packaged high state. Since $\Delta_j=\Delta_jG_j$, the definition
+of $Z_j$ then coincides with $y_j(u)$ in \eqref{eq:closure}.
+\end{proof}
+
+Frequency-response fits of the subgrid term are finite-window, linear time-invariant
+approximations. They neither define $Z_j$ nor certify any property of it over its admissible class.
+
+\subsection{Capacity and frontier}\label{sec:capacity-frontier}
+
+Two further objects connect the bridge to the No-Zeno engine of \cref{sec:no-zeno-engine}.
+
+\paragraph{Capacity.} The integrated capacity inequality (ICAP) at depth $j$ is
+\begin{equation}\label{eq:icap}
+W_j^+[s,t]\ \le\ \Lambda(j)\int_s^t\|u_j(\tau)\|_{L^2}^2\,d\tau\qquad\text{for all admissible inputs and windows }[s,t].
+\end{equation}
+It is a certificate quantified over the admissible class, not a bound along one trajectory. If in
+addition $\|u_j(t)\|_{L^2}^2\le B(j)$, then $W_j^+[s,t]\le \mathrm{Cap}(j)\,(t-s)$ with
+$\mathrm{Cap}(j)=\Lambda(j)B(j)$. For unforced Navier--Stokes the energy inequality gives
+$B(j)=\|u_0\|_{L^2}^2$ at every depth.
+
+\paragraph{Frontier.} Let $S_j\ge0$ be a storage functional for the eliminated scales, continuous in
+time, and assume the passivity inequality $S_j(t)-S_j(s)\le\int_s^tp_j\le W_j^+[s,t]$. Given a
+threshold $\theta>0$, the frontier crosses from depth $j$ to depth $j+1$ at
+\[
+t_{j+1}:=\inf\Bigl\{t\ge t_j:\ \sup_{\tau\in[t_j,t]}\bigl(S_j(\tau)-S_j(t_j)\bigr)\ge\theta\Bigr\}.
+\]
+Writing an infimum does not make the crossing exist. We call a crossing \emph{attained} when the
+set is nonempty and $t_{j+1}$ is finite and lies in the time domain. A frontier index
+$j_\ast(t)=\sup\{j:t_j\le t\}$ may be infinite; assuming that it is a finite maximum would assume
+away the Zeno accumulation that the scaffold is meant to rule out.
+
+The storage functional, the passivity inequality and the capacity bound are hypotheses about the
+actual bridge. None of them is proved for Navier--Stokes here.

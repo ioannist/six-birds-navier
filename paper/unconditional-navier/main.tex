@@ -1,0 +1,4250 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath,amssymb,amsthm,hyperref}
+\title{Toward an Unconditional Navier--Stokes Closure:\\A Leverage-Layer Research Program}
+\author{Ioannis Tsiokos}
+\date{Research draft, 4 October 2026}
+\newtheorem{proposition}{Proposition}
+\begin{document}
+\maketitle
+\begin{abstract}
+We organize a fresh constructive program for the unforced whole-space
+Navier--Stokes existence and smoothness problem. The existing spectral
+continuation criterion is a translated conditional layer. We isolate its
+unresolved original-equation producer, independently prove elementary
+absorption and weighted-tail laws, and construct written conditional
+continuation and full initial-face/pressure return adapters. The all-data
+source estimates remain open. This draft does not establish unconditional closure.
+\end{abstract}
+\section{Original target}
+For every viscosity $\nu>0$ and divergence-free Schwartz datum on
+$\mathbb R^3$, seek globally smooth velocity and pressure on the closed
+half-space, satisfying the original unforced equation and bounded kinetic
+energy. This is statement (A) of Fefferman's
+\href{https://www.claymath.org/wp-content/uploads/2022/06/navierstokes.pdf}{official Clay problem statement}.
+\section{Translated criterion}
+For $\gamma>5/2$, write $g(t)=\langle\xi\rangle^\gamma\widehat u(t)$ and
+$P_N=\mathbf1_{|\xi|\le N}$. The unresolved condition is
+\[
+\begin{gathered}
+\forall T>0\;\exists N\in\mathbb N,\;0\le q_T<1\;\forall t\in\mathcal T,\\
+t\le T\Longrightarrow\|(I-P_N)g(t)\|_2^2\le q_T\|g(t)\|_2^2.
+\end{gathered}
+\]
+The cutoff and fraction must be fixed over each entire preterminal horizon.
+\section{Independent laws and unpaid applicability}
+\begin{proposition}
+If $X=L+H$, $L\le K$, $H\le qX$ and $q<1$, then
+$X\le K/(1-q)$.
+\end{proposition}
+\begin{proof}
+$(1-q)X\le L\le K$ and $1-q>0$.
+\end{proof}
+For $\delta>0$, multiplication by the original frequency weight gives
+\[
+\|(I-P_N)g\|_2^2\le(1+N^2)^{-\delta}
+\int (1+|\xi|^2)^\delta|g(\xi)|^2\,d\xi.
+\]
+These laws do not produce terminal-uniform original Navier source bounds.
+Assuming a bounded higher norm already assumes continuation-strength content.
+\section{Recovered kinetic baseline and weighted gap}
+For the original projected convection, define signed kinetic transfer
+$\Phi_R=\operatorname{Re}\langle P_R\widehat u,
+\widehat{\mathbb P((u\cdot\nabla)u)}\rangle$.
+The earlier low-band energy identity and its high-band consequence give
+\[
+-E_{>R}(0)\le 2\int_0^t\Phi_R(s)\,ds\le E_{\le R}(0)\le E_0.
+\]
+This bounds net transfer, not its positive part or total variation.
+With $w(r)=(1+r^2)^\gamma$ and finite $N<M$, Tonelli gives
+\[
+w(N)E_{>N}(t)+\int_N^M w'(r)E_{>r}(t)\,dr
+=\int_{|\xi|>N}w(\min\{|\xi|,M\})|\widehat u(t,\xi)|^2\,d\xi.
+\]
+The nonnegative spectral expression converges monotonically to the strong
+tail. Combining actual-path balances introduces the signed weighted
+flux $w(N)\Phi_N+\int_N^M w'(r)\Phi_r\,dr$. The energy-only upper bound
+grows as $E_0w(M)$; it cannot pay the infinite-cutoff weighted budget.
+Real-radius continuity and finite-rectangle Fubini justify the finite-cutoff
+balance. A uniform upper bound on cumulative signed flux, independent of
+outer cutoff and existing time over each full finite preterminal horizon,
+implies a uniform strong bound. Monotone convergence is needed only for
+nonnegative spectral weights; no infinite signed-flux limit is required
+for this inequality return. The uniform cumulative budget remains unproved.
+
+\section{Conditional critical laws and original return}
+For the same maximal strong solution set
+$Z=\|\nabla u\|_2^2$, $Q=\|\Delta u\|_2^2$ and
+$W=\|\widehat u\|_1$. A whole-space Fourier interpolation gives
+\[
+ W^2\le \frac{2}{\pi^2}\sqrt{ZQ}.
+\]
+Bounded frequency cutoffs, the original full convection product and
+nonnegative monotone convergence yield
+\[
+ X_s(t)+\nu\int_0^tY_s
+ \le X_s(0)+\frac{4c_s^2}{\nu}\int_0^t W^2X_s,
+ \qquad c_s=2^{\max(s-1,0)}.
+\]
+Consequently a supplied finite full-endpoint $\int W^2$ implies continuation.
+Enstrophy estimates also show that supplied finite doses
+$\int\|u\|_5^5$ or $\int Z^2$ pay this Wiener dose. These are conditional
+laws, not independently established arbitrary-data integrability results.
+
+Writing $S=\operatorname{sym}\nabla u$, the positive middle strain eigenvalue
+gives a further conditional interface. For ordered $a\le b\le c$ with
+$a+b+c=0$, $-4abc\le2\max(b,0)(a^2+b^2+c^2)$.
+The actual-path strain identity therefore bounds production by
+$2\|\lambda_2^+(S)\|_\infty\|S\|_2^2$. A supplied finite time integral
+of that coefficient pays bounded enstrophy and integrated $Q$, hence
+continuation. Its all-data supplier remains open.
+
+For original Schwartz input, high-order local mild construction, exact
+weight lowering, same-path uniqueness and bounded-cutoff estimates prove
+all Sobolev orders on each existing compact interval. Temporal induction
+and Sobolev embedding give all mixed velocity derivatives through $t=0$.
+The pressure multiplier
+$\widehat p=-\xi_i\xi_j\widehat{u_i u_j}/|\xi|^2$ gives the same closed-face
+smoothness in a coherent $L^2$ gauge. Globality, when supplied, then returns
+all original Clay properties including the native kinetic bound.
+Detailed written arguments are preserved in the round02 research dossiers;
+the full PDE proof is not claimed to be mechanized.
+
+\section{A signed heat-scale source gate}
+Introduce an independent heat coordinate $\theta>0$, with
+$H_\theta=e^{\theta\Delta}$, $u_\theta=H_\theta u$,
+$S_\theta=\operatorname{sym}\nabla u_\theta$ and
+$\tau_\theta=H_\theta(u\otimes u)-u_\theta\otimes u_\theta$.
+The covariance is positive semidefinite and
+$\int\operatorname{tr}\tau_\theta=E-E_\theta$.
+Its exact scale equation and the original physical-time equation give
+\[
+\begin{split}
+\tau_\theta&=2\int_0^\theta H_{\theta-s}
+    [\nabla u_s(\nabla u_s)^T],ds,\\
+\Pi_\theta&=-\int S_\theta:\tau_\theta
+ =\langle H_{2\theta}u,(u\cdot\nabla)u\rangle,\\
+E_\theta'+2\nu Z_\theta&=-2\Pi_\theta.
+\end{split}
+\]
+The Gaussian stress-scale construction also appears in
+\href{https://arxiv.org/pdf/1912.00293v1}{Johnson (2019), Section II};
+here the derivation retains the original unforced whole-space carrier.
+Covariance positivity does not sign its contraction with trace-free strain.
+An explicit real solenoidal Schwartz field
+\[
+U=(4xz^2-2x,-2yz^2+y,-4x^2z+2y^2z+z)e^{-|x|^2}
+\]
+has exact transfer
+\[
+\Pi_\theta(U)=\frac{64\pi^{3/2}\theta(10\theta+3)}
+ {(16\theta+3)^{11/2}}>0\qquad(\theta>0).
+\]
+The opposite field has the same quadratic observations and opposite
+transfer. For $U_R=R^{3/2}U(Rx)$ and $\theta_R=c/R^2$, kinetic energy
+is fixed, transfer grows as $R^{5/2}$ and the viscous complement as $R^2$.
+Hence a universal instantaneous inequality
+$\Pi_\theta\le a\nu(Z-Z_\theta)+C(E_0,\nu)(E-E_\theta)$ with finite
+coefficients independent of heat scale and high-order initial shape fails
+even at fixed viscosity. This is an initial-state control, not a singular
+trajectory or a rejection of time-integrated phase information.
+
+For integer $m>\gamma$, a bounded multiplier
+\[
+M_\epsilon(r)=\kappa_{\gamma m}\int_\epsilon^\infty
+ \theta^{-\gamma-1}(1-e^{-8\pi^2\theta r^2})^m,d\theta
+ \uparrow r^{2\gamma}
+\]
+has $\kappa_{\gamma m}=(8\pi^2)^{-\gamma}/
+\int_0^\infty z^{-\gamma-1}(1-e^{-z})^m dz$.
+The original energy balance reads
+\[
+\begin{split}
+X_\epsilon(t)+2\nu\int_0^tD_\epsilon
+ &=X_\epsilon(0)-2\int_0^t\mathcal P_\epsilon,\\
+\mathcal P_\epsilon&=\kappa_{\gamma m}\int_\epsilon^\infty
+ \theta^{-\gamma-1}\sum_{j=1}^m(-1)^j\binom mj\Pi_{j\theta}\,d\theta.
+\end{split}
+\]
+Here $X_\epsilon=\int M_\epsilon|\widehat u|^2$ and
+$D_\epsilon=\int4\pi^2r^2M_\epsilon|\widehat u|^2$.
+The large-heat-scale part is independently paid by
+$|\Pi_\theta|\le C_H\theta^{-5/4}E_0^{3/2}$.
+A terminal-uniform one-sided cumulative bound for the remaining signed
+small-scale part would give strong continuation by nonnegative monotone
+convergence. That supplier remains open; the exact balance alone contains
+the unknown terminal strong norm.
+
+\section{Physical-time windows and the remaining cone source}
+For a fixed positive width $h$ inside the initial local existence interval,
+observe the same path along the heat characteristic
+$\theta+\nu(t-s)$. Its original energy identity is
+\[
+\frac{d}{ds}E_{\theta+\nu(t-s)}(s)
+ =-2\Pi_{\theta+\nu(t-s)}(s).
+\]
+Every shifted binomial term, including $j=0$, therefore gives
+\[
+\begin{split}
+X_\epsilon(t)&=Y_{\epsilon,h}(t-h)-2\int_{t-h}^tW_\epsilon(s,t)\,ds,\\
+W_\epsilon(s,t)&=\langle M_\epsilon(D)H_{2\nu(t-s)}u(s),B(s)\rangle,\\
+0\le Y_{\epsilon,h}&\le
+ \left(\frac{\gamma}{8\pi^2e\nu h}\right)^\gamma E_0.
+\end{split}
+\]
+The past boundary is thus paid independently of the terminal strong norm.
+Large base heat scales are paid by the native energy law and smoothing;
+for small base scales, any fixed positive distance from $s=t$ is also
+energy-paid. The remaining supplier is a uniform upper bound on the signed
+source at both small heat scale and recent physical lag. It is open.
+
+Converting heat differences into time integrals leaves bulk derivatives
+and terminal production terms. For the explicit Schwartz
+control, the cubic state derivative in the direction $\Delta U$ is
+\[
+T_\theta[\Delta U]
+ =-\frac{2304\pi^{3/2}\theta(80\theta^2+52\theta+9)}
+ {(16\theta+3)^{13/2}}<0\qquad(\theta>0).
+\]
+At original initial datum $bU$, the actual physical derivative is
+$\nu b^3T_\theta+b^4Q_\theta$, where $Q_\theta$ retains full pressure
+and is finite. Small positive $b$ makes that derivative nonzero, refuting
+its omission. This initial-state control supplies no integrated source bound.
+
+On a physical lag band $I=[t-2d,t-d]$, a whole-space Sobolev/stress estimate
+gives, uniformly in cutoff,
+\[
+\left|-2\int_I W_\epsilon^{\rm small}\right|
+ \le C_\gamma E_0^{3/4}\nu^{-\gamma-1/2}
+       d^{-\gamma-1/4}\left(\int_I Z\right)^{3/4}.
+\]
+Its necessary dissipation price for positive source work $A$ is proportional
+to $A^{4/3}d^{(4\gamma+1)/3}$. The algebraic pattern
+$A=R^{2\gamma}$, $d=R^{-2}$ has summable price $R^{-2/3}$.
+This tests the strength of the estimate; no realizing trajectory or
+disjoint-event sequence is asserted. A stronger signed original source
+constraint remains necessary for this route.
+
+\section{Retained source structure and scoped estimate controls}
+The fixed-window cone source is uniformly bounded if and only if the
+strong norm is uniformly bounded, after the paid boundary and source
+adapters. This equivalence supplies no independent estimate.
+There is, however, an exact original quartic structure to retain.
+Set $F=\mathbb P((u\cdot\nabla)u)$ and $H=H_{2\theta}$.
+The quartic part of the characteristic heat-transfer derivative is
+\[
+Q=-\langle(H-I)u,(F\cdot\nabla)u\rangle
+  +\langle[u\cdot\nabla,H]u,F\rangle.
+\]
+Pressure remains in $F$. Its first increment bound contains unpaid
+$\|u\|_\infty$ and $\|\nabla u\|_\infty$ factors.
+
+Native absolute interpolation gives lag weights $\tau^{-b}Z^a$ with
+$a=3/2-3/q$, $b=-1/4+3/q$, $2\le q\le4$.
+Since $a+b=5/4$, time H\"older against the native $L^1$ budget for $Z$
+cannot pay this family at lag zero. Scalar budget concentrations test
+this majorant's strength; they are not original solution trajectories.
+At each finite cutoff, a large terminal excess produces a positive
+source band by exact dyadic partition. Its selected lag index and overlap
+with bands from other terminals remain uncontrolled. Cyclic triad
+cancellation supplies an interaction gain on separated frequencies,
+with a short reflected multiplier comparison, but no full source sum.
+The signed finite-cutoff cap bound is finite and grows as
+$\epsilon^{-\gamma}$; it cannot discharge the cutoff-uniform supplier.
+
+\section{Original vorticity and two positive classes}
+With $V_\epsilon=M_\epsilon^{\rm small}$, set
+$L_\epsilon(r)=V_\epsilon(r)/(4\pi^2r^2)$, extended by zero at the origin.
+It is bounded for each positive cutoff and gives exactly
+\[
+ \int L_\epsilon|\widehat\omega|^2
+   =\int V_\epsilon|\widehat u|^2,\qquad \omega=\operatorname{curl}u.
+\]
+The original heat-window transport and stretching pairings sum to minus
+the velocity source. This is an equivalent carrier, not an estimate.
+For the original Gaussian $U$, the nonlinear contributions to
+$\tfrac12\partial_t\|\Delta\omega\|_2^2$ are respectively
+$\frac{23936}{81}(\pi/3)^{3/2}$ and
+$\frac{35200}{81}(\pi/3)^{3/2}$. Their sum is
+$-\langle(-\Delta)^3U,B\rangle$; the signed velocity Fourier pairing
+has the opposite sign and a factor $(2\pi)^{-6}$.
+
+For axisymmetric no-swirl Schwartz input, original uniqueness preserves
+the symmetry and $\eta=\omega_\theta/r$ satisfies
+\[
+ D\eta=\nu(\partial_{rr}+3r^{-1}\partial_r+\partial_{zz})\eta.
+\]
+Maximum and physical $L^1$ Kato estimates retain the favorable axis sink
+and pay $A=\|\eta_0\|_\infty$, $B_1=\|\eta_0\|_1$ independently.
+An actual $\mathbb R^3$ Biot--Savart angular calculation gives
+\[
+ \|u_r/r\|_\infty\le
+ \frac9{2(2\pi)^{1/3}}A^{2/3}B_1^{1/3}.
+\]
+The isolated azimuthal strain eigenvalue bounds the positive middle
+eigenvalue by $|u_r/r|$, paying the existing continuation return on this
+strict class. Compare the scalar budgets and exponents with
+\href{https://cml.centre-mersenne.org/item/10.5802/cml.25.pdf}{Gallay--\v{S}ver\'ak (2015)}.
+The relevant statements are Proposition 2.6 and Lemma 5.1; their global
+theorem is not a premise of this project-native proof.
+
+A complementary viscosity-dependent class follows directly from the
+native enstrophy law. With $E_0=\|u_0\|_2^2$, $Z_0=\|\nabla u_0\|_2^2$
+and $S=4/\sqrt3$, the spatial estimate is
+\[
+ |\langle\Delta u,B\rangle|
+ \le S^{3/2}(E_0Z)^{1/4}Q.
+\]
+If $E_0Z_0\le27\nu^4/65536$, a first-hit bootstrap gives
+$Z+\nu\int Q\le Z_0$. The resulting finite Wiener dose proves original
+continuation and the existing full closed-face return. This is a small
+initial-product class, not an arbitrary-data theorem. Both positive
+classes are known calibration mechanisms; no novelty is asserted.
+
+\section{Directional source, actual events and bending}
+Define $\alpha=\omega\cdot S\omega/|\omega|^2$ where $\omega\ne0$,
+and zero otherwise. The original curl equation gives
+\[
+ Z'+2\nu Q\le2\|\alpha_+\|_\infty Z.
+\]
+The Biot--Savart contraction retains the perpendicular vorticity through
+\[
+ k(x,y)=\frac{|\omega(y)\times n(x)|}{|x-y|},
+ \qquad n(x)=\frac{\omega(x)}{|\omega(x)|}.
+\]
+At fixed physical radius $R$ its remote sector is independently bounded by
+$39R^{-5/2}\sqrt{E_0}/(2\sqrt{5\pi})$.
+The local integral of $3k/(4\pi|x-y|^2)$ remains unpaid in general;
+in no swirl, $k\le|\eta(y)|$ recovers the class payment.
+
+A hypothetical finite maximal endpoint forces unbounded $Z$ by the
+existing squared-enstrophy criterion. First upper-level hits and last
+lower-level crossings construct disjoint actual intervals $J_k$ with
+$z_k\le Z\le2z_k$, $z_k=2^kZ_0$, and
+\[
+ \int_{J_k}\|\alpha_+\|_\infty\ge\frac{\log2}2,
+ \qquad |J_k|\ge\frac{3\nu^3}{8C_Zz_k^2},
+ \qquad \int_{J_k}Z\ge\frac{3\nu^3}{8C_Zz_k}.
+\]
+The native lower prices are summable. This proves actual conditional
+event accounting, not an independent upper stretching dose or blowup.
+
+For the smooth zero-safe bending carrier
+$J_k=\omega\times\partial_k\omega$, $K=\sum_k|J_k|^2$,
+the original equation retains co-area deformation, index mixing,
+$\nabla A$ production and a viscous cross term, $A_{ij}=\partial_j u_i$.
+In no swirl $K=r^2\eta^4$ is generally nonzero, and exact reduction gives
+\[
+\begin{split}
+ (D-\nu\Delta)K={}&2(u_r/r)K
+ -4\nu(\eta^2+r\eta\eta_r)^2\\
+ &-8\nu r^2\eta^2\eta_r^2-12\nu r^2\eta^2\eta_z^2.
+\end{split}
+\]
+General pointwise negativity of the viscous bending source is false:
+the compactifiable solenoidal jet
+$u=(0,0,y-x^2/2+x^2y/4)$ has complete viscous
+$(D-\nu\Delta)K=+\nu$ at the origin. This exact original-state control
+says nothing about the global integral sign or a singular trajectory.
+
+With axisymmetric swirl, $\Gamma=ru_\theta$ retains maximum and physical
+$L^1$ budgets, but $q=u_\theta/r$ has reaction $2(u_r/r)q$ and drives
+$\eta$ by $\partial_z(q^2)$. The strain adapter needs the additional
+swirl shear:
+\[
+ \lambda_2(S)_+\le |u_r/r|+\tfrac r2|\nabla_{r,z}q|.
+\]
+Source and shear doses remain unpaid. Neither calibration nor the new
+identity/event accounting proves unconditional closure.
+
+\section{Native magnitude dissipation and weighted direction return}
+Let $\rho_\epsilon=(|\omega|^2+\epsilon^2)^{1/2}$ and
+$g_\epsilon=\rho_\epsilon-\epsilon$. Direct original curl differentiation gives
+\[
+ (D-\nu\Delta)g_\epsilon
+ =\frac{\omega\cdot S\omega}{\rho_\epsilon}-\nu G_\epsilon,
+ \qquad G_\epsilon=
+ \frac{|\nabla\omega|^2-|\nabla\rho_\epsilon|^2}{\rho_\epsilon}\ge0.
+\]
+Subtracting $\epsilon$ avoids the infinite constant-volume mass.
+An exponential spatial weight proves $L^1$ legality from the existing
+$L^2$ path before its radius tends to infinity. Since
+$\int|S||\omega|\le Z/\sqrt2$ and $2\nu\int Z\le E_0$,
+nonnegative Fatou as $\epsilon\downarrow0$ gives
+\[
+ \|\omega(t)\|_1+\nu\int_0^t\!\int_{\{\omega\ne0\}}
+ |\omega||\nabla n|^2
+ \le\|\omega_0\|_1+\frac{E_0}{2\sqrt2\nu}.
+\]
+This is an independently paid native direction budget, with possible
+extra nonnegative zero-set dissipation discarded. It does not control
+the critical stretching dose by itself.
+
+Use the weighted near-field observable, distinct from the earlier
+signed kinetic flux,
+\[
+ \Phi_R^{\rm dir}=\frac3{4\pi}\iint_{|x-y|<2R}
+ \frac{|\omega(x)||\omega(x)\times\omega(y)|}{|x-y|^3}\,dy\,dx,
+ \qquad c_R=\frac{\Phi_R^{\rm dir}}Z,
+\]
+with $c_R=0$ when $Z=0$. It is zero-safe and satisfies $c_R\le b_R$.
+The fixed-radius remote payment gives
+\[
+ Z'+2\nu Q\le2(F_R+c_R)Z,
+ \qquad F_R=\frac{39R^{-5/2}\sqrt{E_0}}{2\sqrt{5\pi}}.
+\]
+Finite full-horizon $\int c_R$ suffices for the original return.
+It is enough instead to pay its mass on the union of the actual disjoint
+growth intervals, since each has $\int_{J_k}(F_R+c_R)\ge\log2/2$.
+This arbitrary-data supplier remains open.
+
+There is an exact independent estimate. Double Cauchy--Schwarz,
+the increment identity
+\[
+ \iint\frac{|\omega(x+r)-\omega(x)|^2}{|r|^4}\,dx\,dr
+ =2\pi^2\|(-\Delta)^{1/4}\omega\|_2^2\le2\pi^2\sqrt{ZQ},
+\]
+and Sobolev interpolation give, for $Z>0$,
+\[
+ c_R\le3\sqrt\pi S^{3/2}\sqrt R\,\frac Q{\sqrt Z},
+ \qquad S=4/\sqrt3.
+\]
+In the small-initial-product class, divide $Z'+\nu Q\le0$ through
+$\sqrt{Z+\delta}$ and pass to a nonnegative limit. This gives
+$\int Q/\sqrt Z\le2\sqrt{Z_0}/\nu$, and therefore
+\[
+ \int_0^t c_R\le\frac{6\sqrt\pi S^{3/2}\sqrt{RZ_0}}\nu
+\]
+without a positive lower bound on $Z$ or an assumed continuation.
+No-swirl independently pays $b_R$ through the unsigned $\eta$ potential.
+Neither class payment covers arbitrary data. Swapping the exact
+Biot--Savart production also yields the absolutely convergent identity
+\[
+ \int\omega\cdot S\omega
+ =\frac3{8\pi}\iint
+ \frac{[(\omega_x-\omega_y)\cdot r]
+       [r\cdot(\omega_y\times\omega_x)]}{|r|^5}\,dy\,dx.
+\]
+Its simultaneous increment and bending factors have not yet been
+priced by the magnitude budget.
+
+\section{Integrated bending sign and one-receiver control}
+The complete integrated viscous coefficient is
+\[
+ \mathcal V=-2\sum_{j,k}\int|\partial_jJ_k|^2
+ -4\sum_{j,k}\int J_k\cdot
+       (\partial_j\omega\times\partial_j\partial_k\omega).
+\]
+It can be positive on actual solenoidal Schwartz states. To prove this,
+take a compact smooth bump $v$ and its disjoint translate $v(\cdot-3)$.
+For their one-dimensional heat evolutions define
+$W_s=(0,-(H_sv)'',-(H_sv(\cdot-3))'')$.
+Then $F(s)=\int|W_s\times W_s'|^2$ has $F(0)=0$ and $F(s)>0$
+for $s>0$: a vanishing Wronskian would make a nonzero analytic
+Schwartz function proportional to a fixed translate, contradicting
+its finite $L^2$ mass. Hence some $\tau\in(0,1)$ has $F'(\tau)>0$.
+The finite-scale original datum
+\[
+ u_L=\operatorname{curl}H_\tau^{(3)}
+ \left[e^{-(y^2+z^2)/L^2}(0,v(x),v(x-3))\right]
+\]
+is solenoidal Schwartz. Exact separable heat and rescaled Schwartz
+convergence give $L^{-2}\mathcal V(\operatorname{curl}u_L)
+\to(\pi/4)F'(\tau)>0$. Thus a sufficiently large finite $L$ gives
+the positive coefficient on the original state space.
+Its full initial integrated derivative at datum $b u_L$ is
+$b^4(\nu\mathcal V+b\mathcal N)$, where $\mathcal N$ is finite.
+Small positive $b$ makes this positive and also satisfies the
+small-initial-product threshold. Universal monotonicity of integrated
+$K$ therefore fails even inside that globally regular calibration class.
+This provides no later-time sign, singular trajectory or source payment.
+
+For the separate one-receiver functional $\Pi_\beta$, its exact
+variational gradient is
+$G_\beta=H_{2\beta}B+(\nabla u)^TH_{2\beta}u
+ -(u\cdot\nabla)H_{2\beta}u$ and $Q_\beta=-\langle G_\beta,\mathbb PB\rangle$.
+At the earlier original Gaussian $U$ and $\beta=3/8$, exact full-pressure
+Fourier/Gaussian moments give
+\[
+ \frac{Q_{3/8}(U)}{\pi^{3/2}}
+ =-\frac{196957853}{335879864320}
+ +\frac{2762863258\sqrt{13}}{39257040948125}<0.
+\]
+Both longitudinal pressure slots are nonzero; independent physical
+raw-pairing checks agree, and $\beta=0$ cancels exactly.
+The sign is certified by rational squaring, not floating quadrature.
+It concerns one initial quartic coefficient and is not a trajectory law.
+
+\section{Convex entropy and the fixed-parameter carrier}
+The unregularized half-amplitude $h=\omega/\sqrt{|\omega|}$ need not
+belong to $H^1$ at the initial face. For the admissible potential
+$P=(0,0,x^3e^{-|X|^2})$, its vorticity has the form
+$\omega_0=xe^{-|X|^2}W$, with $W_3=-6+O(x^2)$ near the plane $x=0$.
+Thus $l=|x|a$ for smooth positive $a$, and
+$\int |\nabla l|^2/l=\infty$ on a transverse patch. This is an initial
+applicability defect, not a rejection of positive-time entropy laws.
+
+Fix $\kappa>0$ and put $f(l)=l\log(1+l/\kappa)$. Direct differentiation gives
+\[
+ f'(l)=\log(1+l/\kappa)+\frac l{l+\kappa},\qquad
+ f''(l)=\frac{l+2\kappa}{(l+\kappa)^2}.
+\]
+On each existing compact interval, use the zero-safe approximation
+\[
+ g_\epsilon=\sqrt{l^2+\epsilon^2}-\epsilon.
+\]
+It satisfies
+\[
+ (D-\nu\Delta)f(g_\epsilon)
+ =\frac{f'(g_\epsilon)}{\rho_\epsilon}\omega\cdot S\omega
+ -\nu\bigl[f'(g_\epsilon)G_\epsilon
+                  +f''(g_\epsilon)|\nabla\rho_\epsilon|^2\bigr].
+\]
+Here the bracket lies between zero and $4|\nabla\omega|^2/\kappa$.
+The mass is bounded by $l^2/\kappa$, and the source is dominated by
+$f'(l)l|S|$. Exponential outer cutoffs disappear using compact-path bounds;
+dominated convergence in $\epsilon$ then proves the exact integrated law
+\[
+ \int f(l(t))+\nu\int_0^t\!\int
+ \bigl[f''(l)|\nabla l|^2+f'(l)l|\nabla n|^2\bigr]
+ =\int f(l_0)+\int_0^t\!\int f'(l)l\alpha .
+\]
+Zero-set densities are assigned zero, justified by the almost-everywhere
+vanishing of the smooth vorticity gradient on its zero set. Define the unpaid price
+\[
+ J_\kappa(t)=\int_0^t\!\int l|S|\log(1+l/\kappa).
+\]
+Native kinetic energy pays the remaining source term, yielding
+\[
+ \int f(l(t))+\nu\int_0^t\!\int
+ \left[\frac{|\nabla l|^2}{l+\kappa}
+          +l\log(1+l/\kappa)|\nabla n|^2\right]
+ \le\int f(l_0)+\frac{E_0}{2\sqrt2\nu}+J_\kappa(t).
+\]
+This conditional dissipation law does not pay $J_\kappa$.
+
+The fixed-parameter vector $H_\kappa=\omega/\sqrt{l+\kappa}$ has a valid
+Sobolev chain rule at zeros. Its exact gradient split gives
+\[
+ |\nabla H_\kappa|^2
+ =\frac{(l+2\kappa)^2}{4(l+\kappa)^3}|\nabla l|^2
+     +\frac{l^2}{l+\kappa}|\nabla n|^2
+ \le\frac{|\nabla l|^2}{l+\kappa}+l|\nabla n|^2.
+\]
+The native magnitude bound pays its $L^2$ mass; a finite $J_\kappa$ pays its
+gradient time integral. Since $l\le |H_\kappa|^2+\sqrt\kappa|H_\kappa|$,
+Sobolev and interpolation return an $L^1_tL^3_x$ vorticity bound on finite
+horizons. This does not give the squared $L^3$ time dose or the remaining
+weighted event charges.
+
+The original Gaussian $U$ has $l^2=144e^{-10}$ and
+$\omega\cdot S\omega=720e^{-15}$ at $(1,2,0)$.
+Fixed-energy concentration $U_L=L^{3/2}U(LX)$ therefore gives
+\[
+ \int|f'(l_L)l_L\alpha_L|\ge cL^2\log L
+\]
+on a scaled open neighborhood,
+whereas $Z_L=L^2Z_U$. This rejects a universal instantaneous absolute
+entropy-source bound by $C(E_0,\nu,\kappa)Z$; it does not reject a signed
+time-integrated supplier.
+
+\section{Grouped pair diffusion and explicit event debts}
+Let $V=\omega_x\times\omega_y$, $r=y-x$, $d=|r|$,
+$g=\sqrt{l_x^2+\epsilon^2}-\epsilon$ and
+$s=\sqrt{|V|^2+\delta^2}-\delta$. For a nonnegative fixed-radius cutoff
+$\theta_R$, let $K_\lambda=\theta_R(d)(d^2+\lambda^2)^{-3/2}$ and
+$I=(3/(4\pi))\iint K_\lambda gs$. Write
+$\rho=\sqrt{l_x^2+\epsilon^2}$, $h=\sqrt{|V|^2+\delta^2}$ and
+\[
+ \mathcal R=-A_x^TV+\omega_x\times[(A_y-A_x)\omega_y].
+\]
+At positive regularizers, integration by parts groups the kernel Laplacian,
+both coarea defects and the mixed product gradient exactly. The complete law is
+\begin{align*}
+ I'={}&\frac3{4\pi}\iint K_\lambda
+ \left[s\frac{\omega_x\cdot S_x\omega_x}{\rho}
+       +g\frac{V\cdot\mathcal R}{h}
+       +\nu s\frac{\omega_x\cdot\Delta\omega_x}{\rho}
+       +\nu g\frac{V\cdot\Delta_{xy}V}{h}\right]\,dx\,dy\\
+ &+\frac3{4\pi}\iint gs(u_y-u_x)\cdot\widehat r\,K_\lambda'\,dx\,dy.
+\end{align*}
+The fixed-radius transition is included. The cancellations
+\[
+ V=\omega_x\times(\omega_y-\omega_x),\qquad
+ \Delta_{xy}V=\Delta\omega_x\times(\omega_y-\omega_x)
+             +\omega_x\times(\Delta\omega_y-\Delta\omega_x)
+\]
+give $O(d)$ vanishing for the grouped reaction and diffusion brackets.
+The transport has two $O(d)$ factors against $K'\sim d^{-4}$.
+All sources and the mass consequently have regularizer-uniform integrable
+diagonal majorants on existing compact slabs. Sequential removal of the
+regularizers returns an absolutely continuous integrated law for
+$I_\theta=(3/(4\pi))\iint\theta_R l_x|V|/d^3\ge\Phi_R$, with zero
+normalized factors assigned their regularized limits. Separate $d^{-5}$
+kernel/coarea limits are not taken. The required majorants use higher
+derivatives and are not endpoint-native prices.
+
+For the admissible compactifiable local jet
+$\omega=(0,bx,a_0+c(x^2+y^2)/4)$, the leading grouped viscous coefficient is
+$2c\operatorname{sgn}(a_0)|a_0br_x|$. It has either sign. This is a local
+initial control, not the sign of the full integrated functional.
+
+The corrected increment bridge, with $M_p=\|\omega\|_p$ and
+$D_3=\|\nabla|\omega|\|_3$, is
+\[
+ \Phi_R\le6R\left[M_5^{5/2}\sqrt{G_1}+M_3^2D_3\right].
+\]
+Its angular Holder exponents are $(5/4,5)$, not an interpolation from
+$L^1\cap L^2$ to $L^3$. On the actual disjoint doubling intervals $J_k$,
+put $z_k=2^kZ_0$, $A_k=z_k^{-2}\int_{J_k}M_5^5$,
+$B_k=z_k^{-1}\int_{J_k}M_3^2D_3$ and $G_k=\int_{J_k}G_1$. Then
+\[
+ \sum_k\int_{J_k}c_R\le6R
+ \left[\sqrt{\Bigl(\sum_k A_k\Bigr)\Bigl(\sum_kG_k\Bigr)}
+                         +\sum_kB_k\right].
+\]
+Only $\sum G_k$ is independently paid. If both other sums were finite at
+a hypothesized finite endpoint, the original weighted event return would
+contradict its infinitely many required growth doses. Finally,
+$P=\int\omega\cdot S\omega=Z'/2+\nu Q$ gives
+$L_kd_k\ge z_k/\sqrt2$, where $L_k=\sup_{J_k,x}l$ and
+$d_k=\int_{J_k}Z$. This lower amplitude debt cannot replace the upper
+amplitude input needed to pay $A_k$.
+
+\section{Native reciprocal weights and a capped tensor return}
+The original enstrophy inequality and kinetic law give
+\[
+ Z'+\nu Q\le256\nu^{-3}Z^3,\qquad
+ \int_0^tZ\le\frac{E_0}{2\nu}.
+\]
+For each fixed $\theta>0$, multiplication by $(\theta+Z)^{-2}$ and
+the signed primitive $-1/(\theta+Z)$ give the native budget
+\[
+ \nu\int_0^t\frac{Q}{(\theta+Z)^2}
+ \le\frac{128E_0}{\nu^4}+\frac1\theta-\frac1{\theta+Z_0}=:B_\theta.
+\]
+It also pays $\int Q^{1/3}$ by time Holder. At $\theta=Z_0>0$, the actual
+event charge $\sum z_k^{-2}\int_{J_k}Q$ is at most $9B_\theta/\nu$.
+The old direct $c_R$ majorant requires an additional $z_k^{3/2}$ factor;
+that return remains unpaid.
+
+There is a separate parameter-independent native source component. For the
+uncentered cube maximal operator, a greedy triple-cube covering gives weak
+constant $27$, and layer cake gives $\|Ml\|_2\le6\sqrt6\|l\|_2$.
+Writing $G=\log(1+Ml/\kappa)$ and
+$R_m=\log((\kappa+Ml)/(\kappa+l))$, the exact entropy source splits into
+the maximal-log source, its ratio correction and a bounded remainder. Since
+\[
+ lR_m\le l\log(Ml/l)\le Ml/e,
+ \qquad \left|\int l\alpha R_m\right|
+                    \le\frac{6\sqrt6}{e\sqrt2}Z,
+\]
+the ratio is paid by native energy, including zeros. The fixed-threshold
+high maximal-log source remains unpaid. No scalar BMO assertion pays its
+direction product.
+
+Projectors $P=n\otimes n$ represent the readout exactly:
+\[
+ |\omega_x\times\omega_y|
+    =\frac{l_xl_y}{\sqrt2}|P_x-P_y|_F.
+\]
+An actual compact-curl flat zero-plane datum has orthogonal one-sided
+projector limits, so a raw projective line increment cannot be assumed.
+Instead use the globally $C^2$ tensor
+$T=\omega\otimes\omega/(l+\kappa)$ and its trace
+$b(l)=l^2/(l+\kappa)$. The full tensor law retains signed mixed and
+projector diffusion terms; tracing gives the native positive law
+\[
+ \int b(l(t))+\nu\int_0^t\!\int
+   \left[b''(l)|\nabla l|^2+b'(l)l|\nabla n|^2\right]
+ \le\int b(l_0)+\frac{E_0}{2\sqrt2\nu}=:B_\kappa.
+\]
+For each fixed $M>0$, set $T_M=b(\min(l,M))P$, with value zero at
+vorticity zeros. The weak cap derivative and the tensor zero adapter give
+\[
+ \|T_M(t)\|_2^2\le b(M)B_\kappa,\qquad
+ \int_0^t\|\nabla T_M\|_2^2\le\frac{C_{\kappa,M}B_\kappa}{\nu}.
+\]
+\[
+ C_{\kappa,M}=\max\left\{
+ \frac{M^2(M+2\kappa)^2}{2\kappa^3},2M\right\}.
+\]
+Restrict $\Phi_{\rm low}$ to pairs with both $l_x,l_y\le M$. Exact
+tensor difference and the global $H^1$ translation estimate imply
+\[
+ \Phi_{\rm low}\le3\sqrt2R(M+\kappa)\sqrt Z\|\nabla T_M\|_2.
+\]
+Thus on actual disjoint growth events at a hypothesized finite endpoint,
+\[
+ \sum_k\int_{J_k}\frac{\Phi_{\rm low}}Z
+ \le3\sqrt2R(M+\kappa)
+       \sqrt{\frac{T_*C_{\kappa,M}B_\kappa}{\nu Z_0}}.
+\]
+The zero path is handled undivided. This genuinely pays the capped low-pair
+sector across arbitrary zeros, without assuming an entropy log price.
+Pairs with at least one endpoint above the fixed cap remain unpaid;
+there is no cap-to-infinity passage or all-data closure.
+
+An actual growing cap can also be priced while retaining its time derivative.
+For any positive nondecreasing locally absolutely continuous $m(t)$, use
+the untruncated trace $b(l,m)=l^2/(l+m)$. Its parameter derivative is
+$\partial_m b=-l^2/(l+m)^2$, giving the positive parameter work
+\[
+ H_m(t)+\nu\int_0^tD_m
+       +\int_0^t m'(s)\int\frac{l^2}{(l+m)^2}
+ \le H_m(0)+\frac{E_0}{2\sqrt2\nu}=:B_{\rm run}\le A_*.
+\]
+At each time the matched spatial cap $C_m=b(\min(l,m),m)P$ has
+\[
+ \int_0^t\frac{\|\nabla C_m\|_2^2}{m}\le\frac{9B_{\rm run}}{2\nu}.
+\]
+No time evolution of the capped trace is asserted. Choose, with fixed
+$\delta>0$,
+\[
+ m(t)=\delta\left(\max_{s\le t}Z(s)\right)^{1/3}.
+\]
+On the actual growth intervals the running maximum is at most $2z_k$,
+so $m^3/Z\le2\delta^3$. The same tensor translation and one event-union
+Cauchy estimate give
+\[
+ \sum_k\int_{J_k}c_{\rm low,m(t)}
+ \le18\sqrt2R\delta^{3/2}\sqrt{\frac{B_{\rm run}T_*}{\nu}}.
+\]
+This consumes one native budget. It leaves interactions with at least one
+endpoint above the running cap as an explicit unpaid source. No repeated
+per-level budget or omitted parameter flux is used.
+
+The entropy increment also sharpens the conditional route to
+$\Phi_R\le6\sqrt2R\sqrt{(\kappa M_4^4+M_5^5)(r_\kappa+g_\kappa)}$.
+Actual tail interpolation compares its amplitude charge to
+$\sum z_k^{-2}\int_{J_k}M_5^5$. Finite log source and finite fifth-moment
+event sum suffice for the original event return, without a separate radial
+supplier in that route. Both inputs remain open. Its signed entropy-gap
+identity supplies only a one-sided residual price; high events require the
+opposite-sign debt, which is not paid by that inequality.
+
+\section{Native radial weights and amplitude tails}
+Let $w$ be a fixed smooth nonnegative bounded integrable weight,
+$W=\int_0^\infty w$, and define $\Psi''=w$, $\Psi(0)=\Psi'(0)=0$.
+The radial composition is $C^2$ at zero with Hessian $w(0)I$;
+$\Psi'/l\le\|w\|_\infty$ controls its angular Hessian.
+Original chain calculus and compact-slab dominated convergence give
+\[
+ H_\Psi(t)+\nu\int_0^t D_w
+ =H_\Psi(0)+\int_0^t\!\int\Psi'(l)l\alpha.
+\]
+Write $D_w=\int\mathcal D_w$, where
+\[
+ \mathcal D_w=w(l)|\nabla l|^2+\Psi'(l)l|\nabla n|^2.
+\]
+Since $\Psi'\le W$, native energy pays its absolute source, so
+$H_\Psi(t)+\nu\int_0^tD_w\le B_\Psi\le WA_*$.
+The separate supremum mass and total diffusion bounds each have price
+$B_\Psi$; their sum with the supremum has price at most $2B_\Psi$.
+
+For $w(l)=(l+\kappa)^{-1-\varepsilon}$, $\kappa>0$,
+$0<\varepsilon\le1$, put
+$h=\omega/(l+\kappa)^{(1+\varepsilon)/2}$.
+Decreasing $w$ gives $\Psi'\ge lw$ and $\Psi\ge l^2w/2$.
+The exact radial and tangential Jacobian coefficients then imply
+\[
+ |h|^2\le2\Psi(l),\qquad |\nabla h|^2\le\mathcal D_w,
+ \qquad \int_0^t\|\nabla h\|_2^2\le B_\Psi/\nu.
+\]
+This is a native regularized carrier, without a logarithmic stretching
+premise or an $\varepsilon\downarrow0$ limit.
+
+Let $r_w=\int w(l)|\nabla l|^2$ and
+\[
+ V=M_5^5+2^\varepsilon
+       (\kappa^{1+\varepsilon}M_4^4+M_{5+\varepsilon}^{5+\varepsilon}).
+\]
+The vector-increment Cauchy factors give
+$\Phi_{d<\rho}\le3\sqrt2\rho\sqrt{V(G_1+r_w)}$.
+For $\rho=\min(2R,\lambda Z^{3/2}/\sqrt V)$, native budgets pay
+\[
+ \int_{\cup J_k}c_{\rm near}
+ \le3\sqrt2\lambda\sqrt{\frac{E_0}{2\nu}}
+                         \sqrt{\frac{(1+W)A_*}{\nu}}.
+\]
+The remaining annulus has the unpaid upper source
+\[
+ 3\frac{M_3^3}{Z}\log_+\!\left(\frac{2R\sqrt V}{\lambda Z^{3/2}}\right).
+\]
+The radius is selected in a fixed-time estimate and is never differentiated.
+No weakest-criterion or reduced-difficulty claim follows.
+
+The actual fifth-moment charge has a simpler independent return.
+Native interpolation $Z^4\le M_1^3M_5^5$ and actual event duration give
+\[
+ a_k=z_k^{-2}\int_{J_k}M_5^5
+       \ge\frac{3\nu^3}{8C_ZA_*^3},\qquad C_Z=256.
+\]
+Thus independently finite $\sum a_k$ already excludes a finite maximal
+endpoint, without an entropy or direction input. Its arbitrary-data
+upper supplier remains open; the comparison to $\int_{J_k}Z^2$ does not
+control the gaps between events.
+
+There is also a native amplitude-tail law. For $U_M=\int(l-M)_+$,
+convex mollification away from zero and a direct change-of-level argument
+give, for almost every $M>0$ and every existing time,
+\[
+ U_M(t)+\nu\int_0^t\!\int_{l=M}|\nabla l|\,d\mathcal H^2
+       +\nu\int_0^t\!\int_{l>M}l|\nabla n|^2
+ =U_M(0)+\int_0^t\!\int_{l>M}l\alpha.
+\]
+For every $M$ there is the separate inequality obtained by dropping
+the radial flux and bounding the source on $l\ge M$.
+On a hypothetical finite endpoint let
+$C_M=U_M(0)+\int_0^{T_*}\int_{l\ge M}l|S|$.
+Native space-time integrability of $l|S|$ gives $C_M\to0$, hence
+\[
+ \beta(M):=\sup_{t<T_*}\int_{l>2M}l\le2C_M\longrightarrow0.
+\]
+For $z_k\ge4MA_*$, restricted interpolation yields
+$a_k\ge3\nu^3/(128C_Z\beta(M)^3)$; a hypothetical endpoint therefore
+forces $a_k\to\infty$. This is an enhanced required lower charge.
+Uniform first-moment amplitude tails give no upper critical price.
+
+\section{Asymmetric caps and optimized distance estimates}
+The matched running tensor also pays every low readout endpoint,
+without restricting the other endpoint. For $m=\delta\bar Z^{1/3}$,
+$\bar Z=\max_{s\le t}Z(s)$, write $C_m=b(\min(l,m),m)n\otimes n$,
+$b(l,m)=l^2/(l+m)$. Contraction with $I-n_y\otimes n_y$ gives
+$|C_x-C_y|\ge b(l_x,m)\sin\angle(n_x,n_y)$ when $l_x\le m$.
+The original asymmetric pair carrier is therefore at most
+$2m l_y|C_x-C_y|$. The single native cap-gradient budget yields
+\[
+ \int_{\cup J_k}\frac{\Phi_{l_x\le m}}Z
+ \le36R\delta^{3/2}\sqrt{\frac{B_{\rm run}T_*}{\nu}}.
+\]
+For the reverse mixed sector, exact rank-one geometry gives
+\[
+ \int_{\cup J_k}\frac{\Phi_{l_x>m,l_y\le m}}Z
+ \le18R\sqrt{\frac{B_{\rm run}H_4}{\nu}},\qquad
+ H_4=\sum_kz_k^{-2}\int_{J_k}m\int_{l>m}l^4.
+\]
+Both $H_4$ and the high--high pair dose remain unpaid. The native lower
+floor proportional to $z_k^{-2/3}$ is summable and supplies no upper price.
+
+Put $D=G_1+r_w$, $\int_0^{T_*}D\le D_*=(1+W)A_*/\nu$.
+The full-space positive carrier is legitimate on every compact original
+interval and dominates $|P|$. For every $\rho>0$,
+\[
+ \Phi_{d<\rho}\le3\sqrt2\rho\sqrt{VD},\qquad
+ \Phi_{d>\rho}\le\frac{\sqrt3}{2\sqrt\pi}Z^{3/2}\rho^{-3/2}.
+\]
+The second estimate is ordinary positive-kernel Cauchy and uses no signed
+cancellation. Minimizing their sum divided by $Z$ gives
+\[
+ c_\infty\le C_*V^{3/10}D^{3/10}Z^{-2/5},\qquad
+ C_*=\frac5{\sqrt2}(3/\pi)^{1/5},
+\]
+and consequently
+\[
+ \int_{\cup J_k}c_\infty\le C_*D_*^{3/10}W_Z^{7/10},\qquad
+ W_Z=\int_{\cup J_k}V^{3/7}Z^{-4/7}.
+\]
+Independently finite $W_Z$ would contradict the $\log2/2$ required
+per actual event. Its high-moment supplier is open.
+
+The original velocity-energy tail gives a distinct optimized law.
+For $C_{
+m far}=39/(2\sqrt{5\pi})$,
+\[
+ (\log Z)'\le12\sqrt2\frac{\sqrt{VD}}Z\rho
+                      +2C_{
+m far}\sqrt{E_0}\rho^{-5/2}.
+\]
+Fixed-time minimization and Holder on the disjoint event union give
+\[
+ N\log2\le C_EE_0^{1/7}D_*^{5/14}W_E^{9/14},\qquad
+ W_E=\int_{\cup J_k}V^{5/9}Z^{-10/9},
+\]
+where $C_E=(7/5)(12\sqrt2)^{5/7}(5C_{
+m far})^{2/7}$.
+No radius is differentiated; selectors are used where $D$ is finite,
+almost everywhere. $D=0$ uses the limiting-radius bound. Zero paths
+avoid logarithms; an interior zero implies future zero by forward
+uniqueness. Neither $W_E$ nor $W_Z$ is natively supplied. Their density
+ratio $V^{8/63}Z^{-34/63}$ gives no uniform comparison from the native
+lower bound on $V$ alone. An elementary sibling criterion,
+$\int_{\cup J_k}M_4^2/\sqrt Z<\infty$, follows directly from
+$P\le M_4^2\sqrt{Z/2}$ and is also unpaid for arbitrary data.
+
+\section{Moving levels and signed excess production}
+For positive nondecreasing locally AC $m(t)$, one-sided convex
+approximation gives the exact integrated positive-part law
+\[
+ U_m(t)+\nu\int_0^t\!\int_{l>m}l|\nabla n|^2+\nu\Lambda_m(t)
+       +\int_0^tm'|\{l>m\}|
+ =U_m(0)+\int_0^t\!\int_{l>m}l\alpha.
+\]
+Here $\Lambda_m$ is a continuous nondecreasing radial Stieltjes defect,
+not an asserted classical moving-surface flux. Each separate nonnegative
+term is bounded by $B_{\rm level}=U_m(0)+E_0/(2\sqrt2\nu)\le A_*$;
+this does not replace the tensor-gradient price $B_{\rm run}$.
+
+For $a=(l-m)_+$ let $\sigma_e=\int a^2\alpha$, using the original strain.
+Since $0\le l^2-a^2\le2ml$, the original production splits as
+\[
+ P=\sigma_e+P_{\rm low},\qquad |P_{\rm low}|\le\sqrt2mZ.
+\]
+For $m=\theta Z/A_*$ the total low contribution to event log growth is
+at most $4\theta$. For the monotone $m=\theta\bar Z/A_*$ it is at most
+$8\theta$, since $\bar Z\le2Z$ on actual events. Hence
+\[
+ N\log2\le8\theta+2\sum_{k<N}\int_{J_k}\sigma_e/Z
+\]
+for the latter choice. An independently uniform upper bound on these
+\emph{signed} prefixes would exclude finite maximality. It is open;
+finite positive-part charge is a stronger sufficient input.
+The squared-excess companion retains both signed sources and work:
+\begin{align*}
+ \int a(t)^2&+2\nu\int_0^t\!\int_{l>m}
+ (|\nabla l|^2+al|\nabla n|^2)+2\int_0^tm'U_m\\
+ &=\int a(0)^2+2\int_0^t\sigma_e+2\int_0^tm\int a\alpha.
+\end{align*}
+Instantaneous $m=\theta Z/A_*$ need not be monotone and its work is signed.
+Both thresholds satisfy the paid subterm
+$\int_0^{T_*}Z\int_{l>m}|\nabla n|^2\le A_*^2/(\theta\nu)$.
+Neither this price nor the companion supplies the signed prefix.
+
+\section{Moving radial gaps and projected curls}
+Define $f(l,m)=l-m-m\log(l/m)$ for $l>m$, zero otherwise.
+Its joint first derivatives vanish at the threshold. Direct moving-parameter
+chain calculus, with $m\ge m_0>0$, gives
+\begin{align*}
+ H_f(t)&+\nu\int_0^t\!\int_{l>m}
+ \left(\frac m{l^2}|\nabla l|^2+(l-m)|\nabla n|^2\right)
+ +\int_0^tm'\int_{l>m}\log(l/m)\\
+ &=H_f(0)+\int_0^t\!\int_{l>m}(l-m)\alpha.
+\end{align*}
+Dominated convergence gives the explicit radial density on compact intervals.
+Each separate nonnegative term is bounded by
+\[
+ B_f=H_f(0)+E_0/(2\sqrt2\nu)\le A_*.
+\]
+
+The excess $e=(l-m)_+n$ satisfies
+$\operatorname{div}e=\mathbf1_{l>m}(m/l)n\cdot\nabla l$.
+Its actual solenoidal lift $v_e=\operatorname{curl}(-\Delta)^{-1}e$
+has curl $Pe=e+G$, with $G=\nabla(-\Delta)^{-1}\operatorname{div}e$.
+Explicit Fourier multipliers and Plancherel give
+\[
+ \int_0^{T_*}\frac{\|\nabla G\|_2^2}{m}
+ =\int_0^{T_*}\frac{\|\operatorname{div}e\|_2^2}{m}
+ \le B_f/\nu.
+\]
+For $c=\omega-e$ and its lift strain $S_c$, the Piola/Betchov identity
+for the solenoidal $H^2$ lift yields the exact original excess source
+\[
+ \sigma_e=-4\int\det S_e-2\int e\cdot S_eG
+                      -\int G\cdot S_eG+\int e\cdot S_ce.
+\]
+All longitudinal and cap-strain corrections remain. The weighted
+projection price does not bound this complete signed cubic source.
+
+Finally smooth radial weights supported in a fixed band $(M,2M)$ give
+\[
+ \int_0^{T_*}\!\int_{M<l<2M}|\nabla l|^2\le MC_M/\nu,
+ \qquad \int_0^{T_*}|\{l>2M\}|^{1/3}\le\frac{16C_M}{3\nu M}.
+\]
+For $M_j=2^jM_0$, the sum of occupancy roots is bounded by
+\[
+ \sum_j\int_0^{T_*}|\{l>2M_j\}|^{1/3}
+ \le\frac{32C_{M_0}}{3\nu M_0}.
+\]
+Unweighted $\sum_j C_{M_j}$ introduces the exact source count
+\[
+ 1+\lfloor\log_2(l/M_0)\rfloor\quad\hbox{on }l\ge M_0.
+\]
+Native integrability of $l|S|$ does not supply it. Every critical
+supplier and the original unconditional Clay(A) target remain open.
+
+\section{Native vector forcing and a stretch-only return}
+For a positive nondecreasing threshold, write $e=(l-m)_+n$ and
+$T=\mathbf1_{l>m}(Se+m\alpha n)=DF_m(\omega)S\omega$.
+The radial map is a contraction, so $|T|\le l|S|$. Its actual weak equation is
+\begin{align*}
+ (\partial_t+u\cdot\nabla-\nu\Delta)e
+ &=T-m'\mathbf1_{l>m}n-\nu m\mathbf1_{l>m}|\nabla n|^2n\\
+ &\quad-2\nu(m/l)\mathbf1_{l>m}\nabla l\cdot\nabla n-\nu n\mu.
+\end{align*}
+Here $\mu$ is the nonnegative spacetime radial level measure supported on
+$l=m>0$, with mass at most $\Lambda_m$. Direction has unit length there;
+local total variation of $n\mu$ is exactly $\mu$. No classical moving
+coarea identity is presumed. Threshold, level and angular terms share
+one $B_{\rm level}$ budget, while the gap pays the radial factor. Thus
+\[
+ |F|((0,T_*)\times\mathbb R^3)
+ \le E_0/(2\sqrt2\nu)+B_{\rm level}
+                 +2\sqrt{B_fB_{\rm level}}\le4A_*.
+\]
+For fixed $m(0)\ge M>0$, both budgets and the stretch source are bounded
+by $C_M$, giving $\sup\|e\|_1\le C_M$ and $|F|\le4C_M\to0$.
+This is a forcing-mass price, without a critical-norm return.
+
+Pair the smooth ramp equation with its own excess. The mixed vector term
+is orthogonal, and the level-energy term tends to zero before the measure
+limit. Hence, for $Y=\|e\|_2^2$,
+\[
+ \tfrac12Y(t)+\nu\int_0^t\!\int_{l>m}
+ (|\nabla l|^2+(l-m)l|\nabla n|^2)+\int_0^tm'U_m
+ =\tfrac12Y(0)+\int_0^t\!\int e\cdot T.
+\]
+It follows, including at zeros, that
+$\sqrt{Y(t)}-\sqrt{Y(s)}\le\int_s^t\|T\|_2$.
+Choose fixed $m=M+\theta\bar Z/A_*$ with $0<\theta\le1/16$.
+At sufficiently high actual upper-hit endpoints, $z_k\ge8MA_*$,
+$Y(\tau_k)\ge3z_k/2$, whereas $Y(\sigma_k)\le z_k$. Consequently
+\[
+ \int_{J_k}\frac{\|T\|_2}{\sqrt Z}
+ \ge\frac{\sqrt3}{2}-\frac1{\sqrt2}>0.
+\]
+An independently finite sum of these charges excludes finite maximality.
+The stronger full-horizon $\int\|T\|_2<\infty$ also suffices. Both
+arbitrary-data suppliers remain open. Globally smooth Gaussian forced-heat
+controls have forcing mass and supremum $L^1$ tending to zero, fixed
+$\int\|v\|_2^2$, and unbounded tested critical charges. They reject only a
+uniform transfer from those budget sizes in that control class; they are
+not original Navier--Stokes paths or actual-event counterexamples.
+
+\section{Native radial carriers and longitudinal applicability}
+For fixed $s>0$ and positive monotone $m$, set
+\[
+ f_s(l,m)=\int_m^l(l-r)m^sr^{-1-s}\,dr\quad(l>m),
+ \qquad h_s=\int_m^l\sqrt{m^sr^{-1-s}}\,dr,
+\]
+zero below threshold. Direct moving-parameter calculus gives
+$(f_s)_l=[1-(m/l)^s]/s$ and $(f_s)_m=[sf_s-l+m]/m\le0$.
+The original law prices radial $m^sl^{-1-s}|\nabla l|^2$,
+angular $l(f_s)_l|\nabla n|^2$ and favorable parameter work,
+with each separate cost at most $C_M/s$ for $m(0)\ge M$.
+Since $h_s^2\le2f_s$ and $h_s^2\le(l-m)(f_s)_l$, the vector carrier obeys
+\[
+ \sup\|h_sn\|_2^2\le2C_M/s,\qquad
+ \nu\int\|\nabla(h_sn)\|_2^2\le C_M/s.
+\]
+At $s=1$, $h_1=\sqrt m\log(l/m)$. For $g=\log(l/m)_+$,
+support H\"older and the original Sobolev law give
+\[
+ \int m^{5/3}[2C_{M/2}]^{-2/3}\|g\|_2^2
+ \le\frac{16C_M}{3\nu},
+\]
+with the zero-tail case handled before division. The support refinement uses
+$l\le2(l-M/2)$ on $l>m\ge M$. No critical stretch norm or free $s\downarrow0$
+price follows.
+
+The actual positive longitudinal correction is $G=\Pi c$, whose kernel is
+\[
+ G=c/3+\operatorname{PV}\frac{I-3\widehat x\otimes\widehat x}
+                                      {4\pi|x|^3}*c.
+\]
+For $L=\operatorname{Lip}c$ a three-region split yields
+\[
+ \|G\|_\infty\le m\left[\frac73+\frac1{2\pi}
+       +2\log_+\!\left(\frac{A_*^{1/3}L}{m^{4/3}}\right)\right].
+\]
+Original all-order persistence supplies compact-interval $L$; base
+$H^\gamma$ alone does not supply $\nabla\omega\in L^\infty$.
+Uniform spatial $C_0$ tails of the original compact-time path pass to the
+regularized $G$. They justify the global weighted level-measure limit
+even if unweighted defect mass escapes. The exact projected energy retains
+transport $-\int(u\cdot\nabla e)\cdot G$, equivalently
+$+\int e\cdot(u\cdot\nabla G)$, and level $-\nu\int n\cdot G\,d\mu$.
+Terminal logarithmic and transport prices remain open.
+
+\section{Positive radial continuation and its original dynamics}
+The unprojected excess energy needs only
+$r_+=\mathbf1_{l>m}l\alpha_+$ and $f_+=\|r_+\|_2$:
+\[
+ Y'/2\le\int(l-m)_+l\alpha_+\le\sqrt Y f_+.
+\]
+Negative radial production is favorable, and transverse stretch is
+orthogonal in this pairing. The exact vector decomposition is
+$T=\mathbf1_{l>m}[l\alpha n+(l-m)P_{n^\perp}Sn]$, so
+$f_+\le\|T\|_2$. The actual-event floor and both conditional returns
+above hold with $f_+$ in place of $\|T\|_2$. Also
+$(\sigma_e)_+/Z\le f_+/\sqrt Z$; this supplies a one-way upper
+signed-prefix comparison. Native $\int\|r_+\|_1\le C_M$ does not
+pay its required spatial $L^2$ norm.
+
+Let $B=P_{n^\perp}Sn$ and $H=\nabla^2p$. On $l>m>0$ the exact
+pressure-complete original law is
+\begin{align*}
+ L\alpha={}&|B|^2-\alpha^2-n\cdot Hn
+ +2\nu\sum_j\partial_jn\cdot(\alpha I-S)\partial_jn\\
+ &-4\nu\sum_j\partial_jn\cdot(\partial_jS)n
+ +(4\nu/l)\sum_j(\partial_jl)\partial_jn\cdot Sn.
+\end{align*}
+Native energy pays the unweighted transverse source
+$\int|B|^2\le E_0/(4\nu)$. Its amplitude-weighted role, the full
+directional Hessian and viscous couplings remain open.
+
+The actual longitudinal contact gives projected level work
+\[
+ -(\nu/3)\int m\,d\mu-\nu\int n\cdot G_{\rm nl}\,d\mu.
+\]
+On the union $U$ of actual events with $z_k\ge z_K$,
+\[
+ \frac\nu3\int_U\frac mZ\,d\mu
+ \le\left(\frac M{z_K}+\frac{2\theta}{A_*}\right)\frac{C_M}{3}.
+\]
+This native price also pays the constant terms of the nonlocal kernel
+envelope. Its remaining absolute logarithmic child is
+\[
+ 2\nu\int_U\frac mZ
+       \log_+\!\left(\frac{A_*^{1/3}L}{m^{4/3}}\right)d\mu.
+\]
+It is open, together with the other projected sources and transport.
+No normalized energy return follows by dividing an identity by $Z$
+without its denominator derivatives. The original root remains open.
+
+\section{Original acceleration and a threshold-vanishing radial source}
+Let $\zeta=S\omega=A\omega$. The original product equation cancels
+quadratic strain exactly:
+\[
+ L\zeta=-\nabla^2p\,\omega
+       -2\nu\sum_j(\partial_jS)(\partial_j\omega).
+\]
+Here $\Omega\omega=0$ for the actual antisymmetric velocity gradient.
+Pressure and derivative viscosity remain as sources. Native energy gives
+$\int_0^T\|\zeta\|_1\le E_0/(2\sqrt2\nu)$. Moreover
+$\zeta=\operatorname{div}(u\otimes\omega)$ and
+\[
+ \int_0^T\|u\otimes\omega\|_1
+       \le E_0\sqrt{T/(2\nu)}.
+\]
+This prices ordinary pairings with bounded tests having bounded gradients.
+Unbounded Lipschitz tests have only a flux-defined extension; nonlinear
+threshold and direction test costs remain open.
+
+For $r=l\alpha$ the exact original equation is
+\begin{align*}
+ Lr={}&l|B|^2-l\,n\cdot Hn+\nu r|\nabla n|^2
+        -2\nu l\sum_j\partial_jn\cdot S\partial_jn\\
+ &-4\nu l\sum_j\partial_jn\cdot(\partial_jS)n
+        -2\nu\sum_j(\partial_jl)n\cdot(\partial_jS)n.
+\end{align*}
+Its $\alpha^2$ terms cancel, but it does not vanish at $l=m$.
+Instead set $a=(l-m)_+$, $q_+=a\alpha_+$ and $g_a=\|q_+\|_2$.
+The actual signed excess satisfies
+\[
+ (\sigma_e)_+\le\sqrt Y\,g_a\le\sqrt Z\,g_a,
+ \qquad
+ N\log2\le2\sqrt2MT_*+8\theta
+                   +2\sum_{k<N}\int_{J_k}\frac{g_a}{\sqrt Z}.
+\]
+Finite actual-event charge would therefore give the same original global
+return. This is a total prefix demand, without an individual-event floor.
+The comparison $g_a\le f_+$ gives no strict separation of actual
+trajectory finiteness classes; at large $l$, $a$ is asymptotic to $l$.
+It also cannot replace $f_+$ in the unprojected excess-energy increment.
+
+On the high set, write $R_+=\mathbf1_{\alpha>0}(R_0+R_1+R_2)$, where
+\begin{align*}
+ R_0={}&a|B|^2+m\alpha^2-a\,n\cdot Hn
+                  +\nu(a-m)\alpha|\nabla n|^2,\\
+ R_1={}&-2\nu a\sum_j\partial_jn\cdot S\partial_jn
+         -4\nu a\sum_j\partial_jn\cdot(\partial_jS)n,\\
+ R_2={}&-4\nu(m/l)\sum_j(\partial_jl)\partial_jn\cdot Sn
+         -2\nu\sum_j(\partial_jl)n\cdot(\partial_jS)n.
+\end{align*}
+The exact positive field law retains two distinct nonnegative defects:
+\[
+ Lq_+=R_+-m'\mathbf1_{l>m}\alpha_+
+             -\nu\alpha_+\mu-\nu a\lambda_\alpha.
+\]
+Both energy pairings vanish through separate pre-limit small factors,
+because $q_+$ vanishes on the amplitude and $\alpha$ zero sets. This
+removes neither defect from the field law. The compact energy identity is
+\[
+ \frac12\|q_+(t)\|_2^2+\nu\int_0^t\|\nabla q_+\|_2^2
+ +\int_0^t m'\!\int a\alpha_+^2
+ =\frac12\|q_+(0)\|_2^2+\int_0^t\!\int q_+R_+.
+\]
+Native energy separately pays the unweighted normalized reaction on
+actual events $U_K$:
+\[
+ \int_{U_K}\frac mZ\int_{l>m}\alpha_+^2
+ \le\left(\frac M{z_K}+\frac{2\theta}{A_*}\right)\frac{E_0}{4\nu}.
+\]
+It does not pay the energy source $ma\alpha_+^3$, pressure or derivative
+viscosity. The critical supplier and original unconditional root remain open.
+
+\section{Native time densities, fractional gradients and a paid far sector}
+For a positive moving level $m\ge m_0$, the native mass bound gives
+\[
+ |U_m(t)-U_m(s)|\le\sqrt{2A_*/m_0}\|\omega(t)-\omega(s)\|_2
+                         +(A_*/m_0)|m(t)-m(s)|.
+\]
+Actual compact-slab $C^1_tL^2_x$ vorticity regularity makes $U_m$ absolutely
+continuous. The exact moving law therefore yields an absolutely continuous
+cumulative radial defect, with $\lambda_m=\Lambda_m'\ge0$ and
+$\nu\int\lambda_m\le C_M$ at the fixed offset. Uniform convergence of the
+whole-space ramp cumulatives, followed by compact spacetime tests and spatial
+exhaustion, proves the actual marginal domination
+$\mu_{\rm time}\le\lambda_m\,dt$. A cumulative upper bound alone would not
+justify this step.
+
+Let $J_k=\|\nabla^ku\|_2^2$ use full ordered tensors, and
+$c_p=\sqrt3+p-2$. Explicit ordered Leibniz contractions and elementary
+integration by parts give, for $k=3,4$,
+\[
+ J_k'+2\nu J_{k+1}\le D_k\|\nabla u\|_\infty J_k,
+ \quad D_3=2(4+3c_4),\quad D_4=2(5+10c_6c_3).
+\]
+A physical Fourier split, then multiplication by
+$(\kappa+J_k)^{-2k/(2k-1)}$, uses the bounded primitive
+$-(2k-1)(\kappa+J_k)^{-1/(2k-1)}$. Young absorption is paid by native
+$\int Z$. It gives finite $\int J_3^{1/5}$ and $\int J_4^{1/7}$ through
+any proposed finite maximal horizon. A second split yields
+\[
+ \int\|\nabla\omega\|_\infty^{1/3}
+ \le(\sqrt2G_{2,4})^{1/3}(\int Z)^{1/36}
+                                (\int J_4^{1/7})^{35/36},
+ \quad G_{2,4}=\frac1{\sqrt2\pi\sqrt5}+\frac1{\sqrt2\pi}.
+\]
+These fractional time powers give no critical continuation by themselves.
+
+Set $h=\|\nabla\omega\|_\infty^{1/3}$,
+$K=A_*^{1/9}M^{-4/9}$ and $c_K=M/z_K+2\theta/A_*$. The logarithmic level
+component has the conditional estimate
+\[
+ C_{\log}\le6\nu c_K
+ \left[H_m+\lambda_0\left(T_*+K\int_0^{T_*}h\right)\right],
+ \quad H_m=\int_0^{T_*}\lambda_m\log_+(\lambda_m/\lambda_0).
+\]
+The reference $\lambda_0>0$ has density units. The factor three from the
+cube inside the logarithm is retained. Native $L^1$ mass does not pay the
+open entropy $H_m$; the other projected sources remain.
+
+The original fixed-$R$ smooth shell also pays both radial far contributions.
+Its curl estimate $4+6\sqrt2<13$ yields
+$F_R=39R^{-5/2}\sqrt{E_0}/(2\sqrt{5\pi})$ and
+\[
+ \frac{g_a}{\sqrt Z}\le\frac{g_{a,R}^{\rm near}}{\sqrt Z}+F_R,
+ \qquad
+ \frac{f_+}{\sqrt Z}\le\frac{f_{+,R}^{\rm near}}{\sqrt Z}+F_R.
+\]
+The disjoint event union costs at most $F_RT_*$ once. The near radial
+supplier remains open; $c_R\le b_R$ does not bound its spatial $L^2$ norm
+by the weighted scalar $c_R$. The original unconditional root is open.
+
+\section{Actual level diffusion, band budget and production controls}
+Positive-level uniform $C_0$ tails confine every level ramp to one finite
+ball on each existing compact slab. This identifies the full temporal
+marginal $\mu_m(dt,\mathbb R^3)=\lambda_m(t)dt$. Comparing the original
+positive-part time chain with its exact moving law gives
+\[
+ \lambda_m+G_m=-\int_{l>m}n\cdot\Delta\omega\ge0,
+ \qquad
+ \int m^{1/5}(\lambda_m+G_m)^{2/5}
+       \le C_{\rm support}^{1/5}\int J_3^{1/5}.
+\]
+Here $C_{\rm support}=A_*$, or the tail refinement $2C_{M/2}$.
+This native fractional price does not give time-density entropy.
+For fixed $0<\theta_0<\theta_1\le1/16$ and
+$m_\theta=M+\theta\bar Z/A_*$, the actual joint ramp limit is
+\[
+ \int_{\theta_0}^{\theta_1}\mu_{m_\theta}\,d\theta
+  =\frac{A_*}{\bar Z}\mathbf1_{m_{\theta_0}<l<m_{\theta_1}}
+                       |\nabla l|^2\,dxdt.
+\]
+Tonelli and each native level law pay its total mass by
+$(\theta_1-\theta_0)C_M/\nu$. The restricted band is essential;
+its logarithmic weight and the all-space $Q/Z$ price remain open.
+
+For $\mathcal L=\partial_t+u\cdot\nabla-\nu\Delta$,
+$d=|\nabla l|^2$ and $b=\mathcal Ll$, the original gradient law is
+\[
+ \mathcal Ld=2\nabla l\cdot\nabla b
+       -2\nabla l\cdot S\nabla l-2\nu|\nabla^2l|^2.
+\]
+The exact law for $k_\delta(l-m)d$ retains the ramp derivatives,
+moving work and mixed diffusion. Parameter-band differentiation also
+retains $-\bar Z'B_\delta/\bar Z$. Neither native mass nor ramp scaling
+alone pays the complete time-entropy production.
+
+Tracefree algebra bounds the local positive-radial block by
+$a^2\alpha(|S|^2-l^2/6)+a(m-a)\alpha^3$ on $\alpha>0$.
+The positive cubic coefficient lies in $m<l<2m$; compact solenoidal
+Schwartz jets realize both signs of this local block. The full nonlocal
+pressure and nonlinear test derivatives remain.
+A separate actual Gaussian solenoidal datum has a persistent regular
+positive level. Direct coordinates produce a nonzero singular graph
+measure as the ramp-density limit. Uniform spacetime entropy of the
+spatial ramp densities would imply uniform integrability and contradict
+that graph mass. This rejects only that auxiliary estimate; temporal
+entropy of $\lambda_m$ and grouped cancellations remain viable.
+
+\section{Projection and native corrections}
+The actual threshold fields have $e\in AC_{\mathrm{loc}}(L^2)$;
+the threshold derivative is locally $L^1$ in time. With
+$w=Pe=e+G$ and $G=-\Pi e$, orthogonality gives
+$\|e\|_2^2=\|w\|_2^2+\|G\|_2^2$. For the original vector forcing
+$F=(\partial_t+u\cdot\nabla-\nu\Delta)e$, the complete projected
+energy correction groups into longitudinal storage and dissipation:
+\[
+ \tfrac12(\|w\|_2^2)' +\nu\|\nabla w\|_2^2
+ =\langle F,e\rangle-\tfrac12(\|G\|_2^2)'
+                         -\nu\|\nabla G\|_2^2.
+\]
+This bypasses termwise trace envelopes in this energy identity; it does
+not supply its remaining production or retire other consumers.
+A fixed amplitude band $m<l<Km$ has native normalized time price through
+$B_m=MT_*+\theta E_0/(\nu A_*)$. The complementary above-band source
+remains open.
+
+A native cube $L^2$ atom calculation bounds the longitudinal projection
+by $C_{\mathrm{at}}=\sqrt{32\pi\sqrt3}+256/27$ in $L^1$.
+The inspected singular-integral proof supplies the original projection's
+$L^4$ law. Its quadratic correction has a native actual-event price.
+For the mixed correction, a direct non-tangential grand-maximal estimate
+uses $E=w$, $\pi=u_i$ and $\nabla\pi\in L^2$:
+\[
+ \|M_6(E\cdot\nabla\pi)\|_1
+       \le C_{\mathrm{gm}}\|E\|_2\|\nabla\pi\|_2.
+\]
+Subtracting nested ball means, critical Sobolev--Poincare and annular
+kernel decay give the summable shell factor $2^{-2j}$. Replaying the
+inspected constructive atomic proof directly with this grand-maximal
+norm yields the exact cube-atom input, without assuming a recalled
+Poisson-norm equivalence. Consequently
+\[
+ \|\Pi((w\cdot\nabla)u)\|_1
+       \le C_H\|w\|_2\|\nabla u\|_2,
+ \qquad \left|\int G\cdot Sw\right|\le C_HmZ.
+\]
+The cap $c$ is bounded by $m$, and the actual events pay $\int_Um\le B_m$.
+Writing $\sigma_e=\int e\cdot Se$ and $\sigma_w=\int w\cdot Sw$, the exact
+mixed and quadratic expansion therefore bounds their normalized prefix
+difference by a finite native constant. Their signed suppliers remain open.
+
+\section{Actual self--cap decomposition and a scoped kernel control}
+Native vorticity $L^1$ and compact-interval $H^1$ justify the low-frequency
+Biot--Savart velocities $v=BS(w)$ and $v_c=BS(c)$ in $H^2$.
+The original $u=v+v_c$, and signed Piola integration followed by $H^2$
+approximation gives
+\[
+ \sigma_w=-4\int\det S_w+R_{\mathrm{cap}},
+ \qquad R_{\mathrm{cap}}=\int w\cdot S_cw,
+ \quad S_w=\operatorname{sym}\nabla v.
+\]
+This supplies no sign. For $T=w\otimes w$, the actual quadratic transpose is
+\[
+ R_{\mathrm{cap}}=\int c\cdot\Psi_w,
+ \qquad\Psi_w=-\operatorname{curl}(-\Delta)^{-1}\operatorname{div}T.
+\]
+Symmetry cancels the Hessian contact term; its off-diagonal kernel is
+$-3\hat r\times(T\hat r)/(4\pi|r|^3)$. A fixed-radius split of this
+already differentiated kernel pays
+\[
+ \int_U\frac{|R_{\mathrm{cap,far}}|}{Z}
+                      \le\frac{3A_*T_*}{4\pi R^3}.
+\]
+The combined signed self-determinant and near-cap production remains
+an independent unpaid supplier.
+
+For the admissible Gaussian velocity
+$u_0=(\partial_y e^{-|x|^2},-\partial_x e^{-|x|^2},0)$,
+vorticity covariance is $(\pi/2)^{3/2}\operatorname{diag}(1,1,8)$.
+Every sufficiently small positive excess threshold retains nonscalar
+projected covariance $C_m=\int w_m\otimes w_m$. Its actual transpose has
+\[
+ \Psi_{w_m}(r n)=-\frac{3}{4\pi r^3}n\times(C_m n)+O(r^{-4}).
+\]
+A nonzero angular cone forces $\|\Psi_{w_m}\|_1=\infty$.
+This rejects only the generic $m\|\Psi_w\|_1$ envelope. The coupled
+$L^2$ pairing and native remote price remain valid; no singular trajectory
+or failure of an original continuation supplier follows.
+
+\section{A sublinear cap loss and the remaining self-source}
+A quantitative native Calderon--Zygmund argument for each strain component
+and its adjoint gives a weak $(1,1)$ constant $W=1024$.
+Distribution-function interpolation and duality yield
+$\|S_c\|_p\le K_0p\|c\|_p$ for $p\ge4$.
+For $h=e$ or $w$, clipping, projection, Sobolev and Young give
+\[
+ \frac{|\int h\cdot S_ch|}{Z}
+ \le\frac{\nu Q}{4Z}
+   +C p m\left(\frac{64A_*^2m}{\nu^3}\right)^{1/(2p-3)}.
+\]
+Choose $p_j=j+4$ on the actual event with $z_k=\zeta2^j$.
+Its remainder is at most $C_{\mathrm{fixed}}(j+4)m$.
+The native sequence $b_j=\int_{J_{k_0+j}}m$ is summable, hence
+$\sum_{j<n}(j+4)b_j=o(n)$. This does not assert a finite full weighted sum.
+The original enstrophy identity, including its native low-production and
+projection errors, therefore gives
+\[
+ \frac n2\log2+\frac{3\nu}{4}\int_{U_n}\frac QZ
+ \le\sum_{j<n}\int_{J_{k_0+j}}\frac{-4\int\det S_w}{Z}+o(n)+C.
+\]
+An independent upper self-source slope below $\log2/2$ would suffice.
+That producer is open.
+
+The signed excess self-core has the exact absolutely convergent identity
+\[
+ \int e\cdot S_we=\frac3{8\pi}\iint
+ \frac{[e_x-e_y,\hat r,e_y]((e_x-e_y)\cdot\hat r)}{|r|^3}\,dx\,dy,
+ \quad r=x-y.
+\]
+Both endpoints are high; signed and absolute pair criteria remain distinct.
+Native excess $L^1$ pays its fixed-radius remote sector. Applying the
+reviewed Hardy law anew with potential $v_i=BS(w)_i$ pays the self-strain
+mixed correction; its quadratic correction has the native $L^4$ price.
+Thus the excess core and projected Betchov self-source have a bounded
+normalized prefix difference, rather than being exactly equal.
+
+The pressure source $f=\sum_{ij}\partial_i u_j\partial_j u_i$ is a sum
+of actual div--curl products. The direct grand-maximal and atomic laws,
+with the scalar Hessian multiplier equal to the negative projection
+component, give
+\[
+ \|\nabla^2p\|_{L^1}\le C_pZ,
+ \qquad\int_0^{T_*}\|\nabla^2p\|_1\le C_pE_0/(2\nu).
+\]
+This pays bare or fixed bounded tests. Amplitude-weighted pressure
+production remains open. The same native singular-integral argument gives
+$\|S\|_3\le C_3\|\omega\|_3$ and the actual-event lower demand
+$\int_J\|\omega\|_3^3/Z\ge\log2/(2C_3)$; its supplier is also open.
+
+\section{Native matrix direction and complete joint geometry}
+For $X=\nabla u$ or $S$, the original matrix equation and the pressure
+Hessian law bound its magnitude source in $L^1$ by $(1+C_p)Z$.
+A zero-safe Kato identity and whole-space cutoff argument prove
+\[
+ \|X(t)\|_1+\nu\int_0^t\!\int_{X\ne0}
+ |X|\,|\nabla(X/|X|)|^2
+ \le\|X(0)\|_1+(1+C_p)E_0/(2\nu).
+\]
+These one-amplitude matrix-direction budgets do not pay critical strain
+or nonlinear pressure weights.
+The complete integrated pressure contraction is
+\[
+ -\int\omega\cdot\nabla^2p\,\omega
+ =\int l\,\partial_n l\,\partial_n p+\int l^2\kappa\cdot\nabla p,
+ \qquad\kappa=(n\cdot\nabla)n.
+\]
+The excess identity retains the extra threshold coefficient $ma/l$;
+the nonlinear positive-radial test retains axial amplitude and strain
+derivatives and curvature costs.
+
+For $s=|S|$, $q_0=\sqrt{2/3}$ and $\alpha=n\cdot Sn$, let
+$K_q=l(qs-\alpha)$, with $q=1$ or $q_0$.
+Tracefree algebra makes $K_1$ comparable to $ls$, so it is not a
+vanishing depletion measure. The sharper $K_{q_0}$ can vanish on actual
+local curl jets. The smooth nonnegative carrier
+$q(\rho\sigma-\epsilon\eta)-(\omega\cdot S\omega)/\rho$
+has an exact original evolution retaining all pressure and mixed diffusion.
+For $D=nn^T-I/3-q_0S/s$,
+\[
+ |D|^2=2q_0K_{q_0}/(ls),\qquad
+ l\nabla^2p:(nn^T-q_0S/s)=l\nabla^2p:D+(l/3)\Delta p.
+\]
+The trace term remains. Neither the native carrier mass nor the separate
+direction budgets supplies this complete weighted production.
+
+\section{Actual self absorption and adaptive pair frontier}
+The native order-zero inverse-curl gradient estimate at exponent $3/2$,
+combined with elementary $W^{1,1}$ Sobolev applied to $|v|^2$, gives
+$\|v\|_3\le C_v\|e\|_{3/2}\le C_v(UY)^{1/3}$, where
+$v=BS(e)$, $U=\|e\|_1$ and $Y=\|e\|_2^2$.
+Solenoidal integration by parts then gives
+\[
+ |C_w|\le C_S\|v\|_3Q,\qquad
+ \frac n2\log2\le\int_{U_n}
+ [C_S\|v\|_3-3\nu/4]_+\frac QZ+o(n)+C.
+\]
+This absorbs good times. The weighted bad-time remainder still needs an
+independent upper price. The exact critical product law retains the
+sources $Y\int_{l>m}l\alpha+2U\int_{l>m}al\alpha$, moving-threshold
+work, radial level density and all diffusion. In particular the scalar
+$U$ angular coefficient is $l|\nabla n|^2$; replacing it by $m|\nabla n|^2$
+would omit a favorable term from an equality.
+
+The instantaneous radius $\rho_j^3=A_*/((j+4)m)$ pays the remote
+self-source by $(3/(4\pi))\sum_{j<n}(j+4)\int_{J_j}m=o(n)$.
+Its complementary near region includes $0<|x-y|<2\rho_j$ and the cutoff
+transition; there is no established lower core radius. A source split
+introduces no radius derivative, whereas an evolving pair functional would.
+The original matrix Kato laws also give uniform amplitude tails of
+$\nabla u$ and $S$, without a quantitative critical tail rate.
+
+For fixed smooth compact radial $\phi$, the exact pair mass
+$\iint\phi|e_x\times e_y|^2$ retains both complete vector force pairings,
+both gradient dissipations, drift from $u_x-u_y$ and $2\nu\Delta\phi$.
+The force contains smooth chain diffusion; its presence prevents inferring
+a sign for the complete diffusion from the explicit gradient squares alone.
+With $D=nn^T-I/3-q_0S/s$, the native direction laws give
+\[
+ \nu\int\min(l,s)|\nabla D|^2\le4A_*+2q_0^2A_S.
+\]
+Neither this one-amplitude budget nor the smooth pair identity supplies a
+cubic source or a singular-kernel return.
+
+\section{Complete pair diffusion and an unclipped convex law}
+The explicit negative gradient squares in the clipped quartic pair law
+do not fix the sign of its full diffusion. For one endpoint with magnitude
+$l$, excess $a=l-m$, direction $n$, and the other excess $bN$, set
+$c=n\cdot N$, $d=\partial l$, $h=\partial n$. The complete local block is
+\[
+ J=d^2(1-c^2)+[a^2+am(1-c^2)]|h|^2-a^2(h\cdot N)^2
+       -2a(1+m/l)dc(h\cdot N).
+\]
+Its contribution is $-2\nu b^2J$. The admissible local jet
+$l=2$, $m=a=b=1$, $n=e_3$, $N=(3/5,0,4/5)$, with only
+$\partial_2\omega=2e_1+2e_3$, has $J=-11/25$.
+A two-stage polynomial potential realizes it in compact solenoidal
+original velocity data. This tests a local block, not a global pair sign.
+The absolute complete diffusion admits a bound by
+$12\nu\|\phi\|_\infty YH_m$, where
+$H_m=\int_{l>m}(|\nabla l|^2+al|\nabla n|^2)\le Q$;
+neither $\int Q$ nor $\int H_m$ is a native endpoint budget.
+
+For original $V=\omega_x\times\omega_y$, the convex regularized norm
+$g_\epsilon=(|V|^2+\epsilon^2)^{1/2}-\epsilon$ has a complete fixed
+smooth-kernel law. Its mass, both stretching terms, relative drift and
+kernel Laplacian have native prices from $A_*$, kinetic energy and
+$\int Z\le E_0/(2\nu)$. The zero-set defect remains as part of the
+regularized identity; Fatou's lemma alone does not identify it.
+Actual vorticity is continuous in $L^1$ through the initial face by the
+original curl mild equation and integrable source bounds.
+
+For the actual near core, the angular and radial moments
+\[
+ \mathrm{Ang}=\iint\psi_\rho\frac{a_xa_y^2|n_x-n_y|^2}{r^3},\qquad
+ \mathrm{Rad}=\iint\psi_\rho\frac{a_x|a_x-a_y|^2}{r^3}
+\]
+are restricted to both high endpoints, and obey
+\[
+ |C_{e,\mathrm{near}}|\le\frac3{8\pi}
+ [\sqrt{\mathrm{Ang}\,\mathrm{Rad}}+\mathrm{Ang}].
+\]
+Their fallback $|C_{e,\mathrm{near}}|\le6L_e\rho^2Q$ retains the
+unpaid compact-time amplitude $L_e=\|e\|_\infty$.
+
+\section{Singular pair laws and exact diagonal compensation}
+Let $\phi=r^{-3}\eta(r/R)$, with a full smooth inner hole before
+limits and a nonincreasing outer profile. For original $V$, compact-time
+global Sobolev translations give center $L^2$ bounds of order $r$ for
+$V$, its full stretching source $F_2$, and $\Delta_6V$.
+For the quartic pair, the complete viscosity must be combined as
+\[
+ -2\nu\iint\phi|\nabla_6V|^2
+ +\nu\iint(\Delta_6\phi)|V|^2
+ =2\nu\iint\phi V\cdot\Delta_6V.
+\]
+Here $\Delta_6\phi=2\Delta_{\rm rel}\phi$.
+Writing $K=\int\sum_j|\omega\times\partial_j\omega|^2$, the two
+separated leading logarithms have coefficients $-16\pi\nu K$ and
+$+16\pi\nu K$. The identity
+$\int r^4\Delta_{\rm rel}\phi=6\int r^2\phi$ includes every hole
+and outer transition. Individual terms are not finite singular budgets.
+For the norm carrier, global center $L^1$ translation bounds give the
+integrable radial majorant $dr$ for its combined physical generator.
+These are legal local identities, not terminal source estimates.
+
+The actual shrinking radius $\rho_j^3=A_*/((j+4)m)$ gives favorable
+radius work for a nonnegative pair mass because
+$\rho'\le0$ and $\partial_\rho\phi\ge0$.
+Downward index resets give nonpositive jumps. Gap contributions remain,
+and normalization by $Z$ retains $-BZ'/Z^2$ with the original signed
+$Z'=2P-2\nu Q$. Favorable radius work supplies no critical event charge.
+
+\section{Cubic degree and the missing readout}
+For $q=3/2$, $g_\epsilon=(|V|^2+\epsilon^2)^{q/2}-\epsilon^q$
+is convex and has a complete singular local pair law. Global
+$L^6$--$L^2$ translations give $L^{3/2}$ increments of order $r$;
+the radial majorant is $r^{q-1}dr$. For fixed smooth kernels,
+\[
+ B_q\le\|\phi\|_\infty A_*Z,\qquad
+ |\mathrm{reaction}|\le\frac3{\sqrt2}\|\phi\|_\infty
+                  \sqrt{A_*}\,Z\,\|\omega\|_3^{3/2}.
+\]
+The drift contains $2\|\nabla\phi\|_\infty
+\sqrt{A_*E_0Z}\,\|\omega\|_3^{3/2}$. These nonlinear source
+weights are unpaid; bounded-kernel prices do not extend to $r^{-3}$.
+
+Matching cubic degree does not give the core readout. With
+$X=e_3$, $Y=\sin\theta e_2-\cos\theta e_3$ and
+$\widehat r=(e_1+e_3)/\sqrt2$, the ratio of the actual core numerator
+to $|X\times Y|^{3/2}$ is
+$(1+\cos\theta)/(2\sqrt{\sin\theta})$, which diverges.
+This refutes only a uniform pointwise adapter, not integrated cancellation.
+The valid envelope $F=|X\times Y||X-Y|$ has an indefinite separate
+Hessian and a nonzero high-side threshold derivative
+$b^2|n\times N|$. Its full source, diffusion and level measures remain
+required. The separately convex envelope
+$|X|^2|Y|+|X||Y|^2$ has a nonzero diagonal and therefore an infinite
+absolute singular pair integral. The next construction seeks a convex
+diagonal-vanishing carrier with a complete original-source return.
+
+\section{A diagonal convex cubic and its exact law}
+For endpoint values $X,Y$, let $a=|X|$, $b=|Y|$, $d=X-Y$ and
+\[
+ G(X,Y)=(a+b)|d|^2+\frac23|d|^3.
+\]
+This finite symmetric cubic is separately convex, vanishes on the
+diagonal, and obeys
+\[
+ \sup_{|q|=1}|(q\cdot(X\times Y))(q\cdot d)|
+ =\frac12|X\times Y||d|\le\frac14G(X,Y).
+\]
+The constant $1/4$ is approached by equal amplitudes and a small angle.
+Radial excess clipping decreases both amplitudes and the increment,
+so $G(e_x,e_y)\le G(\omega_x,\omega_y)$. Its original singular
+pair moment satisfies
+\[
+ B_G=\iint\phi_\rho G(\omega_x,\omega_y),\qquad
+ |C_{e,\mathrm{near}}|\le\frac{3B_G}{32\pi}.
+\]
+A strict event-prefix slope below $(16\pi/3)\log2$ for $B_G/Z$
+is sufficient; its supplier is open.
+
+The full original common-time generator retains both stretching forces,
+relative drift and combined physical viscosity. With regularized norms
+$\rho_X=(|X|^2+\epsilon^2)^{1/2}$ and
+$\rho_d=(|d|^2+\epsilon^2)^{1/2}$, its diagonal angular mass contains
+\[
+ \frac{4\pi}{3}(2K_\epsilon+\epsilon Q)r^2,
+ \qquad K_\epsilon=\int\rho_\omega|\nabla\omega|^2.
+\]
+The complete hole logarithms cancel with opposing coefficients
+$\nu(32\pi K_\epsilon+16\pi\epsilon Q)$ at fixed $\epsilon$,
+before sending $\epsilon$ to zero. The regularization's
+$\epsilon|d|^2$ term must not be omitted. Higher weighted gradients
+remain unpaid. Also $G(0,Y)=5|Y|^3/3$; those pairs add real mass even
+though the signed cross core vanishes there.
+
+\section{Original increment and viscosity allocation}
+For original vorticity define
+\[
+ B_\rho=\iint\phi_\rho|\omega_x\times\omega_y|^2,\qquad
+ D_\rho=\iint\phi_\rho|\omega_x-\omega_y|^2,
+ \qquad\phi_\rho=r^{-3}\eta(r/\rho).
+\]
+The exact full-sphere translation inequality is
+\[
+ D_\rho\le\frac{8\pi}{3}\rho^2Q.
+\]
+The quadratic increment law retains both
+stretching forces, relative transport and the complete physical viscosity;
+its separate leading hole logarithms $\pm16\pi\nu Q$ cancel.
+With physical Fourier convention $2\pi$, its multiplier is
+\[
+ \Lambda_\rho(\xi)=8\pi\int_0^{2\rho}
+ \eta(r/\rho)[1-\operatorname{sinc}(2\pi|\xi|r)]\,\frac{dr}{r}.
+\]
+The sharp angular factor and Cauchy give
+\[
+ |C_{e,\mathrm{near}}|\le\frac3{16\pi}\sqrt{B_\rho D_\rho}
+ \le\frac{3\nu}{4}Q+\frac{\rho^2 B_\rho}{32\pi\nu}.
+\]
+Consequently a strict normalized event slope below $16\pi\nu\log2$
+for $\rho^2B_\rho/Z$ is sufficient. With viscosity allocation
+$\lambda\nu Q$, $0<\lambda\le3/4$, the threshold is
+$(64\pi/3)\lambda\nu\log2$; the factor $1/3$ is required.
+
+For actual event intervals $J_k$, the anticipating radius
+$R_k^3=3A_*|J_k|/(4\pi\delta)$ prices the far contribution by
+$\delta$ per event. Taking its minimum with the canonical radius
+gives $\delta n+o(n)$, and the sufficient pair threshold becomes
+$16\pi\nu\log2-32\pi\nu\delta$, where $0<\delta<\log2/2$.
+This instantaneous split requires no radius derivative. Evolving the
+carrier still retains upward interevent jumps, gaps and signed $Z'$.
+Neither the logarithmic multiplier nor these event prices supplies the
+critical quartic pair dose.
+
+\section{Native signed-component geometry and its return gap}
+Let $L=\max_i\|\omega_i\|_\infty>0$, $V_3=4\pi/3$,
+$q=(1+\lambda)\delta-1>0$, and choose
+$(1+\eta)^3=1+q/2$. A radial linear $H^1$ cutoff gives
+\[
+ C_\eta^2=\frac23 V_3\frac{(1+\eta)^3-1}{\eta^2},\qquad
+ r\ge K_0E_0^{1/5}L^{-2/5},\quad
+ K_0=\left(\frac{2C_\eta}{qV_3}\right)^{2/5}.
+\]
+At every such radius and every center, each of six signed-component
+sets $\{\pm\omega_i>\lambda L\}$ occupies at most fraction $\delta$.
+The proof compares the strict lower pairing $qV_3Lr^3/2$ with the
+curl-test upper bound $C_\eta\sqrt{rE_0}$. It works at all radii,
+including the equality threshold, and uses the actual datum energy.
+This is component geometry, not full-vector sparseness or continuation.
+Its primary motivation is Bradshaw--Farhat--Gruji\'c,
+\url{https://arxiv.org/abs/1704.05546v4}; the direct proof imports
+none of that paper's analyticity theorems.
+
+Against $r_c=\kappa\sqrt{\nu/L}$, the native radius ratio is
+$(K_0/\kappa)E_0^{1/5}\nu^{-1/2}L^{1/10}$. A sufficient localized
+energy rate to reach $r_c$ is
+\[
+ \int_{B(x_0,(1+\eta)r_c)}|u|^2
+ \le\left(\frac{qV_3}{2C_\eta}\right)^2
+ \kappa^5\nu^{5/2}L^{-1/2}.
+\]
+That rate and a subsequent geometric or analytic return are open.
+Separately, smooth mollified truncated logarithms
+$[\log R-\max(0,\log|x|)]_+$ have bounded BMO seminorm but a
+weighted absolute integral against $(1+|x|)^{-4}$ growing like
+$\log R$. This rejects only a generic seminorm-only scalar estimate;
+actual local means, Riesz cancellation and the PDE analytic branch
+remain to be paid. It is not a rejection of the primary's NS theorem.
+
+\section{Newton core and a scoped potential control}
+For the actual excess $e$, set $c=e_x\times e_y$, $d=e_x-e_y$,
+$\psi_\rho=\eta(r/\rho)$ and $\Phi=1/r$. The signed near core is
+\[
+ C_{e,\mathrm{near}}=-\frac1{8\pi}\iint
+ \psi_\rho c_i(\partial_{ij}\Phi)d_j.
+\]
+The Hessian contact vanishes since $c\cdot d=0$; the weak inner-hole
+boundary is of order $r^2$. Integration by parts retains actual
+$\operatorname{curl}e$, its directional gradient and the full outer
+transition. With $a=|e|$, define
+\[
+ \Psi_\rho[a](x)=\int\frac{\psi_\rho a_y}{r}\,dy,\qquad
+ W_\rho=\iint\frac{\psi_\rho a_y|d|^2}{r^3}.
+\]
+The bulk and transition are bounded, respectively, by
+\[
+ \frac{1+\sqrt2}{8\pi}\sqrt{\|\Psi\|_\infty W_\rho Q},
+ \qquad \frac{\|\eta'\|_\infty A_*Z}{4\pi\rho^3}.
+\]
+The latter is $o(n)$ after event normalization at the canonical radii.
+Near/far optimization gives
+\[
+ \|\Psi\|_\infty\le3\pi^{1/3}(UY)^{1/3}.
+\]
+The sufficient strict normalized $\Psi W/Z$ slope is
+$96\pi^2\nu\log2/(3+2\sqrt2)$ after spending $3\nu Q/4$.
+Its source remains unpaid. Also $2W\le B_G$, with an inequality
+because the full cubic $G$ contains an additional increment term.
+
+The coarse static conversion $W\le C\|\Psi\|_\infty Q$ fails
+on allowed compact solenoidal rescalings at an actual positive threshold:
+\[
+ u_\epsilon=\epsilon^{-1}U(x/\epsilon),\qquad
+ A_*\sim\epsilon,\quad Z\sim\epsilon^{-1},\quad Q\sim\epsilon^{-3}.
+\]
+One-zero-endpoint pairs give
+\[
+ W\gtrsim\epsilon^{-3}\log(\rho/(C\epsilon)),\qquad
+ \|\Psi\|_\infty Q\lesssim\epsilon^{-3},\qquad
+ \rho\sim\epsilon^{1/3}.
+\]
+The radius here includes the actual initial choice.
+Those pairs have zero signed cross core and inactive endpoint gradient.
+Only the unrestricted absolute conversion is rejected; signed, active
+and time-integrated source laws remain open.
+
+\section{A scoped convex obstruction and balanced escape}
+A finite nonnegative symmetric separately convex carrier $H$ with
+$H(X,X)=H(0,Y)=0$ vanishes at $H(tY,Y)$ for every $t\ge0$.
+Finite-convex continuity then gives
+\[
+ H(X+tY,Y)\le H(X,Y),\qquad t\ge0.
+\]
+For noncollinear $X,Y$, the angular supremum
+$|X\times Y||X+(t-1)Y|/2$ diverges. Thus this strict class cannot
+uniformly majorize the pointwise readout. Local compact velocity-curl
+patches realize the pairs, but imply no integrated trajectory obstruction.
+
+The ambient quadratic
+\[
+ H_\alpha(V,d)=\alpha|V|^2+\alpha^{-1}|d|^2
+\]
+is jointly convex in independent $(V,d)$ and separately convex in
+original endpoints. Its nonzero single-zero-endpoint value escapes the
+strict class. With $\alpha=\rho^2/(3\nu)$ it recovers the previous
+viscosity allocation. The complete variable-parameter law retains
+$\alpha'B-\alpha^{-2}\alpha'D$.
+Moreover $(1-\operatorname{sinc}z)/z^2$ is nonincreasing globally.
+Consequently $D_\rho/\rho^2$ decreases with radius, whereas
+$\rho^2B_\rho$ increases. Shrinking the radius produces opposing
+component works, with no automatic sign for their balanced sum.
+
+\section{Favorable quadratic Fourier diffusion and logarithmic readout}
+For the scalar multiplier $T$ with symbol $\Lambda_\rho$, let
+$A=u\cdot\nabla$ and $F=S\omega$. The exact quadratic law is
+\[
+ D'=2\langle T\omega,F\rangle
+   -\langle[T,A]\omega,\omega\rangle
+   -2\nu\int k^2\Lambda_\rho(k)|\widehat\omega|^2.
+\]
+The full physical viscosity is nonpositive. Profile integration by
+parts proves $k\Lambda'_\rho=8\pi\int(-\eta')(1-\operatorname{sinc})
+\ge0$. For $X=D/Z$, the viscous term is
+$-2\nu\operatorname{Cov}_{\mu}(k^2,\Lambda_\rho)\le0$,
+where $d\mu=|\widehat\omega|^2d\xi/Z$. Both original nonlinear
+terms remain unpaid. This specific quadratic sign says nothing about
+an arbitrary nonlinear pair carrier.
+
+An explicit envelope and Jensen give
+\[
+ \Lambda_\rho(k)\le16\pi\log(1+k^2\rho^2/3),\qquad
+ \frac DZ\le16\pi\log\left(1+\frac{\rho^2Q}{3Z}\right).
+\]
+For $b=B/Z$, $a=9b/(16\pi)$ and $c=\rho^2/3$, a safe scalar
+allocation against $\lambda\nu Q/Z$ leaves
+\[
+ R_\lambda=\frac{\sqrt a}{2}
+ \left[1+\log_+\left(\frac{c\sqrt a}{2\lambda\nu}\right)\right],
+ \qquad R_\lambda(0)=0.
+\]
+At $\lambda=3/4$, take its minimum with
+$\rho^2B/(32\pi\nu Z)$. A strict event slope below $\log2/2$
+for this residual is sufficient. The allocated viscosity cancels the
+matching coercive term; native energy does not pay $\int Q/Z$.
+
+For the original velocity increment $D^u=\langle u,Tu\rangle$,
+the coherent pressure cancels by a scalar relative-hole multiplier
+preserving divergence freedom. Actual compact product/Riesz pressure
+regularity justifies the limit. Fourier curl gives
+\[
+ (D^u)'=-\langle[T,A]u,u\rangle-2\nu D^\omega.
+\]
+The cubic velocity source remains unpaid at a fixed radius. A logarithmic
+weight is not the earlier polynomial strong-tail or heat cone-tip
+consumer; its return requires a separate adapter.
+
+\section{A genuinely native adaptive velocity source}
+The original velocity drift $I_\rho$ has a finite full-profile bound.
+Translation, vector Sobolev with $S=4/\sqrt3$ and interpolation give
+\[
+ \|\delta_hu\|_3^3\le(2S)^{3/2}|h|^{3/2}Z^{3/2}.
+\]
+Including every radial derivative and relative-hole transition yields
+\[
+ |I_\rho|\le K_\eta\sqrt\rho\,Z^{3/2},\qquad
+ K_\eta=14\pi(2S)^{3/2}\int_0^2\eta(s)s^{-1/2}\,ds.
+\]
+The hole transition tends to zero at rate $\sqrt{\text{hole}}$ on
+actual compact intervals. No terminal higher norm enters this estimate.
+
+Fix $R,\alpha>0$ and use the global actual running maximum
+$\bar Z(t)=\max_{s\le t}Z(s)$ to choose
+\[
+ \rho(t)=\min\{R,\alpha\nu^2/\bar Z(t)\}.
+\]
+The zero datum is separate. This positive, locally absolutely continuous
+radius decreases on the entire existing path, including every physical
+gap. Since $Z\le\bar Z$, native energy supplies the absolute source price
+\[
+ \int|I_{\rho(t)}|\,dt\le\frac{K_\eta\sqrt\alpha}{2}E_0.
+\]
+The complete original moving law therefore gives
+\[
+ \begin{split}
+ D^u_{\rho(t)}(t)+2\nu\int_0^tD^\omega_{\rho(s)}\,ds
+   +\int_0^t(-\rho')\partial_\rho D^u_\rho\,ds
+ \le D^u_{\rho(0)}(0)+\frac{K_\eta\sqrt\alpha}{2}E_0.
+ \end{split}
+\]
+The true initial term is at most $(8\pi/3)\rho(0)^2Z_0$.
+Only nonnegative time integrals pass by monotone convergence at a
+hypothetical finite endpoint; no terminal solution or trace is assumed.
+
+The symbol lower bound $\Lambda_\rho(k)\ge4\pi\log_+(k\rho/2)$
+pays a logarithmic enstrophy dose above the growing cutoff $2/\rho$.
+This closes a specific original velocity source. Its radius decreases
+like $\bar Z^{-1}$, while the canonical core radius decreases like
+$((j+4)\bar Z)^{-1/3}$. The intermediate annulus and the fixed-cutoff
+strong continuation consumer remain unpaid. Critical initial scaling
+and a linear heat control give an unweighted dose of order $L^{-1}$
+per natural scale; they are not actual nonlinear escape events.
+The native estimate is a proved rung with an open original return.
+
+\section{Construction frontier}
+The full original strain equation retains pressure Hessian, vorticity and
+two eigenframe diffusion contributions with opposite signs. Compact
+solenoidal data with fixed energy and a fixed local jet can have arbitrarily signed initial
+middle-strain production; the fixed neighborhood may shrink and global high
+norms are not fixed. This rules out only a local instantaneous production
+bound from those observations. For a fixed radius $r_0>0$, the remote
+directional pressure Hessian is energy-paid by
+$168E_0/(4\pi r_0^5)$; local pressure remains unbounded by this law.
+
+Signed triad conservation and receiving/advected symmetrization expose
+continuous weight differences. The clamped weight's fixed inner jump is
+already paid cumulatively by kinetic net-flux bounds. The unresolved source
+is the continuous weighted transfer uniformly over outer cutoff and the
+full preterminal horizon. None of these components supplies that budget.
+
+Seek a signed original-equation high-frequency interaction law or an
+independently integrable production coefficient. Retain the proven written
+conditional adapters and their separate formal implementation obligations.
+Finite periodic controls and adviser suggestions remain exploratory evidence.
+Every prospective rung needs exact applicability, law and return obligations,
+source citations, controls, and independently reviewed proof bodies.
+\section{Weighted adaptive parameter absorption}
+Write $b=\bar Z$ and choose the whole-path radius
+$\rho=\alpha\nu^2/b$ for nonzero initial data. The original native
+strain and vector Sobolev estimates yield
+\[
+ Z'\le C_gZ^3/\nu^3,\qquad
+ 0\le b'\le C_gb^3/\nu^3,\qquad
+ C_g=\frac{27}{128}(C_3S_0^{3/2})^4.
+\]
+The maximum is locally absolutely continuous. Its derivative is zero
+off contact and agrees with $Z'$ almost everywhere on $Z=b$.
+This is a comparison envelope, without an integrated $Q$ budget.
+
+For $M=bD^u_\rho$, the full original chain rule is
+\[
+ M'+2\nu bD^\omega_\rho
+ =bI_\rho+b'\int[\Lambda(z)-z\Lambda'(z)]|\widehat u|^2\,d\xi,
+ \qquad z=k\rho.
+\]
+For $z\le1$, profile support gives $v=zs\le2$ and
+\[
+ 2\operatorname{sinc}v-\cos v-1
+ =2\cos(v/2)[\operatorname{sinc}(v/2)-\cos(v/2)]\ge0.
+\]
+Thus the parameter symbol is nonpositive there. For $z\ge1$, the
+proved monotonicity of $\Lambda$ gives its positive part at most
+$\Lambda\le z^2\Lambda$. Consequently the positive parameter work
+is at most $C_g\alpha^2\nu bD^\omega_\rho$. For
+$0<\alpha\le C_g^{-1/2}$,
+\[
+ M(t)+\nu\int_0^t bD^\omega_\rho
+ \le M(0)+\int_0^t bI_\rho,
+ \qquad 0\le M\le\frac{8\pi}{3}\alpha^2\nu^4.
+\]
+All physical gaps and the initial trace are retained. Only nonnegative
+time integrals pass by monotone convergence to a hypothetical endpoint;
+no endpoint trace or positive limiting radius is assumed.
+
+An independent uniform upper bound $B$ for the actual signed source
+on one finite preterminal horizon would therefore pay
+\[
+ \int_0^t b\int\log_+(k\rho/2)|\widehat\omega|^2\,d\xi\,ds
+ \le\frac{M(0)+B}{4\pi\nu}.
+\]
+A separate uniform positive charge on all sufficiently high disjoint
+actual growth events within that same horizon would exclude a finite
+unbounded-enstrophy endpoint. Both suppliers remain open. Native energy
+pays $\int Z$, whereas the weighted drift envelope leaves $\int bZ$.
+Bounded $M$ alone gives no source bound. The critical heat calibration
+makes the weighted dose scale invariant; it supplies no actual event.
+
+\section{Native constant and actual event duration}
+Physical Fourier transversality gives the exact original identity
+$\|S\|_2^2=Z/2$. Vector interpolation therefore improves the native
+production constant to
+\[
+ P\le C_0Z^{3/4}Q^{3/4},\quad
+ C_0=S_0^{3/2}/\sqrt2,\quad C_0^4=1024/27.
+\]
+The original scalar optimization gives $Z'\le8Z^3/\nu^3$ and the
+same causal maximum bound with coefficient 8. Thus the previously
+proved weighted parameter absorption permits
+$\alpha\le1/(2\sqrt2)$. This changes the constant without supplying
+the weighted nonlinear source or the original strong-tail consumer.
+
+Split original vorticity at physical frequency $k=1/\rho$, keeping
+full original strain. Optimizing only the high-frequency dissipation
+and favorably dropping the low part gives
+\[
+ Z'\le4C_0Z^{3/4}Q_{\rm lo}^{3/4}
+       +128Z^2Z_{\rm hi}/\nu^3.
+\]
+The inner profile and its proved monotone symbol give
+\[
+ \Lambda(z)\ge\frac{19\pi}{30}\min(z^2,1),\qquad
+ D^\omega_\rho\ge\frac{19\pi}{30}
+                  (\rho^2Q_{\rm lo}+Z_{\rm hi}).
+\]
+On an actual doubling interval $J$ of level $h$, put
+\[
+ X=b(\rho^2Q_{\rm lo}+Z_{\rm hi}),\quad
+ \xi=\nu^{-3}\int_JX,\quad \tau=h^2|J|/\nu^3,\quad
+ A=4C_0 2^{5/4}.
+\]
+Using only $h\le Z\le2h$ and $Z\le b\le2Z$ on $J$, the exact
+logarithmic endpoint difference and time H\"older give
+\[
+ \log2\le A\alpha^{-3/2}\xi^{3/4}\tau^{1/4}+128\xi.
+\]
+Consequently the actual weighted event dose is at least
+\[
+ \int_J bD^\omega_\rho\ge\frac{19\pi\nu^3}{30}
+ \min\left\{\frac{\log2}{256},
+       \left(\frac{\log2}{2A}\right)^{4/3}
+                    \alpha^2\tau^{-1/3}\right\}.
+\]
+This is a uniform positive charge on every class with bounded critical
+duration $\tau$. Long events remain open. Geometric levels with scalar
+$\tau_j=2^{j/2}$ admit both a finite energy-duration sum and summable
+vanishing charges. This is a scalar compatibility control, without an
+actual NS realization.
+
+\section{An actual-data control for source-alone absorption}
+The periodic curl-generated seed
+\[
+ u=(\sin y,0,\sin x-\sin(x+y)),\qquad
+ A=(0,-\cos x+\cos(x+y),-\cos y)
+\]
+has production density $ac(b-c)$, where $a=\cos y$, $b=\cos x$ and
+$c=\cos(x+y)$, with mean $1/4$. For a nonnegative nonzero compact
+smooth $\chi$, the whole-space field $U_R=\operatorname{curl}
+[\chi(x/R)A]$ satisfies
+\[
+ P(U_R)=\frac{R^3}{4}\int\chi^3+o(R^3)>0
+\]
+for large fixed $R$. Cutoff derivative errors are only $O(R^2)$.
+Thus this construction supplies allowed compact solenoidal Schwartz
+data, without using a periodic field as whole-space data.
+
+For a fixed such $U$, let
+$c_\eta=(4\pi/3)\int_0^2\eta(s)s\,ds$. The exact initial-face law
+and Fourier Taylor limit give
+\[
+ D^u_\rho/\rho^2\longrightarrow c_\eta Z,\quad
+ D^\omega_\rho/\rho^2\longrightarrow c_\eta Q,\quad
+ I_\rho/\rho^2\longrightarrow2c_\eta P.
+\]
+At data $LU$ and their actual radius
+$\rho_L=\alpha\nu^2/(L^2Z_U)$,
+\[
+ \frac{I_{\rho_L}[LU]}{\nu D^\omega_{\rho_L}[LU]}
+ \sim\frac{2LP_U}{\nu Q_U}\longrightarrow+\infty.
+\]
+This rejects only a uniform pointwise source-alone absorption constant.
+Full parameter cancellation, datum-dependent bounds and cumulative signed
+source laws remain available. Exact rational Fourier algebra verifies the
+seed curl, divergence, mean production and phase reversal; it is not a
+nonlinear PDE computation.
+
+
+\section{Actual advected shell source and its time currency}
+For the original compact-time divergence-free drift, the auxiliary vector
+propagator $U(t,s)$ can be constructed by heat Duhamel in $L^1$ and $L^2$.
+Kato's vector inequality gives an $L^1$ contraction, and energy gives
+$Y'\le-2\nu\|\nabla f\|_2^2$. The independently derived Sobolev constant
+$S_0=4/\sqrt3$ yields Nash's inequality
+\[
+ \|\nabla f\|_2^2\ge S_0^{-2}\|f\|_1^{-4/3}\|f\|_2^{10/3}.
+\]
+Integration, the reversed adjoint and half-interval composition give
+\[
+ \begin{gathered}
+ \|U(t,s)\|_{1\to2},\ \|U(t,s)\|_{2\to\infty}
+ \le\left(\frac4{\nu(t-s)}\right)^{3/4},\\
+ \|U(t,s)\|_{1\to\infty}
+ \le\left(\frac8{\nu(t-s)}\right)^{3/2}.
+ \end{gathered}
+\]
+Constants are independent of drift bounds used to justify construction.
+No Fourier support preservation or terminal coefficient bound is assumed.
+
+For the actual shell $v_j=\Delta_j u$, $\lambda=2^j$, its exact equation is
+\[
+ (\partial_t+u\cdot\nabla-\nu\Delta)v_j=R_j,
+ \qquad R_j=[u\cdot\nabla,\Delta_j]u-\nabla p_j.
+\]
+Both source terms have full two-increment representations with Schwartz
+kernel gradients. The pressure kernel is the localized order-zero tensor
+symbol, followed by its gradient; no $L^1$ Riesz estimate is used.
+The bound $\|\delta_yu\|_4^2\le(2S_0)^{3/2}|y|^{1/2}Z$ gives
+\[
+ \|R_j\|_2\le C_R\lambda^{1/2}Z,\qquad
+ \int\|R_j\|_2\le C_R\lambda^{1/2}\frac{E_0}{2\nu}.
+\]
+Here $C_R$ is the sum of the full weighted kernel-gradient moments.
+Actual Duhamel and the adjoint bound therefore imply
+\[
+ \lambda^{-1/2}\|v_j(t)\|_\infty
+ \le\frac{4^{3/4}\lambda^{-1/2}\|v_j(\sigma)\|_2}
+          {[\nu(t-\sigma)]^{3/4}}
+ +\frac{4^{3/4}C_R}{\nu^{3/4}}
+       \int_\sigma^t(t-s)^{-3/4}Z(s)\,ds.
+\]
+Fixed positive lag and low-frequency Bernstein bounds pay the opening
+observation. The convolution has weak $L^{4/3}$ time norm at most
+$4\sqrt2\int Z$. Indeed splitting $k(t)=t^{-3/4}$ at height
+$a=A/(2\int Z)$ yields
+\[
+ |\{k*Z>A\}|\le8\,2^{1/3}\left(\frac{\int Z}{A}\right)^{4/3}.
+\]
+This is not the critical strong $L^4$ currency. A scalar unit-mass pulse
+$Z_\epsilon=\epsilon^{-1}\chi(t/\epsilon)$ makes the strong $L^4$
+convolution norm grow like $\epsilon^{-1/2}$. This tests only that positive
+convolution estimate, without an NS realization. Earlier heat constructions
+already considered the $4/3$ currency; the present gain is an actual advected
+adapter and pressure-complete source, rather than a new time exponent.
+
+\section{Retained parameter work gives a one-source continuation return}
+Return to $b=\max_{s\le t}Z(s)$, $\rho=\alpha\nu^2/b$,
+$0<\alpha\le1/(2\sqrt2)$ and $M=bD^u_\rho$. Put
+\[
+ J(z)=\Lambda(z)-z\Lambda'(z),\qquad
+ N=b'\int[J(k\rho)]_-|\widehat u|^2\,d\xi\ge0.
+\]
+The full balance retains this formerly discarded favorable work:
+\[
+ M'+2\nu bD^\omega_\rho+N
+ =bI_\rho+b'\int[J(k\rho)]_+|\widehat u|^2\,d\xi,
+ \qquad M'+\nu bD^\omega_\rho+N\le bI_\rho.
+\]
+For $0\le v\le2$, the decreasing alternating series gives
+\[
+ 2\operatorname{sinc}v-\cos v-1
+ \ge v^2/6-v^4/40\ge v^2/15.
+\]
+Since $v=zs$ with $0\le s\le2$, the inner unit profile yields
+$[J(z)]_-\ge c_mz^2$ for $z\le1$, $c_m=4\pi/15$.
+At almost every time with $b'>0$, contact gives $Z=b$. Split actual
+vorticity into $Z_{\rm lo}+Z_{\rm hi}=b$ at $k\rho=1$; this sharp split is
+not differentiated. The low negative work and high viscosity satisfy
+\[
+ N\ge c_m\alpha^2\nu^4\frac{Z_{\rm lo}}b\frac{b'}b,
+ \qquad
+ \nu bD^\omega_\rho\ge\frac{19\pi\nu^4}{240}
+                      \frac{Z_{\rm hi}}b\frac{b'}b.
+\]
+Thus on the whole path, including noncontact gaps,
+\[
+ \nu bD^\omega_\rho+N\ge\kappa\nu^4\frac{b'}b,
+ \qquad\kappa=\frac{4\pi\alpha^2}{15}.
+\]
+Positive locally absolutely continuous $b$ and $M\ge0$ now give
+\[
+ \kappa\nu^4\log\frac{b(t)}{b_0}
+ \le M_0+\int_0^t b(s)I_{\alpha\nu^2/b(s)}(s)\,ds.
+\]
+An independently finite upper bound $B_T$ for the signed integral, uniform
+in every existing $t<\min(T,T_*)$, would imply
+\[
+ b(t)\le b_0\exp\!\left(\frac{M_0+B_T}{\kappa\nu^4}\right),
+ \qquad M_0\le\frac{8\pi\alpha^2\nu^4}{3}.
+\]
+At a hypothetical finite endpoint native energy then pays $\int Z^2$,
+and the original strong continuation and full closed-face return apply.
+For nonzero solenoidal $L^2$ data $Z_0>0$ by Fourier curl/divergence;
+zero data are separately zero. No terminal trace is used.
+
+This improves the conditional return to one unresolved source child.
+The separate all-event duration/dose child is unnecessary for this route;
+its historical alternative remains open. The signed source bound is still
+\emph{unproved}, and bounded $M$ or native $\int Z$ does not supply it.
+Consequently unconditional Clay closure remains open.
+
+
+\section{Actual local source bursts and strict payment}
+Choose the compact-curl $U$ with $P_U>0$ constructed above, and keep
+$\nu,\alpha,\eta$ fixed. The original data
+$V_\lambda=\lambda^{3/2}U(\lambda x)$ have fixed kinetic energy and
+\[
+ Z_\lambda=\lambda^2Z_U,\quad Q_\lambda=\lambda^4Q_U,\quad
+ P_\lambda=\lambda^{9/2}P_U.
+\]
+For large $\lambda$, the actual initial derivative is positive and
+$b'=Z'$. At the prescribed radius, the effective radius on $U$ is
+$\epsilon=\lambda\rho=\alpha\nu^2/(\lambda Z_U)$. Since
+$J(z)=-c_\eta z^2+O(z^4)$, exact spatial scaling gives
+\[
+ bI_\rho\sim N\sim
+     2c_\eta\alpha^2\nu^4\lambda^{5/2}P_U/Z_U,
+ \qquad \nu bD^\omega_\rho=O(\lambda^2).
+\]
+Thus a fixed $\theta<1$ in $bI\le\theta N+C\nu bD^\omega+C_EZ$
+cannot hold uniformly over this fixed-energy family with finite
+$\lambda$-independent constants. This is initially a pointwise control.
+
+A genuine shrinking-time control follows using positive-viscosity paths
+\[
+ u_\lambda(x,t)=\lambda^{3/2}v_\mu(\lambda x,\lambda^{5/2}t),
+ \qquad\mu=\nu/\sqrt\lambda.
+\]
+For the fixed seed $U$, the actual NS$_\mu$ paths have a common finite
+$H^8$ window. Indeed differentiated transport and pressure cancel, and in
+each remaining product of total order at most nine one factor has order
+at most four and is controlled in $L^\infty$, the other in $L^2$.
+The resulting $y'\le Cy^2$ bound and the original positive-viscosity norm
+continuation alternative give a common window without an Euler limit.
+Uniform time continuity in $H^6$ keeps $P>0$, $Z>0$ and $Q$ bounded;
+for small $\mu$ contact persists throughout a smaller window $[0,\delta]$.
+
+Uniform increment Taylor estimates give
+$I_\epsilon[v]=2c_\eta\epsilon^2P_v+O(\epsilon^3)$.
+The full kernel derivative, including its outer transition, is retained.
+Consequently on physical time $[0,\delta\lambda^{-5/2}]$,
+\[
+ \int bI=2c_\eta\alpha^2\nu^4\int_0^\delta P_v/Z_v\,d\tau
+                    +O(\lambda^{-1}),
+\]
+\[
+ \int N=c_\eta\alpha^2\nu^4
+          \int_0^\delta(2P_v-2\mu Q_v)/Z_v\,d\tau
+                    +O(\lambda^{-2}).
+\]
+Both are uniformly bounded above and below by positive constants;
+their difference tends to zero. No numerical Euler-limit value is needed.
+Meanwhile $\int Z$ and $\nu\int bD^\omega$ are $O(\lambda^{-1/2})$.
+This excludes the corresponding strict $\theta<1$ window payment
+\emph{without an initial or additive credit}. A positive initial credit
+can pay this one finite burst. No repeated-burst trajectory, divergent
+full-horizon source or blowup is constructed.
+
+At coefficient one, $R=bI-N$ obeys
+$M'+\nu bD^\omega\le R$. A bound on its cumulative integral would pay
+viscosity, but would remove the low-frequency log-growth charge $N$.
+An independent low-contact return or a controlled credit recurrence is
+therefore still required for that modified route. The full original
+signed source and unconditional target remain open.
+
+\section{Two paid full-drift source sectors}
+For the actual shell $v_j=\Delta_j u$, set $\lambda=2^j\ge1$,
+$m=\lambda^{3/5}/16$, $M=8\lambda^2$, and use a fixed real even smooth
+cutoff $0\le\chi\le1$, equal to one on the unit ball and zero outside
+the radius-two ball. Write $a=S_m u$, $v=S_Mu$, $b_j=v-a$, $w=u-v$.
+The algebraic pressure-complete source is
+\[
+ R[q]=q\cdot\nabla\Delta_jq-\mathbb P\Delta_j\operatorname{div}(q\otimes q),
+ \qquad R[u]=L_j+F_j+R[b_j],
+\]
+where $L_j=R[v]-R[b_j]$ and $F_j=R[u]-R[v]$.
+Every response is propagated by the same full-$u$ drift $U(t,s)$.
+The filtered $b_j$ is not asserted to solve autonomous NS.
+
+Let $z$ be the sharp restriction of original $u$ to
+$\lambda/4\le|\xi|\le4\lambda$. Support of the low cross products makes
+their other input equal to $z$; the unprojected term uses
+$\Delta_j b_j=\Delta_j z=v_j$. Equality of the two cross divergences
+gives the exact pressure reflection
+\[
+ L_j=[a\cdot\nabla,\Delta_j]z+(I-2\mathbb P)\Delta_j(z\cdot\nabla a).
+\]
+With $C_K=\int|y||\nabla K_0(y)|\,dy$ and
+$C_\phi=\|\phi_0\|_\infty$, the reflection has $L^2$ norm one, and
+kernel, Bernstein and annular gradient estimates imply
+\[
+ \|L_j\|_2\le C_{\rm low}m^{5/2}\lambda^{-1}\sqrt{E_0Z},\qquad
+ C_{\rm low}=4(C_K+C_\phi)\sqrt{4\pi2^5/5}.
+\]
+No sharp projection is used in $L^1$.
+
+The far difference retains the unprojected high sweeping:
+\[
+ F_j=w\cdot\nabla v_j-\mathbb P\Delta_j\operatorname{div}T_{\rm hi}.
+\]
+If $v_{\ge M/2}$ is the sharp high part of $v$, then
+$T_{\rm hi}=w\otimes w+w\otimes v_{\ge M/2}+v_{\ge M/2}\otimes w$.
+Only the projected very-low/far products vanish by support; all smooth
+transition values remain. Since
+$\|w\|_2\le\sqrt Z/(2\pi M)$ and each other factor is energy bounded,
+\[
+ \|F_j\|_2\le C_{\rm far}\lambda^{5/2}M^{-1}\sqrt{E_0Z},\qquad
+ C_{\rm far}=6C_\phi\sqrt{32\pi/3}+C_\phi\sqrt{4\pi2^5/5}.
+\]
+Output differentiation prices the projected tensor by $\lambda$;
+sweeping is paid separately. Its output need not stay in the shell.
+
+An independent causal time law supplies
+\[
+ \left\|\int_0^\infty r^{-3/4}|f(t-r)|\,dr\right\|_4\le C_H\|f\|_2.
+\]
+Here the explicit constants are
+\[
+ C_H=(C_N+\sqrt2)(4\sqrt6)^{1/2},\qquad
+ C_N=\frac{2^{3/4}}{1-2^{-1/4}}.
+\]
+Indeed centered maximal weak $(1,1)$ constant three and truncation at
+half the level give its $L^2$ norm at most $\sqrt{24}$. The one-sided
+maximal norm is at most $4\sqrt6$. Dyadic integration up to $R$ costs
+$C_NR^{1/4}Mf$, while the tail costs
+$\sqrt2R^{-1/4}\|f\|_2$. Choosing
+$R^{1/2}=\|f\|_2/Mf$ and using the maximal $L^2$ bound proves the law.
+Zero cases and infinite kernels follow by positive truncation.
+
+For $n_{{\rm low},j}=\int_0^tU(t,s)L_j(s)\,ds$ and the analogous
+far response, actual Nash plus $f=\sqrt Z$ and native energy imply
+\[
+ \left\|\sup_{j\ge0}\lambda^{-1/2}\|n_{{\rm low},j}\|_\infty\right\|_4
+ \le\frac{4^{3/4}C_{\rm low}16^{-5/2}C_HE_0}{\sqrt2\nu^{5/4}},
+\]
+\[
+ \left\|\sup_{j\ge0}\lambda^{-1/2}\|n_{{\rm far},j}\|_\infty\right\|_4
+ \le\frac{4^{3/4}(C_{\rm far}/8)C_HE_0}{\sqrt2\nu^{5/4}}.
+\]
+A common positive envelope dominates the supremum before the time norm.
+These bounds are uniform through every existing preterminal horizon;
+no shell preservation by $U$ is assumed. The spectral coefficients do
+not assert contraction after profile constants. The opening is treated
+at positive delay and by original local existence at time zero.
+
+The exact stress rewrite is also retained:
+\[
+ \tau_j=\Delta_j(u\otimes u)-u\otimes v_j-v_j\otimes u,\qquad
+ R_j=-v_j\cdot\nabla u-\operatorname{div}(\tau_j+p_jI).
+\]
+It gives $\|\tau_j\|_2\le C_\tau\lambda^{-1/2}Z$ and exact adjoint
+work with a spatial derivative of $U(t,s)^*q$. Scalar Nash does not pay
+that derivative; even the zero-drift point-test norm scales as
+$(\nu(t-s))^{-5/4}$. This is a calibration of an absolute estimate,
+not a prohibition of signed cancellation. The complete middle response,
+its original critical continuation consumer, and the independent adjoint
+price remain open. Paying these two sectors does not establish Clay(A).
+
+\section{Deficit mass, records and actual adjoint controls}
+Set $c_\eta=(4\pi/3)\int_0^2\eta(s)s\,ds$ and
+$c_4=(\pi/15)\int_0^2\eta(s)s^3\,ds$. The exact Fourier deficit
+\[
+ \delta(z)=c_\eta z^2-\Lambda(z),\qquad 0\le\delta(z)\le c_4z^4
+\]
+is globally nonnegative. Indeed $1-\operatorname{sinc}v
+=\int_0^1(1-\cos(tv))\,dt$, and twice integrating $1-\cos x$ gives
+$0\le x^2/2-1+\cos x\le x^4/24$. Its moving symbol has a global sign:
+\[
+ K(z)=z\delta'(z)-\delta(z)=c_\eta z^2+J(z)\ge0,
+\]
+because its scalar integrand is
+\[
+ v^2/6+1+\cos v-2\operatorname{sinc}v
+ =v^2\int_0^1 t(1-t)(1-\cos(tv))\,dt\ge0.
+\]
+These are global identities, rather than a low-frequency truncation.
+
+For $b=\max_{s\le t}Z(s)>0$ and $\rho=\alpha\nu^2/b$, put
+$W=b\int\delta(k\rho)|\widehat u|^2\,d\xi$ and
+$D^\omega_\delta=\int\delta(k\rho)|\widehat\omega|^2\,d\xi$.
+Subtracting the original velocity increment law from its exact quadratic
+enstrophy counterpart, with all parameter derivatives, gives
+\[
+ W'+2\nu bD^\omega_\delta+b'\int K(k\rho)|\widehat u|^2\,d\xi
+ =b(2c_\eta\rho^2P-I_\rho),
+\]
+\[
+ M+W=c_\eta\alpha^2\nu^4 Z/b,
+ \qquad0\le W\le c_\eta\alpha^2\nu^4.
+\]
+The complete signed deficit production is unpaid. All gaps are included;
+bounded mass does not upper-bound cumulative positive work.
+
+The actual whole-path quotient separately obeys
+\[
+ \log(b/b_0)+2\nu\int_0^t Q/b
+ =2\int_0^t P/b+1-Z(t)/b(t).
+\]
+This uses $Zb'/b^2=b'/b$ only where $b'$ is supported. At any actual
+record endpoint $Z(t)=b(t)=B$, every $0<h\le t$ satisfies
+\[
+ \int_{t-h}^t Q\le\frac{C_0^4B^3h}{\nu^4}.
+\]
+Indeed the integrated enstrophy law has nonnegative endpoint difference
+$B-Z(t-h)$, and H\"older bounds production by
+$C_0B^{3/4}h^{1/4}(\int Q)^{3/4}$. Interior gaps are allowed. This
+does not provide an unweighted terminal $Q$ budget.
+
+Retaining viscosity in absolute production gives
+$2|P|\le\nu Q+64\nu^{-3}Z^3$.
+For $F=Z/b^2$, the exact record term integrates to
+$2(1/b_0-1/b(t))\ge0$. Native energy therefore supplies
+\[
+ \int Q/b^2\le\frac1{\nu b_0}+\frac{32E_0}{\nu^5},\qquad
+ \int |P|/b^2\le\frac1{2b_0}+\frac{32E_0}{\nu^4}.
+\]
+This refines the earlier reciprocal currency; it does not pay the missing
+factor of $b$. The global quartic deficit then genuinely pays
+\[
+ \int_0^t bW\le c_4\alpha^4\left(\frac{\nu^7}{b_0}+32\nu^3E_0\right).
+\]
+Precisely this mass-time quantity is paid. Its derivative, viscosity,
+parameter work, signed source and quadratic low-contact log return need
+separate adapters.
+
+On contact let $s=\nu^3b'/(8b^3)$ and $q=\nu^4Q/b^3$.
+The necessary envelope $s\le(C_0q^{3/4}-q)/4\le1$ does not give small
+$q$ from small $s$. This also has an actual smooth-data control:
+for the compact seed $P_U>0$, choose
+$u_0=a_\epsilon U$, $a_\epsilon=\nu Q_U(1+\epsilon)/P_U$.
+Actual initial growth is positive, and on sufficiently nearby positive
+contacts
+\[
+ q_\epsilon\longrightarrow\frac{P_U^4}{Q_U^3Z_U^3}>0,
+ \qquad s_\epsilon=\epsilon q_\epsilon/4\longrightarrow0.
+\]
+Each datum has its own local contact interval. This rejects only the
+universal inference of small dissipation from slow normalized growth.
+
+An actual full-drift adjoint can also lose solenoidality. For
+$\psi(s)=U(t,s)^*q$ and $d=\operatorname{div}\psi$,
+\[
+ -d_s-u\cdot\nabla d-\nu\Delta d
+ =\sum_{i,k}\partial_i u_k\,\partial_k\psi_i.
+\]
+Compact-curl data and terminal tests with local forms
+$u_0=(x_2,0,0)$ and $q=(0,x_1,0)$ give coefficient one near the origin.
+At sufficiently small actual terminal time the coefficient stays nonzero,
+so a solenoidal terminal test develops divergence backward. For the middle
+velocity $h$, its complete source pairing retains
+\[
+ \langle R[h],\psi\rangle
+ =\langle h\otimes h,\nabla\Delta_j\mathbb P\psi\rangle
+ -\langle v_j\otimes h,\nabla\psi\rangle.
+\]
+Thus terminal solenoidality cannot delete the gradient test sector or
+pressure work automatically. The alternative solenoidal projected
+propagator has $L^2$ contraction, but its nonlocal generator has no proved
+scalar Kato/Nash adapter here.
+
+The weighted source criterion has the strength of a bounded record.
+Its log return implies bounded $b$. Conversely, if $b\le B$,
+the original drift estimate gives
+\[
+ \int b|I_\rho|\le K_\eta\sqrt\alpha\,BE_0/2.
+\]
+This converse assumes the bound being sought. It supplies no independent
+estimate. The signed sources and the mass-time consumer remain open,
+as does original Clay(A). Zero datum is treated separately before divisions.
+
+
+\section{Direct resolving-shell consumer and same-path return}
+
+Choose a nonnegative radial nonincreasing smooth cutoff $\chi$, equal to
+one on the unit ball and zero outside the radius-two ball, and set
+$\phi(\xi)=\chi(\xi)-\chi(2\xi)$, $\lambda_j=2^j$, and
+$u_j=\phi(2^{-j}D_\xi)u$. This explicit homogeneous profile obeys
+$\phi_j\ge0$, $\sum_j\phi_j=1$ away from zero, and
+$\sum_j\phi_j^2\le1$. A merely arbitrary annular probe has no such
+resolution assumption. Put
+\[
+ B(t)=\sup_{j\in\mathbb Z}\lambda_j^{-1/2}\|u_j(t)\|_\infty.
+\]
+Let $C_D$ be the $L^1$ norm of the gradient of a fixed reproducing kernel
+for the radius-two Fourier ball. Then
+$\|\nabla u_j\|_\infty\le C_D B\lambda_j^{3/2}$ and
+$\|\nabla u_j\|_2\le4\pi\lambda_j\|u_j\|_2$ in the original
+physical $2\pi$ convention. Original convection gives the exact cubic
+\[
+ P=-\sum_{i,j,k}\int\partial_k u_i\,\partial_k u_j\,\partial_j u_i.
+\]
+Sort its three shell indices as $\ell\le p\le q$. Nonzero interactions
+have $q-p\le3$; six permutations overcount all orderings. The low
+geometric sum is $\lambda_p^{3/2}/(1-2^{-3/2})$. Writing
+$e_j=\lambda_j^{7/4}\|u_j\|_2$, the absolute cubic sum is at most
+\[
+ K_0B\sum_p\sum_{d=0}^3 2^{-3d/4}e_pe_{p+d},
+ \qquad K_0=\frac{6C_D(4\pi)^2}{1-2^{-3/2}}.
+\]
+Cauchy for each shifted sequence and the resolving profile give
+\[
+ \sum_j e_j^2\le\pi^{-7/2}\int |k|^{7/2}|\widehat u|^2
+ \le\pi^{-7/2}Z^{1/4}Q^{3/4}.
+\]
+Here $\lambda_j\le |k|/\pi$ on each shell. Thus
+\[
+ |P|\le C_* BZ^{1/4}Q^{3/4},\qquad
+ C_*=K_0\pi^{-7/2}\sum_{d=0}^3 2^{-3d/4},
+\]
+\[
+ Z'+\nu Q\le\frac{27C_*^4}{16\nu^3}B^4 Z.
+\]
+All cubic limits follow from homogeneous partial sums converging in the
+existing compact $H^\gamma$ path, $\gamma>5/2$, hence in gradient
+$L^2$ and $L^\infty$. No endpoint higher norm enters the constants.
+
+A supplied finite horizon-uniform $L^4$ dose for
+$B_{\rm high}=\sup_{j\ge0}\lambda_j^{-1/2}\|u_j\|_\infty$ therefore
+has an exact original return. For $j<0$, native energy and Fourier volume
+bound the normalized shell by
+$C_\phi\sqrt{32\pi/3}\,\lambda_j\sqrt{E_0}$, so their full $B^4$
+time cost is finite on a finite horizon. The original local initial
+interval covers the opening Nash singularity. Gronwall gives
+\[
+ \sup Z\le Z_0\exp\left(\frac{27C_*^4}{16\nu^3}\int B^4\right).
+\]
+The retained inequality pays $\int Q$; alternatively native energy pays
+$\int Z^2\le(\sup Z)E_0/(2\nu)$. The written strong-path continuation
+and closed initial-face adapters then continue the \emph{same} maximal
+path and return original Clay(A), conditionally. No weak endpoint
+extension is assumed.
+
+Reinstating the earlier source split with this admissible fixed profile,
+the low and far responses are independently paid in the required time
+currency. The full-middle critical response is the remaining open
+applicability supplier for this route. The direct consumer closes an
+analytic bridge; it does not pay that supplier or prove unconditional
+Clay(A).
+
+
+\section{Native normalized response and helical source interface}
+
+The exact deficit from the preceding carrier calculations gives a
+natively paid scalar response. For $b=\max_{s\le t}Z(s)>0$,
+$\rho=\alpha\nu^2/b$, and $\delta\ge0$, put
+$V=\int\delta(k\rho)|\widehat u|^2=W/b$ and
+$H_\delta(z)=z\delta'(z)=K(z)+\delta(z)\ge0$. The full quotient law is
+\[
+ V'+2\nu D_\delta^\omega+
+ \frac{b'}b\int H_\delta(k\rho)|\widehat u|^2
+ =S_\delta=\frac{2c_\eta\alpha^2\nu^4P}{b^2}-I_\rho.
+\]
+Native record estimates and the original drift price yield
+\[
+ \int|S_\delta|\le L_\delta
+ =\frac{c_\eta\alpha^2\nu^4}{b_0}
+ +64c_\eta\alpha^2E_0+\frac{K_\eta\sqrt\alpha E_0}{2}.
+\]
+Every work term after $V'$ is nonnegative. Hence its total work is at
+most $V_0+L_\delta$ and $\int|V'|\le V_0+2L_\delta$ uniformly in
+preterminal cutoffs. This is a scalar bounded-variation statement.
+Since $0\le V\le c_\eta\alpha^2\nu^4/b$, it permits $b\to\infty$
+and $V\to0$. The quartic low-frequency symbol supplies no quadratic
+contact charge. A critical or growing-weight return remains open.
+
+A second original interface uses real helical projectors. For physical
+$k=2\pi\xi$, let $D=|k|$, $C(k)v=ik\times v$, and
+$\mathcal H_\pm=(\mathbb P\pm C/D)/2$ away from zero. These are
+Hermitian transverse projections preserving real fields. Define
+\[
+ A_\pm=\int D|\widehat u_\pm|^2,\qquad
+ Q_{3,\pm}=\int D^3|\widehat u_\pm|^2.
+\]
+Original helicity $\mathcal H=A_+-A_-$ obeys
+\[
+ \mathcal H'=-2\nu(Q_{3,+}-Q_{3,-}),\qquad
+ A_+(t)+2\nu\int_0^tQ_{3,+}
+ =A_-(t)+\mathcal H_0+2\nu\int_0^tQ_{3,-}.
+\]
+Thus supplied horizon-uniform $\sup A_-\le a_T$ and
+$\int Q_{3,-}\le q_T$ imply
+\[
+ \sup(A_++A_-)\le2a_T+|\mathcal H_0|+2\nu q_T,
+ \qquad \int(Q_{3,+}+Q_{3,-})
+ \le\frac{a_T+|\mathcal H_0|}{2\nu}+2q_T.
+\]
+Fourier volume and H\"older give
+$B^4\le [32/(3\pi)]^2(A_++A_-)(Q_{3,+}+Q_{3,-})$,
+so this one-sector premise has the preceding same-path conditional return.
+It remains unpaid. The two sector productions are equal and signed;
+helicity does not make them nonpositive. Unequal-length positive-helical
+inputs generate a negative-helical output. A Hermitian compact Fourier
+packet lift realizes this on admitted real solenoidal Schwartz data and
+on the actual initial time derivative. Ordinary dynamics does not preserve
+the positive sector automatically.
+
+The independently derived $\beta=5/4$ hyperviscous enstrophy control is
+a changed-equation calibration: its native energy pays
+$\int\|D^{5/4}u\|_2^2$, the coefficient of its enstrophy estimate.
+That additional quarter derivative is unpaid in original viscosity.
+Likewise an averaged nonlinearity retains an explicit solenoidal
+remainder in original transport, curl and gauge identities; the operator
+interface alone supplies no original-equation source estimate.
+
+\section{Positive impulse metric and its unpaid physical readout}
+
+On each existing original compact, set
+$L=\partial_t+u\cdot\nabla-\nu\Delta$ and $A_{ij}=\partial_i u_j$.
+The canonical scalar gauge $L\varphi=p-|u|^2/2$, $\varphi_0=0$,
+gives $m=u+\nabla\varphi$, $Lm=-Am$ and $\mathbb Pm=u$.
+Construct the specific symmetric matrix
+\[
+ LG=-AG-GA^T,\qquad G_0=I.
+\]
+Heat--Duhamel construction for $G-I$ and matrix cone comparison give
+$e^{-2\int\|S\|_{\infty,\mathrm{op}}}I\le G
+\le e^{2\int\|S\|_{\infty,\mathrm{op}}}I$ on each existing compact.
+These local coefficient integrals are finite; their endpoint bounds are
+unpaid. For $H=G^{-1}$ and $q=m^THm$, complete inverse/product calculus gives
+\[
+ LH=A^TH+HA-2\nu\sum_k(\partial_kH)G(\partial_kH).
+\]
+\[
+ Lq=-2\nu\sum_k
+ |\partial_km+G(\partial_kH)m|_H^2\le0.
+\]
+Consequently the native initial constants pay
+\[
+ q\le\|u_0\|_\infty^2,\qquad
+ \int q(t)+2\nu\int_0^t\!\int\sum_k
+ |\partial_km+G(\partial_kH)m|_H^2\le E_0.
+\]
+The spatial metric derivatives are essential. These estimates concern
+inverse-weighted impulse; they give no unweighted endpoint bound without
+an independent physical readout. Tracefree $A$ gives
+\[
+ L\log\det G=\nu\sum_k
+ \|G^{-1/2}(\partial_kG)G^{-1/2}\|_F^2\ge0,
+ \qquad\det G\ge1.
+\]
+A determinant lower bound does not control the largest eigenvalue.
+For $y=\|G-I\|_2^2$ the exact matrix energy and original Sobolev constant
+instead give
+\[
+ y'+\nu\|\nabla(G-I)\|_2^2
+ \le(1+1024\nu^{-3}Z^2)y+2Z.
+\]
+Its $\int Z^2$ coefficient is unpaid by native energy. An actual compact
+curl datum locally $(-ax_1,ax_2,0)$ has
+$G_t(0)=\mathrm{diag}(2a,-2a,0)$; this is an initial deformation control,
+not an example of singularity.
+
+Let $K_j$ be the Schwartz matrix kernel of the final-time annular operator
+$\Delta_j\mathbb P$, with uniform $L^1$ price, and define
+\[
+ D_{\rm ann}(t)=\sup_{j\ge0}\lambda_j^{-1/2}
+ \big\|\|K_j\|_{\rm op}*\sqrt{\lambda_{\max}G(t)}\big\|_\infty.
+\]
+Then $B_{\rm high}\le\|u_0\|_\infty D_{\rm ann}$.
+An independently paid horizon-uniform $\int D_{\rm ann}^4$ would give
+full original Clay(A) through the preceding consumer and return.
+A uniform bound $\lambda_{\max}G\le M_T$ is another sufficient premise,
+yielding $\int B_{\rm high}^4\le
+T C_{\rm ann}^4M_T^2\|u_0\|_\infty^4$. Both premises remain open.
+No global Leray $L^\infty$ bound or drift/shell commutation is used.
+
+Mass alone gives, for unit $v$,
+$|v\cdot u_j(x)|^2\le E_0v^TR_j(x)v$ with
+$R_j=\int K_j(z)G(x-z)K_j(z)^T\,dz$.
+Even $G=I$ makes $\lambda_j^{-1}R_j$ grow as $\lambda_j^2$.
+Thus this raw readout does not supply critical regularity. The exact
+scalar $\theta=\log(\operatorname{tr}G/3)-\log\det G$ has favorable
+diffusion, but retains signed strain and needs an upper determinant price
+to control physical trace. Native covariant dissipation, correlated
+annular readouts and the actual coupling $\mathbb Pm=u$ remain constructive
+leads. Original unconditional closure remains open.
+
+
+\section{Derived record limits and the remaining source}
+
+Suppose the original maximal path had a finite endpoint $T_*$.
+The preceding continuation law forces unbounded enstrophy $Z$.
+Choose first hitting times $Z(t_k)=B_k\to\infty$ and physical centers $x_k$.
+With unchanged viscosity set
+\[
+ \begin{aligned}
+ U_k(y,s)&=B_k^{-1}u(x_k+y/B_k,t_k+s/B_k^2),\\
+ \Pi_k(y,s)&=B_k^{-2}p(x_k+y/B_k,t_k+s/B_k^2).
+ \end{aligned}
+\]
+On every fixed backward window $[-R,0]$, for sufficiently large $k$,
+\[
+ \begin{gathered}
+ \sup Z_{U_k}\le1,\quad Z_{U_k}(0)=1,\quad
+ \int_{-R}^0 Q_{U_k}\le KR,\quad Q_{U_k}(0)\le K,\\
+ K=\frac{1024}{27\nu^4}.
+ \end{gathered}
+\]
+The last bound follows from nonnegative first-hit derivative and the cubic
+production bound. Scaled kinetic energy is $E_{U_k}=B_kE_u$ and can diverge.
+Homogeneous Sobolev gives $\|U_k\|_6\le S_0=4/\sqrt3$.
+
+These are sufficient to \emph{derive} local compactness. For canonical
+pressure split $U_k\otimes U_k$ into a compact near source, whose double
+Riesz multiplier is bounded on $L^2$, and a far source. The off-origin
+kernel is
+\[
+ K_{ij}(z)=\frac{3z_iz_j-\delta_{ij}|z|^2}{4\pi|z|^5}.
+\]
+Its $L^{3/2}$ tail norm is $O(L^{-1})$, while the tensor source has bounded
+$L^3$ norm. This gives uniform local pressure $L^2$ bounds. The equation
+then bounds time derivatives in local $H^{-1}$; cube averages and
+$\|f\|_2^2\le\|f\|_{H^{-1}}\|f\|_{H^1}$ give strong local
+$C_tL^2$ compactness. The $Q$ budget gives strong spacetime local gradients,
+and its terminal bound gives strong terminal local $H^1$ traces.
+Local $L^4$ product convergence, the fixed near cutoff and then the far-tail
+limit identify canonical pressure and the original ancient distributional
+Navier--Stokes equation. No free harmonic force is added.
+
+The ancient limit may be zero. Neither global normalization nor a terminal
+high-frequency tail bound proves spatial concentration. A correct terminal
+core condition uses a fixed ball \emph{after} recentering:
+\[
+ \int_{B_L(0)}|\nabla_yU_k(0)|^2\ge\epsilon>0,
+ \quad\text{equivalently}\quad
+ \int_{B_{L/B_k}(x_k)}|\nabla_xu(t_k)|^2\ge\epsilon B_k.
+\]
+A ball drifting in rescaled coordinates without recentering is insufficient.
+For instance the profiles $W_L=L^{-1/2}W(\cdot/L)$ have $Z=1$, $Q=O(L^{-2})$
+and vanish locally even after translations. These are norm controls,
+not actual singular solutions.
+
+A precise conditional nonzero bridge is available. If actual records obey
+$Z_{U_k}(0)-Z_{U_k}(-R)\ge d$ for fixed $R,d>0$, signed production satisfies
+$\int P_{U_k}\ge d/2$. Choose
+$L=\max(1,(4C_0KR/d)^4)$. The bad-time price is
+$\int_{Q>L}|P|\le C_0L^{-1/4}KR\le d/4$.
+On unit cubes the direct cutoff Sobolev bound gives
+\[
+ |P|\le C_{\rm loc}\sqrt{\eta}(1+Q)^{3/4},\qquad
+ \eta=\sup_j\int_{C_j}|\nabla U|^2.
+\]
+Consequently some good time and cube have a uniform positive gradient mass.
+Cutoff integration by parts with $Q\le L$ gives a positive local velocity
+norm. Moreover, the original projected equation gives
+\[
+ \int_{-R}^0\|\partial_sU_k\|_2^2\le
+ (2\nu^2K+2S_0^3\sqrt K)R.
+\]
+Thus translation-invariant compactness preserves the velocity mass at a
+subsequential time and gives a nonzero ancient limit. The fixed growth
+supplier and an exact applicable rigidity theorem remain open.
+
+\section{Covariant readout and source-local prices}
+
+The native inverse-metric charge can retain correlation in the final
+annular readout. Put $k_j=\|K_j\|_{\rm op}$, $C_K=\int k_0$, and
+\[
+ V=\sup_{j\ge0,x}C_K\lambda_j^{-1}
+       \int k_j(x-y)\|G(y)\|_{\rm op}q(y)\,dy.
+\]
+Scalar Cauchy gives $B_{\rm high}^2\le V$.
+Directional positive-weight optimization gives $(\int\sqrt{qr})^2$,
+with $r=v^TK_jGK_j^Tv$. Zero-safe weights
+$\sqrt{(r+\varepsilon q)/(q+\varepsilon r)}$ prove the infimum.
+For the raw weight $k_j\|G\|_{\rm op}$ at its zero set, arbitrary positive
+assignment can add an unwanted first-factor cost; adding $\varepsilon h$
+with positive integrable $h$ and then taking the limit completes that proof.
+The scalar Cauchy estimate itself never needs division by this weight.
+
+Define the Schwartz annular antiderivative by
+\[
+ \widehat J_{jk}(\xi)=\frac{\xi_k}{2\pi i|\xi|^2}
+               \mathbb P(\xi)\phi_j(\xi),\qquad
+ \sum_k\partial_kJ_{jk}=K_j.
+\]
+For $n=Hm$ and $d_k=m_k-(\partial_kG)n=G\partial_kn$, the exact readout is
+\[
+ u_j=\sum_kJ_{jk}*d_k+\sum_kJ_{jk}*((\partial_kG)n).
+\]
+Let $d=\int\sum_kd_k^THd_k$, and define
+\[
+ \begin{aligned}
+ W&=\sup_{j\ge0,x}\lambda_j^{-1}
+   \left\|\int\sum_kJ_{jk}(x-y)G(y)J_{jk}(x-y)^T\,dy\right\|_{\rm op},\\
+ C&=\sup_{j\ge0}\lambda_j^{-1/2}
+       \left\|\sum_kJ_{jk}*((\partial_kG)n)\right\|_\infty.
+ \end{aligned}
+\]
+Joint inverse-metric Cauchy gives
+\[
+ B_{\rm high}\le\sqrt{Wd}+C,\qquad
+ B_{\rm high}^4\le2VWd+2VC^2.
+\]
+Supplied horizon-uniform $VW\le L_T$ and $\int VC^2\le J_T$ give
+\[
+ \int B_{\rm high}^4\le L_TE_0/\nu+2J_T.
+\]
+This gives the earlier full original conditional return.
+Its independent source remains open. Here
+$J_{jk}=\lambda_j^2J_{0k}(\lambda_j\cdot)$, so its squared kernel integral
+scales as $\lambda_j$, repairing the raw mass-readout loss. The identity
+heat ambient has $C=0$ and pays this calibration; it is a changed ambient,
+since the actual specific metric $G=I$ would require $S=0$.
+
+A local original curl split supplies another native component price:
+\[
+ V_r=(-\Delta)^{-1}\operatorname{curl}(\psi\omega),\qquad
+ H_r=U-V_r,
+\]
+with $\psi=1$ on $B_{2r}$ and supported in $B_{3r}$.
+Fourier contraction gives $\|\nabla V_r\|_2\le\|\nabla U\|_2$,
+and $H_r$ is harmonic inside $B_{2r}$. Its ball mean value gives
+\[
+ \|\nabla H_r\|_{L^\infty(B_r)}
+ \le2\sqrt{\frac3{4\pi}}r^{-3/2}\|\nabla U\|_2.
+\]
+This pays harmonic strain independently of diverging scaled energy.
+The exact localized vorticity balance retains local stretching, transport
+and diffusion collars. Native record drift has an integrated fourth-power
+price, which does not itself supply small pointwise coefficients in a
+backward weighted theorem. Local core, collar, coefficient and rigidity
+returns remain open. These intermediate laws do not establish
+unconditional Clay(A).
+
+
+\section{Actual-history heat and localized sources}
+
+The reviewed record object satisfies exact local energy, not merely its
+inequality. For $e=|U|^2/2$ and compact smooth $\chi$,
+\[
+ \frac{d}{ds}\int\chi e+\nu\int\chi|\nabla U|^2
+ =\int e(\chi_s+\nu\Delta\chi)+\int(e+\Pi)U\cdot\nabla\chi.
+\]
+Local strong products, strong spacetime gradients and canonical pressure
+pass this identity from the actual finite histories. Write $\theta\ge0$
+for a smooth compact terminal test of mass $M$, $b\le0$, and
+$\Phi(s)=h_{\nu(b-s)}*\theta$. The near Fourier pressure multiplier and
+far kernel give $\|\Pi\|_{L^2(B_L)}\le C_pS_0^2L^{1/2}$.
+Gaussian pressure-shell estimates then prove, with
+$F(s)=\int(e+\Pi)U\cdot\nabla\Phi$,
+\[
+ |F(b-\tau)|\le C_FMS_0^3(\nu\tau)^{-5/4}
+ \quad\text{when }\tau\ge r^2/\nu.
+\]
+The remote energy is at most $S_0^2M/(6\sqrt{\pi\nu(b-a)})$.
+Exhausting space first and then the remote past gives
+\[
+ \int\theta e(b)+\nu\int_{-\infty}^b\!\int\Phi|\nabla U|^2
+   =\int_{-\infty}^b F(s)\,ds.
+\]
+For finite first-record histories the initial boundary is bounded by
+\[
+ \frac{ME_0}{2(4\pi\nu(t_k+b/B_k^2))^{3/2}B_k^2}.
+\]
+This is $O(B_k^{-2})$ for every fixed $b\le0$; its denominator must retain
+$b$ before taking the limit.
+
+The \emph{same} backward test supplies a stronger signed tail. For every
+$R>0$,
+\[
+ \begin{aligned}
+ T_R&=\int_{-\infty}^{b-R}F(s)\,ds\\
+ &=\int\Phi(b-R)e(b-R)
+   +\nu\int_{-\infty}^{b-R}\!\int\Phi|\nabla U|^2,\\
+ 0&\le T_R\le\frac{C_sM}{\sqrt{\nu R}},\qquad
+ C_s=\frac{S_0^2}{6\sqrt\pi}+\frac1{4\pi^{3/2}}.
+ \end{aligned}
+\]
+The absolute tail remains $O(R^{-1/4})$. The signed estimate does not
+assert pointwise flux positivity. A supplied positive local energy forces
+recent signed influx; no independent law excluding that influx is supplied.
+
+The local curl split also pays a small quadratic stretch form. With
+$a=\|\psi\omega\|_2\le1$, $f=\chi\omega$ and
+$\beta=(4\pi/3)^{1/6}$,
+\[
+ \left|\int f_if_j\partial_jV_i\right|
+ \le S_0^2\beta r^{1/2}a\|\nabla f\|_2^2.
+\]
+Thus $r\le\nu^2/(4S_0^4\beta^2)$ absorbs this term. Normalized cutoffs
+$0\le\chi\le1$ retain both collars. Their transport price on
+$I\subset[-R,0]$ uses $\int_I\|U\|_\infty\le
+c_W|I|^{3/4}(KR)^{1/4}$, not an unproved $K|I|$ budget.
+For reverse time $L_\nu=\partial_\tau+\nu\Delta$ and $w=\chi v$,
+\[
+ L_\nu w=b\cdot\nabla w-Jw+R_\chi,\qquad
+ R_\chi=(\nu\Delta\chi-b\cdot\nabla\chi)v
+              +2\nu\nabla\chi\cdot\nabla v.
+\]
+Native bounds pay absolute collars for each fixed weight. The quadratic
+stretch estimate does not pay $|Jw|^2$ in a backward weighted argument;
+seed, parameter-uniform collars and exact rigidity remain open.
+
+\section{Rotational source and event calibration}
+
+For the specific original metric put
+\[
+ n=Hm,\qquad d_k=G\partial_kn,\qquad
+ \rho=\sum_k E_k(\partial_kG)n,
+\]
+where $E_kv=e_k\times v$. Then
+$\omega=\sum_kE_kd_k+\rho$ and, with $A_{ij}=\partial_i u_j$,
+\[
+ \begin{aligned}
+ L\rho={}&A^T\rho-\sum_kE_kG(\partial_kA)^Tn\\
+ &+2\nu\sum_{k,l}E_k\big((\partial_kG)H(\partial_lG)
+                         -\partial_l\partial_kG\big)\partial_ln.
+ \end{aligned}
+\]
+The drift commutator $-\sum_l A_{kl}\partial_lG$ is retained in its
+underlying differentiated metric law. Actual compact curl data can create
+$\rho$ from zero initial connection. No invariant zero source is assumed.
+For the matching annular inverse-curl kernel $R_j$ and $F_{jk}=R_jE_k$,
+\[
+ B_{\rm high}^2\le2W_{\rm rot}d+2C_{\rm rot}^2,
+ \qquad B_{\rm high}^2\le c_R Z.
+\]
+Writing $V_* =\min(V,c_RZ)$ gives
+$B_{\rm high}^4\le2V_*(W_{\rm rot}d+C_{\rm rot}^2)$.
+Supplied uniform $V_*W_{\rm rot}\le L_T$ and
+$\int V_*C_{\rm rot}^2\le J_T$ return
+$\int B_{\rm high}^4\le L_TE_0/\nu+2J_T$ on the same path.
+Their independent source remains open.
+
+An exact scalar source identity records the sign explicitly. Set
+$D=\det G$, $b=\log D$, $e=G\omega$,
+$C_k=G^{-1/2}(\partial_kG)G^{-1/2}$ and $v=G^{1/2}\omega$. Then
+\[
+ L\left(\frac{\omega^TG\omega}{D}\right)
+ =-\frac{2\nu}{D}\sum_k|\partial_ke-(\partial_kb)e|_H^2
+   +\frac{2\nu}{D}\sum_kv^T\operatorname{adj}(C_k)v.
+\]
+Arbitrary SPD metric jets allow either cofactor sign. This observation alone
+makes no assertion about their attainment by the specific original metric.
+
+For actual first hits $B_k=2h_k$ and last preceding half-level crossings,
+let $\ell_k=B_k^2(t_k-a_k)$. A bounded subsequence of $\ell_k$ supplies
+$\int_{-\ell_k}^0P\ge1/4$. The anchored $Q$ budget removes bad times and
+the cube law produces a nonzero ancient core. This uses the variable event;
+it does not imply fixed-$R$ half-growth, since earlier excursions can occur.
+If $\ell_k\to\infty$, the event instead supplies only
+\[
+ \frac1{\ell_k}\int_{-\ell_k}^0(P-\nu Q)=\frac1{4\ell_k}\to0.
+\]
+This signed near-balance proves neither local concentration nor stationarity.
+
+A direct stationary calibration is available under an extra premise:
+a smooth stationary original field with $\nabla W\in L^2$, $W\in L^6$,
+canonical pressure and $W\in L^{9/2}$ must vanish. For annular norm
+$n_R=\|W\|_{L^{9/2}(B_{2R}\setminus B_R)}\to0$, cutoff diffusion costs
+$CR^{-1/3}n_R^2$ and cubic flux $Cn_R^3$. Near pressure has $L^2$ price
+$CR^{1/6}\|W\|_{9/2}^2$ and far pressure supremum price
+$CR^{-4/3}\|W\|_{9/2}^2$; both fluxes cost
+$C\|W\|_{9/2}^2n_R\to0$. Exact cutoff energy therefore gives
+$\nabla W=0$ and $W=0$. The native $L^6$ estimates instead lose $R^{1/2}$.
+The extra integrability and any actual stationary-record adapter remain
+open. These reviewed intermediate laws do not establish unconditional Clay(A).
+
+
+\section{Two ancient adapters and actual scalar sign controls}
+
+A hypothetical finite endpoint forces unbounded velocity amplitude, since
+\[
+ Z'+\nu Q\le\nu^{-1}\|u\|_\infty^2Z
+\]
+would otherwise bound $Z$ and return original continuation. At first hits
+$M_k$ of amplitude, attained maxima $x_k$ give
+\[
+ V_k(y,s)=M_k^{-1}u(x_k+y/M_k,t_k+s/M_k^2),\qquad
+ |V_k|\le1,\quad |V_k(0,0)|=1.
+\]
+The past domains exhaust $(-\infty,0]$. The exact heat--Leray divergence
+kernel is
+\[
+ K_{ijk}(t)=\partial_k\left(\delta_{ij}h_{\nu t}
+       +\partial_i\partial_j\int_{\nu t}^\infty h_r\,dr\right).
+\]
+Gaussian derivative integration gives $|D^mK(t,x)|\le
+C_m(|x|^2+\nu t)^{-(4+m)/2}$ and
+$\|D^mK(t)\|_1\le C_m(\nu t)^{-(m+1)/2}$.
+Spatial translations split at $\tau=|z|^2/\nu$ give a logarithmic
+Lipschitz modulus; heat restart gives time continuity. Local uniform
+compactness includes the terminal face. Kernel spatial tails $O(1/R)$
+and the final-slice price $O(\sqrt{\varepsilon/\nu})$ pass every finite
+mild identity. Thus the limit $V$ is a nonzero bounded ancient mild field
+with $|V(0,0)|=1$. Its scaled energy may diverge and nonzero constants
+remain admissible.
+
+The all-order classical adapter uses the explicit repaired derivative
+construction. At order $m$, place all derivatives on the kernel before
+$t/2$, and all derivatives on the product after $t/2$. For
+$A_m=\sup(\nu t)^{m/2}\|D^mv(t)\|_\infty$,
+\[
+ A_m\le\|D^mh_1\|_1A_0+C_m\sqrt{h/\nu}
+ \left(A_0^2+A_0A_m+\sum_{1\le j<m}A_jA_{m-j}\right).
+\]
+Each finite order has its own absorption length. Regularized Picard iterates
+and finite differences construct derivatives before passing the singular
+pressure operator. Near pressure retains its local delta correction and
+Taylor subtraction; far derivative kernels have integrable $r^{-4}$ tails
+and a positive unit-sphere boundary term. This passes the actual canonical
+pressure gradients and all mixed derivatives. The coherent gauge fixes
+$p(0,s)=0$. These ancient terminal traces are distinct from the original
+physical right initial-face return.
+
+The separate enstrophy-record class has global $L^6$ bound $M=S_0$.
+Its actual mild identity passes using weak $L^6$ heat tails, tensor $L^3$
+spatial tails and a final-strip $L^6$ price $O(\varepsilon^{1/4})$.
+In $X=\sup\|v\|_6+\sup(\nu t)^{1/4}\|v\|_\infty$, put
+\[
+ \begin{aligned}
+ C_h&=\|h_1\|_{6/5},\qquad H_0=1+C_h,\\
+ D_0&=\|K_{\text{heat }1}\|_{6/5}
+                  \bigl(4+\mathrm B(1/4,3/4)\bigr),\\
+ \delta&=\nu^3/(16D_0H_0M)^4.
+ \end{aligned}
+\]
+The radius $2H_0M$ ball contracts. Uniqueness against the actual solution
+of $L^6$ size $M$ uses both radii, with coefficient at most
+$(1+2H_0)/(16H_0)<1$. Every ancient restart then gives
+$\|U\|_\infty\le32D_0H_0^2M^2/\nu$.
+Zero is handled separately. Nonzero constants are excluded by $L^6$,
+but the actual extracted field can still vanish locally.
+
+This class has a paid signed projected-source account. Define
+\[
+ N_R(b)=-\int_{b-R}^b K(b-s)*(U\otimes U)(s)\,ds.
+\]
+Exact mildness gives $U(b)-N_R(b)=h_{\nu R}*U(b-R)$, so
+\[
+ \|U(b)-N_R(b)\|_\infty\le C_hM(\nu R)^{-1/4}.
+\]
+The full signed remote source converges uniformly; absolute convergence
+is not established. Differentiated remainders use the heat identity,
+without integrating a differentiated kernel at its singular tip.
+For pointwise records, the distinct actual remote contribution is
+\[
+ \begin{aligned}
+ A_{k,R}&=-\int_{a_k}^{-R}[K(-s)*(V_k\otimes V_k)(s)](0)\,ds,\\
+ \lim_k A_{k,R}&=[h_{\nu R}*V(-R)](0).
+ \end{aligned}
+\]
+The original initial heat term vanishes as $M_k^{-1}$. If $V=c$, $|c|=1$,
+its remote nonlinear memory is $c$ for every fixed $R$. No uniform native
+absolute bound excludes this memory. The two record classes cannot exchange
+these source conclusions without an independent bridge.
+
+Finally, the cofactor sign obstruction can be realized on actual compact
+original data. Let
+\[
+ \phi=-ax^3/3+ax(y^2+z^2)/2,\quad u_2=\nabla\phi,
+ \quad u_1=(w\times X)/2.
+\]
+Write $S_k=\partial_kD^2\phi$ and $M_{ik}=(S_kw)_i$. This $M$ is symmetric
+tracefree. Set
+\[
+ u_4=-|X|^2(X\times MX)/(42\nu),\qquad
+ \nu\Delta\operatorname{curl}u_4=MX.
+\]
+For each homogeneous solenoidal $u_d$,
+$\operatorname{curl}[-X\times u_d/(d+2)]=u_d$.
+A compact cutoff of these potentials preserves all origin jets and gives
+legal Schwartz data. On its actual local solution, $G_{k,t}=-2S_k$ and
+the quartic diffusion makes $\omega_{k,t}=2S_kw$, so
+$\partial_t\partial_k(G\omega)=0$ initially. The completed square is
+$O(t^4)$, while the cofactor is quadratic. The full operator has signs
+\[
+ \begin{aligned}
+ w=b_0e_1:&\quad L(r/D)(0,t)=8\nu a^2b_0^2t^2+O(t^3),\\
+ w=b_0e_2:&\quad L(r/D)(0,t)=-24\nu a^2b_0^2t^2+O(t^3).
+ \end{aligned}
+\]
+This refutes a universal pointwise subsolution law for this particular scalar.
+It supplies no singular solution or endpoint source price.
+For the restricted harmonic quadratic subclass with locally constant initial
+vorticity, put $E_T=\sum_{ijk}T_{ijk}^2$ and
+$N_T=\sum_k|T_kw|^2$ for its symmetric tracefree third tensor.
+The sharp law is $N_T\le3|w|^2E_T/5$. Its full leading operator is
+$2\nu(3N_T-2|w|^2E_T)t^2+O(t^3)$ and is negative for nonzero $T,w$.
+The quartic operation exits precisely that neighborhood hypothesis.
+Actual core, class-sensitive rigidity, constant exclusion and the mixed
+rotational source remain independent open obligations. Unconditional
+Clay(A) is not established.
+
+\section{Dissipation cores and canonical head-tail carriers}
+
+Round59 constructs five laws, checked by three independent full reviews
+and a distinct parent pass. The actual source suppliers remain open.
+For the original first enstrophy records of round56, write
+$D_{k,R}=\int_{-R}^0Q_{U_k}(s)\,ds$. Then
+\[
+ \begin{aligned}
+ &\text{some translated subsequence has a nonzero ancient limit}\\
+ &\qquad\Longleftrightarrow
+ \text{some fixed }R>0\text{ has }\limsup_kD_{k,R}>0.
+ \end{aligned}
+\]
+Here the existential choice of centers is essential. At a record,
+$\int P\ge\nu D_{k,R}$. If $D_{k,R}\ge c>0$, choose
+$L=\max\{1,(2C_0KR/(\nu c))^4\}$ with $D_{k,R}\le KR$.
+Production on $Q>L$ costs at most $\nu c/2$; the remaining signed
+production, the original cube inequality and local time compactness
+give a positive recentered velocity witness. Conversely, if all fixed
+$D_{k,R}$ vanish, every translated limit is spatially harmonic in
+distributions and has global $L^6$ norm bounded. The ball mean-value bound
+$|U(x,s)|\le C\rho^{-1/2}\|U(s)\|_6$ forces zero, and local time
+continuity includes the terminal trace. A nonzero limit therefore has a
+nonzero compact Laplacian pairing, whose Cauchy bound gives the reverse
+subsequential dissipation lower bound.
+
+Starvation also pays an exact variation estimate:
+\[
+ \sup_{-R\le s\le0}|1-Z_{U_k}(s)|
+ \le2C_0R^{1/4}D_{k,R}^{3/4}+2\nu D_{k,R}=:\varepsilon_k.
+\]
+Only after this lower bound on $Z$ may one divide to obtain
+\[
+ \frac{\nu^4D_{k,R}}R\le
+ \mathop{\mathrm{avg}}_{[-R,0]}\frac{\nu^4Q}{Z^3}
+ \le\frac{\nu^4D_{k,R}}{R(1-\varepsilon_k)^3}.
+\]
+Taylor length divided by enstrophy length then diverges in measure,
+with no uniform time claim. In the viscosity-preserving normalization,
+the physical dissipation on this same window is $B_kD_{k,R}$.
+None of these facts supplies fixed-depth nonstarvation or ancient rigidity.
+
+For any smooth original unforced field, $e=|u|^2/2$ and $H=e+p$ satisfy
+\[
+ \nabla H=u\times\omega-\nu\operatorname{curl}\omega-u_t,
+ \qquad (\nu\Delta-u\cdot\nabla)H=\nu|\omega|^2+e_t.
+\]
+The last term has no sign. For a stationary field $W\in L^6$,
+$\nabla W\in L^2$, with the bounded spatial derivatives supplied by the
+qualified ancient adapter, the canonical pressure tends to zero at infinity.
+One proof uses the longitudinal $L^2$ projection of $(W\cdot\nabla)W$,
+the homogeneous Sobolev representative, and vanishing canonical ball means
+to fix its gauge. Bounded pressure gradient then gives uniform continuity;
+uniform continuity and $L^6$ give decay. A compact test
+$(H-\epsilon)_+$ of the stationary identity yields
+\[
+ -\nu\int_{H>\epsilon}|\nabla H|^2
+ =\nu\int(H-\epsilon)_+|\omega|^2\ge0.
+\]
+Thus $H\le0$ in this stationary class. This sign is not available for
+arbitrary time-dependent ancient fields or their averaged heads.
+
+A radial pressure carrier gives a weaker conditional return than finite
+weighted energy. Suppose a smooth solenoidal $W\in L^6$ has its canonical
+pressure $\Pi$ and $H=|W|^2/2+\Pi\le0$. Define
+\[
+ \begin{aligned}
+ E(R)&=\int_{B_R}|W|^2,&
+ T(R)&=\int_{|x|>R}\frac{|W|^2}{|x|^3},\\
+ T_{\rm rad}(R)&=\int_{|x|>R}\frac{|W\cdot x/|x||^2}{|x|^3},&
+ I(R)&=\int_R^\infty\frac{E(s)}{s^4}\,ds.
+ \end{aligned}
+\]
+All these quantities are finite for $R>0$, since $E(R)=O(R^2)$ and the
+tail weight belongs to $L^{3/2}$. The Newton potential of $1_{B_R}$ is
+$R^2/2-r^2/6$ inside and $R^3/(3r)$ outside. Its value and first derivative
+match at the sphere, so its Hessian has no surface delta. The interior
+Hessian is $-I_3/3$, retaining the local pressure multiplier correction.
+The exact canonical duality is
+\[
+ \int_{B_R}H=\frac{E(R)}6+\frac{R^3}3(3T_{\rm rad}(R)-T(R)).
+\]
+To justify it, first truncate $W\otimes W$ to an $L^2$ tensor and use
+selfadjointness of the full Fourier multiplier. On the ball, the omitted
+far pressure is bounded by $CM^{-1}\|W\otimes W\|_3$. The test Hessian is
+in $L^{3/2}$, which passes tensor exhaustion. Sharp sphere matching or
+smooth radial approximation pays the ball boundary. No global integral
+of pressure is assumed.
+
+Integration by parts gives $T=-E/R^3+3I$, because $E(s)/s^3\to0$.
+Head sign, with the radial term retained, therefore gives
+\[
+ \begin{aligned}
+ E(R)&\le2R^3(I(R)-T_{\rm rad}(R)),\qquad F(R)=R^2I(R),\\
+ F'(R)&=2RI(R)-E(R)/R^2\ge2RT_{\rm rad}(R)\ge0.
+ \end{aligned}
+\]
+If $W$ is nonzero, $F$ is positive at some radius and stays positive.
+The extra premise $E(R)=o(R)$ instead gives $F(R)\to0$, hence forces
+$W=0$. Native $L^6$ bounds supply only $O(R^2)$ and do not pay this source.
+Finiteness of $J=\int|W|^2(1+|x|^2)^{-1/2}$ implies $o(R)$ by dominated
+convergence. The converse fails in the norm ambient: disjoint solenoidal
+annular bumps of radius $2^n$ and amplitude $2^{-n}/\sqrt n$ have
+$E(R)=O(R/\log R)$ but a divergent harmonic sum for $J$. They are norm
+controls, not stationary solutions or actual record limits.
+
+An independent weighted proof uses $\theta=(1+r^2)^{-1/2}$ and
+$A(r)=\int_0^r s^2\theta(s)\,ds$. The limiting dual matrix has eigenvalues
+$\theta/2-A/r^3>0$ and $2A/r^3-\theta/2\ge\theta/6$.
+Compact weight cutoffs have uniformly bounded Hessians by $2\theta$.
+Under extra $J<\infty$, dominated convergence of their quadratic pairings
+gives a nonnegative limiting form, while every head pairing is nonpositive.
+Thus $W=0$, without a finite uncut Newton potential or an independently
+absolute weighted pressure integral. Actual stationary attainment, head
+applicability and either spatial source remain open.
+
+Finally, long-event time occupation on the middle half interval has shift
+error $4|h|\|f\|_\infty/\ell_k$. Probability weak convergence with continuous
+shifts would yield invariance; existence, original-NS support and nonzero
+local mass remain separate adapters. On any actual normalized interval of
+length $L$, integrated enstrophy and Young give
+$\int Q\le64L/\nu^4+1/\nu$; shifted endpoints are not treated as records.
+For a supplied invariant Borel probability on smooth eternal original
+paths with legal local energy identities, the extra moment
+$\mathbb E\|U(0)\|_{9/2}^3<\infty$ gives a conditional zero law.
+Invariance cancels expected energy endpoints. The original shell prices
+$C\nu R^{-1/3}n_R^2+Cn_R^3+CN^2n_R$ vanish in expectation by dominated
+convergence. Fatou yields zero gradient; $L^6$ excludes constants, and
+rational-time continuity gives zero entire paths almost surely. Correlations
+remain inside $\mathbb E(HU)$; individual stationarity is never inferred.
+The moment and positive local mean are still independent original-source
+obligations. Unconditional Clay(A) remains open.
+
+\section{Source-sensitive force and rotational controls}
+\label{sec:source-controls60}
+
+Round60 adds reviewed component laws, with the original all-data unforced
+target still open. The changed-equation force control uses only an
+explicitly supplied primary statement; its substantive proof and
+formalization have not been audited here. No forced conclusion is imported
+as an unconditional theorem about the original target.
+
+For a smooth forced path with legal whole-space energy integrations, put
+$G=-\langle\Delta u,f\rangle$. Direct momentum and divergence give
+\[
+ \begin{aligned}
+ E'&=-2\nu Z+2\langle u,f\rangle,&
+ Z'&=2P-2\nu Q+2G,\\
+ -\Delta p&=\partial_i\partial_j(u_i u_j)-\operatorname{div}f.
+ \end{aligned}
+\]
+The force correction to canonical pressure is
+$-(-\Delta)^{-1}\operatorname{div}f$. At genuine diverging enstrophy
+records, the repository normalization $U=B^{-1}u$, $F=B^{-3}f$ retains
+viscosity and gives
+\[
+ \begin{gathered}
+ \|D_y^m F\|_2=B^{-m-3/2}\|D_x^m f\|_2,\\
+ E_U=BE,\qquad Z_U=B^{-1}Z,\qquad Q_U=B^{-3}Q.
+ \end{gathered}
+\]
+Assume the required physical force norms are uniformly bounded. Cubic
+Young and force Young leave $\nu Q_U/4$ after absorption. On a fixed
+anchored record window of length $R$,
+\[
+ \int Q_U\le\frac{128R}{\nu^4}
+       +\frac{4M_f^2R}{\nu^2B^3},\qquad
+ \left|\int G_U\right|
+       \le B^{-3/2}M_f\left(R\int Q_U\right)^{1/2}.
+\]
+An arbitrary shifted subinterval adds $2/\nu$ to the dissipation bound.
+No shifted endpoint is treated as a record. The coefficient128 is coarse;
+it does not replace the sharper unforced coefficient. Heat-Leray has the
+direct Fourier bound $L^2\to L^\infty$ with norm
+$C(\nu\tau)^{-3/4}$. Hence on a fixed time pair
+\[
+ \left\|\int_a^b e^{\nu(b-s)\Delta}\mathbb P F(s)\,ds\right\|_\infty
+ \le4C\nu^{-3/4}(b-a)^{1/4}B^{-3/2}M_f\longrightarrow0.
+\]
+These estimates pay the direct finite-window force passage. Nonlinear
+compactness, nonzero extraction, limiting pressure class, entire history
+and original continuation remain separate obligations.
+
+The type of work matters: on matched physical and normalized intervals,
+\[
+ \int G_U\,ds=B^{-1}\int G\,dt,
+ \qquad \int\langle U,F\rangle\,ds=B\int\langle u,f\rangle\,dt.
+\]
+Vanishing scaled enstrophy work does not erase kinetic injection. If a
+global smooth energy-class path has already been returned, define
+$M=\int_0^\infty\|f(t)\|_2\,dt$ and assume it is finite. The regularized
+square-root energy calculation gives
+\[
+ \frac{d}{dt}\sqrt{E+\epsilon^2}\le\|f(t)\|_2,
+ \qquad \sup_{t\ge0}E(t)\le(\sqrt{E(0)}+M)^2.
+\]
+This includes zero energy and supplies a conditional uniform bound.
+It constructs no global path. A contradiction with a supplied forced
+statement would require separately proved adapters for every substantive
+step, the same force and datum, source and inherited class, complete
+history, coherent pressure and global smooth energy-class return.
+Local force disappearance alone proves no complete transfer or blanket
+rejection of an unforced strategy.
+
+For the genuine vector rotation mean $v$, let $w=u-v$,
+$R_{ij}=\langle w_iw_j\rangle$ in rotating cylindrical components, and
+$\bar\Gamma=rv_\theta$. Direct angular momentum gives
+\[
+ \begin{aligned}
+ (\partial_t+v_r\partial_r+v_z\partial_z)\bar\Gamma
+ &=\nu(\partial_{rr}-r^{-1}\partial_r+\partial_{zz})\bar\Gamma+T
+       +r\langle f_\theta\rangle,\\
+ T&=-r^{-1}\partial_r(r^2R_{r\theta})-r\partial_zR_{z\theta}.
+ \end{aligned}
+\]
+Angular pressure derivatives vanish by periodicity, without discarding
+the other pressure components. For compact tests away from the axis,
+physical measure $2\pi r\,dr\,dz$ gives
+\[
+ \int\psi T=\int r(R_{r\theta}\psi_r+R_{z\theta}\psi_z),
+ \qquad |\int\psi T|\le\tfrac12\int r|\nabla\psi|\langle|w|^2\rangle.
+\]
+Under its actual source, growth and axis hypotheses, the circulation
+maximum is charged by $\int\|T+r\langle f_\theta\rangle\|_\infty$.
+The weak price is not this maximum-principle norm. Zero external force
+does not remove Reynolds torque; mean circulation alone supplies neither
+swirl shear nor the full fluctuation continuation criterion.
+
+An exact nonlinear affine calibration retains viscous seed history.
+For $\operatorname{tr}A=0$, $A'+A^2$ symmetric, $k'=-A^Tk\ne0$, and
+$a\cdot k=0$, set
+\[
+ \begin{aligned}
+ a'&=-Aa+2k(k\cdot Aa)/|k|^2-\nu|k|^2a,\\
+ u&=Ax+a\cos(k\cdot x),\\
+ p&=-\tfrac12x\cdot(A'+A^2)x
+           -2(k\cdot Aa)\sin(k\cdot x)/|k|^2.
+ \end{aligned}
+\]
+The full unforced equation holds: phase transport cancels and the wave
+has zero self-advection. Its amplitude satisfies
+\[
+ (|a|^2)'=-2a\cdot Sa-2\nu|k|^2|a|^2.
+\]
+Reversed diagonal strain can amplify despite viscosity. These backgrounds
+and waves generally have infinite energy. Localization, pressure residuals,
+accumulated nonlinear error and original initial-seed comparison remain open.
+
+Finally $f(x,t)=e^{-1/t^2}e_1$ before zero, extended by zero, is spatially
+analytic on every slice and smooth with every endpoint jet zero, yet is
+nonzero at every earlier time. Its regular local solution
+$u=e_1\int_{-1}^t e^{-1/s^2}\,ds$, $p=0$ has infinite whole-space energy.
+It refutes only the inference from spatial analyticity and endpoint time
+flatness to locally zero force. A separate direct identity law propagates
+exact symmetry from a nonempty open core for an actually analytic field
+on a connected invariant ball. Actual analytic/core production and the
+substantive endpoint regularity return remain unpaid. Unconditional
+Clay(A) remains open.
+
+\section{Native source charges and the anchored starvation alternative}
+\label{sec:native-anchor61}
+
+Round61 is independently reviewed and integrated at the following scopes.
+Schwartz initial data supply $Y_0=\int|x|^2|u_0|^2$, while native energy
+supplies $E\le E_0$ and $\int Z\le E_0/(2\nu)$. Evolved moment finiteness
+is derived using bounded increasing weights
+$w_L=|x|^2/(1+|x|^2/L^2)$, rather than assumed. Their gradients satisfy
+$|\nabla w_L|\le2\sqrt{w_L}$ and $\Delta w_L\le6$.
+Canonical pressure has the direct tensor $L^2$ estimate
+$\|p\|_2\le\|u\|_4^2$, retaining the pressure energy flux. Thus
+\[
+ Y_L'\le6\nu E_0+6S_0^{3/2}E_0^{1/4}Z^{3/4}\sqrt{Y_L}.
+\]
+For every $m>0$, regularization by $\sqrt{Y_L+m^2}$ and native dissipation
+give, at every existing $t\le T$,
+\[
+ \begin{aligned}
+ \sqrt{Y(t)}\le C_Y(T,m)&=\sqrt{Y_0+m^2}+3\nu E_0T/m\\
+ &\quad+3S_0^{3/2}E_0^{1/4}T^{1/4}(E_0/(2\nu))^{3/4}.
+ \end{aligned}
+\]
+Monotone weight exhaustion constructs $Y(t)$ without a terminal higher
+norm or evolved Schwartz assumption. This physical moment scales by $B^3$
+under a record zoom and is not a uniform moment of an ancient limit.
+
+Let $U=\mathcal A u$ be vector rotation projection, $v=u-U$ and
+$R=\mathcal A(v\otimes v)$. Solenoidality before absolute values gives
+the exact unprojected mean force
+\[
+ F_R=-\operatorname{div}R=-\mathcal A[(v\cdot\nabla)v],
+ \qquad U_t+(U\cdot\nabla)U=\nu\Delta U-\nabla(\mathcal A p)+F_R.
+\]
+The canonical mean pressure depends on $U\otimes U+R$. Rotation
+orthogonality, Jensen and spatial Cauchy give the actual source charges
+\[
+ \int_0^t\|F_R\|_1\le E_0\sqrt{T/(2\nu)},
+ \qquad\int_0^t\|rF_R\|_1\le C_Y(T,m)\sqrt{TE_0/(2\nu)}.
+\]
+The torque is $r(F_R)_\theta$. Convex Kato in physical measure
+$2\pi r\,dr\,dz$ has diffusion adjoint
+$\partial_{rr}+3r^{-1}\partial_r+\partial_{zz}$.
+Actual circulation $\Gamma=rU_\theta=O(r^2)$ removes its axis flux.
+An exponential exhaustion with radius at least1, followed by zero-safe
+regularizer exhaustion, returns
+\[
+ \|\Gamma(t)\|_{L^1(dx)}\le\|\Gamma(0)\|_{L^1(dx)}
+                         +C_Y(T,m)\sqrt{TE_0/(2\nu)}.
+\]
+Compact drift bounds justify passage and disappear from the final constant.
+This supplies mean circulation mass, not swirl shear or fluctuation return.
+No bare Leray $L^1$ bound is claimed. With angular Fourier frequency,
+the projected source instead satisfies
+\[
+ \int_0^t\|\mathbb P F_R\|_{\dot H^{-1}}^{4/3}
+ \le\frac{S_0^2E_0^{4/3}}{2\nu},
+\]
+and curl force in $\dot H^{-2}$ has the same price. These are homogeneous
+$L^2$ multiplier budgets, with no pointwise division at zero frequency.
+
+For an actual forced energy-class control, supplied global norms
+$M_1=\int_0^{T_0}\|f\|_2$, $M_{\nabla}^2=\int_0^{T_0}\|\nabla f\|_2^2$
+and $M_0=\sup\|f\|_2$ give
+\[
+ \begin{aligned}
+ E_{\max}&=(\sqrt{E_0}+M_1)^2,\\
+ D_Z&=(E_0/2+\sqrt{E_{\max}}M_1)/\nu,\\
+ \int_0^t|G|&\le\sqrt{D_ZM_{\nabla}^2}.
+ \end{aligned}
+\]
+Here $G=\langle\nabla u,\nabla f\rangle$ by actual spatial integration.
+Complete normalized history enstrophy work is therefore $O(B^{-1})$.
+The entire explicit linear heat-force response, uniformly over its prefixes,
+is at most $4C_H\nu^{-3/4}M_0T_0^{1/4}B^{-1}$,
+$C_H=(8\pi)^{-3/4}$. Kinetic work still scales by $B$; neither result
+estimates nonlinear forced/unforced amplification or verifies a supplied
+forced-singularity theorem.
+
+The actual record source has another paid spatial price. Write raw
+$z=\|\nabla U_k\|_2^2\le1$, $q=\|\Delta U_k\|_2^2$ for the FULL normalized
+velocity, distinct from rotation mean $U$ above. Cartesian Sobolev and
+interpolation give
+\[
+ \|F_R\|_2\le S_0^{3/2}z^{3/4}q^{1/4},
+ \qquad\int_J\|\mathbb P F_R\|_2^4\le S_0^6\int_Jq.
+\]
+The same product bound holds for full convection. A generic
+$L^4_tL^2_x$ norm does not bound terminal heat response in $L^\infty$.
+An explicit solenoidal Gaussian curl, scaled over logarithmic time shells,
+has uniformly bounded source norm and response growing as $\sqrt N$.
+This is a smooth linear force control, with no actual Reynolds realization.
+
+The actual record has additional structure omitted from that generic test:
+EVERY backward length ending at the same record satisfies
+\[
+ A(H)=\int_{-H}^0q\le cH,
+ \qquad c=K/\nu^4,\quad K=1024/27.
+\]
+Thus its anchored quarter-root shell sum is already paid. More directly,
+$M(H)=\int_0^Hq(-\tau)^{1/4}\,d\tau\le c^{1/4}H$ and integration
+against the decreasing heat weight give
+\[
+ \int_0^R\tau^{-3/4}q(-\tau)^{1/4}\,d\tau
+ \le4c^{1/4}R^{1/4}.
+\]
+The lower boundary is $O(\delta^{1/4})$ and vanishes. If
+$D=A(R)>0$, split using $M(H)\le H^{3/4}\min(cH,D)^{1/4}$ at $D/c$:
+\[
+ \int_0^R\tau^{-3/4}q(-\tau)^{1/4}\,d\tau
+ \le D^{1/4}\bigl[4+\tfrac34\log(cR/D)\bigr].
+\]
+At $D=0$ the integral is zero before any logarithm. This corrects the
+source diagnosis while preserving the generic endpoint countercontrol.
+Arbitrary earlier endpoints may have an enstrophy deficit and do not
+inherit the same nested law.
+
+Suppose an exhausting actual record sequence starves at EVERY fixed depth:
+$D_k(R)\to0$ for each fixed $R$. Its exact finite-pair mild momentum has
+full nonlinear response tending to zero globally by the logarithmic bound.
+The earlier slice has $L^6$ norm at most $S_0$, so heat gives
+$\limsup_k\|U_k(0)\|_\infty\le C_6S_0(\nu R)^{-1/4}$.
+Only then let $R\to\infty$, obtaining global terminal velocity vanishing.
+At a positive smooth record the enstrophy derivative is nonnegative;
+the original pairing gives
+\[
+ q_k(0)\le\|U_k(0)\|_\infty^2/\nu^2\longrightarrow0,
+ \qquad z_k(0)=1.
+\]
+For every fixed angular normalized cutoff $\kappa_0>0$, gradient energy
+above it is at most $q_k(0)/\kappa_0^2$. Enstrophy therefore escapes
+toward zero normalized frequency. Physical frequency is $B_k$ times that
+frequency; no physical fixed-cutoff conclusion follows. Scaled energy
+allows $q_k(0)\ge1/(B_kE_0)$, consistently tending to zero. Physical
+velocity is $B_k\|U_k(0)\|_\infty$, with no rate supplied. This identifies
+the actual starved alternative more precisely and excludes none of its
+possible occurrences. Independent source/scale exclusion or another
+original continuation return remains open. Unconditional Clay(A) is open.
+
+\section{Native analytic and weighted sources, with exact symmetry provenance}
+\label{sec:native-analytic-symmetry}
+
+All conclusions in this section concern the original existing strong path.
+They establish scoped laws and conditional returns; unconditional Clay(A)
+remains open. The five round62 bodies retain the earlier displays and apply
+an explicit divergent-history and fixed-frame qualification.
+
+Write $k=2\pi\xi$, $L_0=e^{1/4}$,
+$c_\gamma=2^{\max(\gamma-1,0)}$, and at an existing restart $a$ set
+\[
+ \lambda(t)=\sqrt{\nu(t-a)},\quad
+ X_\lambda(u)=\int e^{\lambda|k|}|\widehat u(\xi)|\,d\xi,
+ \qquad H(u)=\|u\|_{H^\gamma}.
+\]
+For $\tau=t-s$, the moving weight has increment at most
+$\sqrt{\nu\tau}$, and the actual heat multipliers obey
+\[
+ \sup_{r\ge0}e^{-r^2+r}=L_0,
+ \qquad \sup_{r\ge0}r e^{-r^2+r}=1.
+\]
+Tensor convolution and the full original heat--Leray divergence therefore
+have price $(\nu\tau)^{-1/2}$. With $W_0=\|\widehat u(a)\|_1$,
+$H_0=\|u(a)\|_{H^\gamma}$, $R=2L_0W_0$ and $S=2H_0$, the nonlinear map
+on $X\le R,H\le S$ satisfies
+\[
+ X_{\rm new}\le L_0W_0+2\sqrt{h/\nu}\,R^2,
+ \qquad H_{\rm new}\le H_0+4c_\gamma\sqrt{h/\nu}\,RS.
+\]
+Its scaled difference norm $\max(\Delta X/R,\Delta H/S)$ has factors
+$4\sqrt{h/\nu}R$ and $8c_\gamma\sqrt{h/\nu}R$. Thus
+\[
+ h\le\frac{\nu}{256c_\gamma^2R^2}
+\]
+gives contraction at most $1/2$ and invariant image bounds $5R/8,3S/4$.
+The zero state is treated by uniqueness before division. Weighted Fourier
+continuity follows from dominated initial heat and a Volterra tip of size
+$O(\sqrt\delta)$, with continuous dominated multipliers away from the tip.
+Weighted $L^1$ and $H^\gamma$ limits identify the same Fourier distribution
+on compact frequency tests, proving completeness. Original overlap uniqueness
+identifies this genuine mild solution with the SAME maximal path, including
+any lawful local extension. The possibly large finite $S$ cancels from the
+time constraint; it has not become a uniform endpoint high norm.
+
+Fourier inversion gives a spatial holomorphic tube $|\operatorname{Im}x|<\lambda$
+with amplitude $X$ and
+\[
+ \|D^\alpha u(t)\|_\infty
+ \le |\alpha|!\lambda(t)^{-|\alpha|}X_{\lambda(t)}(u(t)).
+\]
+For a positive compact $J=[t_{\min},t_{\max}]$, first bound $W$ on the
+EARLIER existing compact $K=[t_{\min}/2,t_{\max}]$, then choose
+$h\le t_{\min}$ and restart at $t-h/2$. This pays common spatial radius
+and amplitude on $J$. It proves neither time analyticity nor physical
+terminal-uniform analyticity.
+
+At an actual normalized enstrophy record, $z\le1$ and every available
+backward length obeys $\int_{-H}^0q\le cH$, $c=(1024/27)\nu^{-4}$.
+The outer half contains an actual earlier $a$ with $q(a)\le2c$; native
+Fourier interpolation gives $W(a)\le M=C_W(2c)^{1/4}$,
+$C_W=\sqrt2/\pi$. Define
+\[
+ R_*=2L_0M,\quad h_*=\frac{\nu}{256c_\gamma^2R_*^2},
+ \quad H=h_*/2,\quad \lambda_*=\sqrt{\nu H/2}.
+\]
+The SAME local map, with the finite actual $H^\gamma$ ball at $a$, reaches
+record time0 and yields $X_{\lambda_*}(U_B(0))\le R_*$. This requires
+$H\le B^2t_B$. It eventually holds for DIVERGENT records
+$B_n\to\infty,t_n\to T>0$; approaching a regular time alone is insufficient.
+
+The independent homogeneous analytic norm
+$J_\lambda=\||k|e^{\lambda|k|}\widehat u\|_2$ satisfies
+$J(a\otimes b)\le J(a)X(b)+X(a)J(b)$. The separate heat-divergence
+factor gives $J_{\rm new}\le L_0J_0+\eta J_{\rm old}$,
+$\eta=1/(4c_\gamma)\le1/4$, $J_0\le1$. Differences also contain the
+summable $X$-difference source, so the Picard limit genuinely has
+\[
+ J_{\lambda_*}(U_B(0))\le2L_0,\qquad
+ \int_{|k|>\kappa}|k|^2|\widehat U_B(\xi,0)|^2d\xi
+       \le4L_0^2e^{-2\lambda_*\kappa}.
+\]
+This is NORMALIZED gradient high-frequency tightness, at physical cutoff
+$B\kappa/(2\pi)$. It retains neither low-frequency nor spatial gradient mass.
+If $D_B=\int_{-H}^0q_B>0$, the same window and same $h_*$ work with
+$R_D=2L_0C_W(2D_B/H)^{1/4}\le R_*$. Therefore
+\[
+ \|D^\alpha U_B(0)\|_\infty
+ \le R_D|\alpha|!\lambda_*^{-|\alpha|}.
+\]
+ONE fixed-window starvation $D_B\to0$ makes every fixed global spatial
+derivative sup vanish. At $D_B=0$, continuity, $L^2$ harmonic zero and
+forward uniqueness contradict a nonzero record before any division.
+Global gradient $L^2$ may still equal1 on an expanding region.
+
+The native weighted kinetic identity also constructs
+\[
+ \int_0^t\!\int |x|^2|\nabla u|^2\le D_Y,
+ \qquad
+ 2\nu D_Y=Y_0+6\nu E_0T+
+ 6S_0^{3/2}E_0^{1/4}C_YT^{1/4}D_Z^{3/4}.
+\]
+Here $D_Z=E_0/(2\nu)$ and $C_Y$ is the previously constructed second-moment
+price. Retain bounded-weight dissipation before nonnegative exhaustion;
+canonical pressure is included. For $a(x)=\sqrt{\ell^2+|x|^2}$, bounded
+$a_L=a/(1+a/L)$, and zero-safe curl $g_\epsilon=\sqrt{|\omega|^2+\epsilon^2}-\epsilon$,
+the independent native magnitude mass
+$M_*=\|\omega_0\|_1+E_0/(2\sqrt2\nu)$ pays exhaustion. Pointwise
+$|S|\le|\nabla u|$, drift Cauchy and $\Delta a_L\le3/\ell$ give
+\begin{align*}
+ \int a|\omega(t)|+\nu\int_0^t\!\int a|\omega||\nabla n|^2
+ &\le V_0+\frac{3\nu T}{\ell}M_*+\sqrt{E_0TD_Z}\\
+ &\hspace{8mm}+\sqrt{(\ell^2D_Z+D_Y)D_Z}=:V_*.
+\end{align*}
+Direction density is zero at curl zeros; Fatou retains the nonzero-set
+charge and may discard extra nonnegative zero-set dissipation. No weighted
+$1/\sqrt2$ strain identity or evolved Schwartz persistence is assumed.
+These are physical finite-horizon curl moment/tail and weighted direction
+budgets, with no critical continuation consumer supplied.
+
+The first curl moment gives continuous $\widehat\omega$. Distributional
+$\operatorname{div}\omega=0$ along all radial directions implies
+$\widehat\omega(0)=0$. Its first-moment increment and transverse inverse
+curl yield $|\widehat u(\xi)|\le V_*$ almost everywhere off0. Exact radial
+integration, with $d\xi$ retained, gives
+\[
+ \int_{|\xi|\le a}(2\pi|\xi|)^2|\widehat u|^2d\xi
+ \le\frac{16\pi^3}{5}V_*^2a^5,
+ \qquad
+ \int_{|k|\le\kappa}|k|^2|\widehat u|^2d\xi
+ \le\frac{V_*^2\kappa^5}{10\pi^2}.
+\]
+The earlier scout angular coefficient $4\pi/5$ was a valid loose upper
+bound but an inaccurate conversion; the separate qualification preserves
+it and uses $1/(10\pi^2)$. Centered zoom costs
+$N_B=B^2(V_*+|x_B|M_*)$. At $z_B=1$, a low/high frequency split yields
+\[
+ q_B(0)\ge\tfrac12(5\pi^2)^{2/5}N_B^{-4/5}.
+\]
+For bounded centers this loses $B^{-8/5}$, asymptotically weaker than
+$q_B\ge1/(BE_0)$. Both are compatible with $q_B\to0$ without a rate.
+
+Finally, two original strong paths on an EXISTING compact have difference
+$w_t+Aw=F$, $A=-\nu\Delta$,
+$F=-\mathbb P[(u\cdot\nabla)w+(w\cdot\nabla)v]$.
+Full $u=v+w$ retains the nonlinear term. Finite compact coefficients give
+$\|F\|_2\le\alpha\|A^{1/2}w\|_2+\beta\|w\|_2$.
+On $E=\|w\|_2^2>0$, put $N=\langle Aw,w\rangle/E$ and
+$d=\|Aw-Nw\|_2/\sqrt E$. Direct differentiation gives
+\[
+ N'\le-2d^2+2d(\alpha\sqrt N+\beta)
+ \le\alpha^2N+\beta^2.
+\]
+Its finite upper bound $N_*$ and
+$(\log E)'\ge-2(N_*+\alpha\sqrt{N_*}+\beta)$ preclude a first later zero.
+This proves backward uniqueness only on existing strong compacts.
+The scalar pressure difference precedes projection; Leray kills its gradient.
+No endpoint-uniform inverse stability follows.
+
+For any fixed affine axis use
+$v(x,t)=Q u(x_0+Q^{-1}(x-x_0),t)$ and scalar pressure composition.
+Backward and forward uniqueness give global symmetry at an existing
+positive time iff initial symmetry about the SAME fixed axis.
+Actual positive-time spatial analyticity extends exact symmetry on a
+nonempty invariant open core to connected whole space. Consequently exact
+core plus outer asymmetry is excluded on original slices. The explicit
+allowed datum $u_0=\operatorname{curl}(0,0,x_1e^{-|x|^2})$, with
+$u_0(0)=-e_2$, refutes universal exact-core production about the prescribed
+$z$-axis through0. It does not by that jet alone exclude every adaptive axis,
+approximate cores or symmetric limiting classes after mass loss.
+Those scopes require separate sources. The root, weighted critical consumer,
+quantitative approximate-core leakage and normalized low-frequency/spatial
+retention obligations remain open.
+
+\section{Native finite horizon, initial Fourier source and global defect persistence}
+\label{sec:native-finite-horizon}
+The round63 five-body package has parent reconstruction, a distinct
+adversarial pass and three independent entire-five written reviews.
+Its original source and localized-retention duties remain open.
+Put $S_0=4/\sqrt3$, $K=\nu^4/(16S_0^6)$ and $E=\|u\|_2^2$.
+For $E_0>0$ native kinetic energy supplies the exact ledger
+\[
+ (E^2)'=-4\nu EZ,\qquad
+ \int_0^t EZ=\frac{E_0^2-E(t)^2}{4\nu}.
+\]
+Set
+\[
+ H_c=\frac{E_0^2}{4\nu K}
+     =\frac{16384E_0^2}{27\nu^5}.
+\]
+If $T_*\ge H_c$, an actual $s<H_c$ has $E(s)Z(s)\le K$.
+Otherwise a positive surplus
+$\delta=\int_0^b(EZ-K)>0$ on an earlier compact gives
+at an EXISTING $t<H_c$ the ledger would give
+\[
+ E(t)^2\le E_0^2-4\nu Kt-4\nu\delta<0.
+\]
+This covers $T_*=H_c$ without evaluating its endpoint.
+
+At that strong slice write $E_a=E(s)$, $Z_a=Z(s)$.
+H\"older, Sobolev and interpolation give
+\[
+ |\langle\Delta u,(u\cdot\nabla)u\rangle|
+ \le S_0^{3/2}(E_a Z)^{1/4}Q.
+\]
+While $Z\le2Z_a$ the coefficient is at most $2^{1/4}\nu/2<\nu$.
+A first hit of $2Z_a$ is impossible since $Z'\le0$ beforehand.
+Thus $Z\le Z_a$ and $Z(t)+\nu\int_s^tQ\le Z_a$ on the existing future.
+The physical Wiener law then gives
+\[
+ \int_s^{T_*}W^2\le\frac{2Z_a}{\pi^2}
+            \sqrt{\frac{T_*-s}{\nu}}<\infty
+\]
+if $T_*$ were finite. Original strong continuation excludes that endpoint.
+Zero $E_a$ or $Z_a$ gives the zero future before division; zero datum is
+separate. This restart uses finite-energy strong states, not evolved
+Schwartz decay. Original initial Schwartz data and the all-order same-path
+pressure adapter return every mixed closed-face trace and $E\le E_0$.
+Consequently
+\[
+ T_*\ge H_c\quad\Longleftrightarrow\quad T_*=\infty.
+\]
+Universal survival through $H_c$ is UNPAID. The earlier coarse
+$T_c=2H_c$ law follows directly by averaging $Z$ against the native energy
+budget and remains a valid weaker sufficient interface.
+
+For an independently priced finite consumer take $v=e^{\nu t\Delta}u_0$,
+$r=\mathbb P[(v\cdot\nabla)v]$ and canonical $p_v$.
+Since $\nabla p_v=-(I-\mathbb P)((v\cdot\nabla)v)$, the reference has
+residual $+r$ and $w=u-v$, $w(0)=0$, satisfies
+\[
+ w_t-\nu\Delta w+
+ \mathbb P[(v\cdot\nabla)w+(w\cdot\nabla)v+(w\cdot\nabla)w]=-r.
+\]
+For $z=\|\nabla w\|_2^2$, $q=\|\Delta w\|_2^2$,
+$L=\|v\|_\infty+S_0\|\nabla v\|_3$, three Young allocations
+$\nu q/4$ from $2\nu q$ yield
+\[
+ z'+\nu q\le az+bz^3+h,\qquad
+ a=\frac{4L^2}{\nu},\quad b=\frac{108S_0^6}{\nu^3},\quad
+ h=\frac{4\|r\|_2^2}{\nu}.
+\]
+Define reference-only finite charges
+\[
+ A(t)=\int_0^t a,\qquad H_T=\int_0^T e^{-A}h,\qquad
+ K_T=b\int_0^T e^{2A}.
+\]
+If $8K_TH_T^2<1$, a first crossing of $y=e^{-A}z$ through $2H_T$
+contradicts $y\le H_T+8K_TH_T^3<2H_T$.
+The case $H_T=0$ uses zero-initial scalar uniqueness.
+Thus $Z_u\le2Z_0+4e^{A(T)}H_T$ uniformly at existing times through $T$;
+original squared-enstrophy continuation gives $T_*>T$.
+At the SINGLE $T=H_c$ this returns globality with all original properties.
+With $U_0=\|u_0\|_\infty$, $J_0=\|\nabla u_0\|_3$,
+$L_0=U_0+S_0J_0$, a stronger coarse sufficient test is
+\[
+ 13824S_0^6U_0^4Z_0^2\nu^{-5}T^3
+       e^{8L_0^2T/\nu}<1.
+\]
+Same initial data removes only the initial difference; global residual,
+pressure and nonlinear amplification remain charged. Nonzero residual makes
+this particular test eventually fail as $T\to\infty$, which does not
+refute its finite use. An arbitrary-data certificate at $H_c$ is open.
+
+ONE accepted nonlinear analytic/Hgamma interval from original data has
+\[
+ h_0=\frac{\nu}{1024c_\gamma^2e^{1/2}W_0^2},\qquad
+ c_\gamma=2^{\max(\gamma-1,0)}.
+\]
+Its constructed continuous strong endpoint is locally extendible, so
+$T_*>h_0$. The proper initial class
+\[
+ E_0W_0\le\frac{\nu^3}{64c_\gamma e^{1/4}S_0^3}
+\]
+INCLUDING equality gives $H_c\le h_0$ and hence full global original return.
+Zero $W_0$ is zero data before division. Amplitude multiplication grows
+$E_0W_0$ cubically; NS scaling preserves it. No all-data inference follows.
+To compare sufficient classes take a nonzero real even nonnegative smooth
+unit-ball Fourier bump $\phi$, $I_j=\int\phi^j$ for $j=1,2$, and
+\[
+ \widehat u_{0,L}(\xi)=AL^{3/2}
+ [\phi(L(\xi-k_0e_3))+\phi(L(\xi+k_0e_3))]\mathbb P(\xi)e_1,
+ \qquad k_0L\ge4.
+\]
+Disjoint smooth transverse Hermitian supports away from zero give a real
+solenoidal Schwartz inverse. Direct change of variables gives
+\[
+ \begin{gathered}
+ \tfrac{16}{9}A^2I_2\le E_L\le2A^2I_2,\qquad
+ W_L\le2AL^{-3/2}I_1,\\
+ Z_L\ge4\pi^2(k_0-1/L)^2E_L,\qquad
+ E_LW_L\le4A^3I_2I_1L^{-3/2}.
+ \end{gathered}
+\]
+Choose $A,k_0$ first so that
+$4\pi^2(3k_0/4)^2[(16/9)A^2I_2]^2>K$.
+All eligible $L$ fail the earlier $E_LZ_L\le K$ class, while large $L$
+satisfy the new class. This proves noncontainment in that direction,
+without optimality, novelty or reverse containment.
+
+The earlier exact-core counterdatum strengthens to every affine axis.
+For $u_0=(-2x_1x_2,2x_1^2-1,0)e^{-|x|^2}$, coordinate-even kinetic density
+has barycenter zero. An invariant density forces its barycenter onto the
+axis. At zero $u_0=-e_2$, so that axis could only be the $e_2$ line.
+The second component has Hessian entries $6$ and $2$ in the transverse
+$x_1,x_3$ directions, violating quarter-turn invariance. Hence NO affine
+axis works. Actual analytic identity and existing-compact backward
+uniqueness exclude exact nonempty open full-vector axial cores at every
+existing positive slice even with a slice-selected axis, fixed during the
+comparison. Approximate/limiting cores and symmetric subclasses remain.
+
+Finally, the actual uniform record analytic slab $J=[-H/4,0]$ pays
+$\|U\|_\infty\le R_*$ and
+$\|\nabla U\|_{\infty,F}\le\sqrt3R_*/\rho_J$,
+$\rho_J=\sqrt{\nu H/4}$.
+For any FIXED affine orthogonal polar action compare FULL $U$ to FULL
+transformed solution $V$, with coherently transformed scalar pressure.
+Put $\alpha=R_*/\sqrt\nu$, $\beta=\sqrt3R_*/\rho_J$, $\delta=H/4$.
+Native $z\le1$ gives $\|\nabla(U-V)\|_2^2\le4$.
+An independently supplied GLOBAL start defect energy at least $\eta>0$
+therefore pays starting quotient $N_0\le4\nu/\eta$. With
+\[
+ N_\eta=(4\nu/\eta+\beta^2\delta)e^{\alpha^2\delta},
+\]
+the direct compact quotient law gives endpoint defect at least
+\[
+ \eta\exp[-2\delta(N_\eta+\alpha\sqrt{N_\eta}+\beta)].
+\]
+For genuine Haar projection $M$ about an affine axis and $v=U-M$,
+$\int E_Q\,dQ=2\|v\|_2^2$, $E_Q\le4\|v\|_2^2$.
+Strong continuity and compactness select one maximizing fixed rotation;
+start $\|v\|_2^2\ge\eta$ yields
+\[
+ \|v(0)\|_2^2\ge\frac\eta2
+   e^{-2\delta(N_{2\eta}+\alpha\sqrt{N_{2\eta}}+\beta)}.
+\]
+The Haar mean is not assumed unforced. Global endpoint fluctuation tending
+to zero forces global starting fluctuation to zero; local weak symmetry
+cannot supply the global hypothesis. The physical slab shrinks by $B^{-2}$.
+Actual late witness production, spatial/low-frequency localization and
+critical continuation returns remain open. No unconditional closure is
+claimed by this finite package.
+
+\section{Full reference consumers and the cost of local retention}
+\label{sec:charged-reference-retention}
+This reviewed package improves conditional consumers and actual record
+accounting. It does not supply their arbitrary-data applicability.
+Set $S_0=4/\sqrt3$. For continuous nonnegative $k,h$ and $p>1$, suppose
+$y'\le ky^p+h$ on existing prefixes of a known interval $[0,T]$.
+Put $H=y(0)+\int_0^T h$ and $K=\int_0^T k$. If $H>0$, then
+\[
+ KH^{p-1}\le\frac{(p-1)^{p-1}}{p^p}
+ \quad\Longrightarrow\quad y(t)<\frac{pH}{p-1}.
+\]
+At a first crossing of $m=pH/(p-1)$ the integral bound is
+$y(t)\le H+Km^p\le m$. At coefficient equality, either some coefficient
+mass remains after the crossing or positive mass before it multiplies
+$y(s)^p<m^p$; both give strict slack. Continuous coefficients have no
+crossing atom. $K=0$ gives $y\le H<m$; $H=0$ gives the zero solution by
+bounded-prefix comparison. Maximizing $(r-1)/r^p$ gives the stated
+constant, optimal only for this constant-barrier packaging. For the
+preceding cubic comparison this improves the old strict $1/8$ test to
+the inclusive $K_{\rm old}H^2\le4/27$ test with barrier $3H/2$.
+
+For any independently known smooth solenoidal reference $V$, retain its
+full residual $r=V_t-\nu\Delta V+\mathbb P[(V\cdot\nabla)V]$ and mismatch.
+Write $w=u-V$, $z=\|\nabla w\|_2^2$, $q=\|\Delta w\|_2^2$,
+$L=\|V\|_\infty+S_0\|\nabla V\|_3$ and $R=\|r\|_2$. Then
+\[
+ z'+2\nu q\le2(L\sqrt z+R)\sqrt q+2S_0^{3/2}z^{3/4}q^{3/4}.
+\]
+Allocate $\nu q/2$ to each of the paired first term and the self term.
+The first costs $4L^2z/\nu+4R^2/\nu$; maximizing $Ax^{3/4}-dx$ gives
+$27A^4/(256d^3)$. Consequently
+\[
+ \begin{gathered}
+ z'+\nu q\le az+b_{\rm new}z^3+h,\\
+ a=4L^2/\nu,\quad h=4R^2/\nu,\quad
+ b_{\rm new}=\frac{27S_0^6}{2\nu^3}=b_{\rm old}/8.
+ \end{gathered}
+\]
+With $A(t)=\int_0^t a$, $y=e^{-A}z$,
+$H=z(0)+\int_0^T e^{-A}h$ and $K_{\rm new}=\int_0^T b_{\rm new}e^{2A}$,
+the function $g=H+\int_0^t b_{\rm new}e^{2A}y^3$ satisfies
+$y\le g$ and $g'\le kg^3$. Thus
+\[
+ 2K_{\rm new}H^2<1
+ \quad\Longrightarrow\quad
+ y(t)\le\frac{H}{\sqrt{1-2H^2\int_0^t k}}.
+\]
+$H=0$ is separate. Equality is not certified: the scalar equation
+$y'=ky^3$ with constant $k>0$ can blow up at that boundary.
+In old units the test is $K_{\rm old}H^2<4$. Its numerical threshold
+is 32 times the old strict $1/8$, or 27 times the old inclusive $4/27$.
+At the same coefficient, the Bihari threshold is four times the strict
+constant-barrier threshold. These are comparisons of sufficient tests;
+no strict enlargement of actual NS initial-data classes is proved.
+
+An exact envelope keeps the simultaneous costs. For $C=S_0^{3/2}$ define
+\[
+ \begin{gathered}
+ F_\nu(z,J)=\sup_{x\ge0}[-\nu x^4+2Cz^{3/4}x^3+2Jx^2],\\
+ x_* =\frac{3Cz^{3/4}+\sqrt{9C^2z^{3/2}+16\nu J}}{4\nu}.
+ \end{gathered}
+\]
+The positive critical point is the maximum, with the zero branch included.
+$F_\nu(0,R)=R^2/\nu$ and
+$F_\nu(z,0)=27S_0^6z^3/(16\nu^3)$. Integration by parts also gives
+\[
+ z'+\nu q\le2(2G+S_0D)z+F_\nu(z,R),\qquad
+ G=\|\nabla V\|_{\infty,F},\quad D=\|\nabla^2V\|_3.
+\]
+The Hessian cost remains. The minimum of these valid upper envelopes is
+valid. A positive finite smooth scalar supersolution bounds $z$ by local
+comparison away from zero; no Lipschitz assertion at zero for fractional
+powers is used. A scalar comparison ODE finite on the closed horizon is
+another supplied certificate. Bounded $z$ and reference gradient give
+original strong continuation through $T$; at $T=H_c$ the preceding full
+same-path Clay return applies. Certificate production for all data is open.
+
+An independently realizable reference is obtained by solving a known
+linear problem. Let $v=e^{\nu t\Delta}u_0$ and construct
+\[
+ d_t-\nu\Delta d+\mathbb P[(v\cdot\nabla)d+(d\cdot\nabla)v]
+      =-\mathbb P[(v\cdot\nabla)v],\qquad d(0)=0.
+\]
+For $m>5/2$, put $c_m=2^{\max(m-1,0)}$,
+$C_m^2=\int\langle\xi\rangle^{-2m}$ and
+$V_m=\sup\|v\|_{H^m}$. The heat-divergence norm is
+$(2e\nu\tau)^{-1/2}$. Choose pieces with
+\[
+ \ell\le e\nu/(128c_m^2C_m^2V_m^2).
+\]
+The linear contraction factor is at most $1/2$.
+With $F_m=4c_mC_mV_m^2\sqrt{\ell/(2e\nu)}$ and
+$n=\lceil T/\ell\rceil$, the piecewise bound is $2F_m(2^n-1)$.
+The zero case is split before division. Lower uniqueness identifies all
+higher stages and spare orders give full time traces. For $V=v+d$ the
+residual is exactly $\mathbb P[(d\cdot\nabla)d]$, not zero. Its norm
+is at most $S_0^{3/2}\|\nabla d\|_2^{3/2}\|\Delta d\|_2^{1/2}$.
+Fixed-time small-amplitude orders $d=O(\alpha^2)$ and $r=O(\alpha^4)$
+do not control large amplitude at $H_c=O(\alpha^4)$.
+
+A second consumer uses a full signed history. For known $v=ah$ with
+$h=e^{\nu t\Delta}u_0$, keep $w_0=(1-a(0))u_0$ and
+$R=a'h+a^2\mathbb P[(h\cdot\nabla)h]$. Let
+$d=e^{\nu t\Delta}w_0-\int_0^t e^{\nu(t-s)\Delta}R(s)\,ds$.
+Put $\kappa=2c_\gamma C_\gamma/\sqrt{2e\nu}$,
+$M=\sup\|v\|_{H^\gamma}$, choose $\rho>0$, and set
+\[
+ \lambda=4\pi\kappa^2(2M+\rho)^2,\qquad
+ \eta=\sup_{[0,T]} e^{-\lambda t}\|d(t)\|_{H^\gamma}.
+\]
+On a $\rho$ difference prefix, the discounted norm supremum satisfies
+$Y\le\eta+Y/2$ since $\int_0^\infty\tau^{-1/2}e^{-\lambda\tau}
+=\sqrt{\pi/\lambda}$. Hence the inclusive condition
+$4e^{\lambda T}\eta\le\rho$ gives difference norm at most $\rho/2$;
+the seed is at most $\rho/4$ and first exit is excluded. It returns
+$T_*>T$, including equality in the test. The discount is outside the full
+source history; seed, derivative, quadratic residual and nonlinear terms
+remain. For $a=1$ it certifies the local interval
+$1/(64e^2\kappa^2\|u_0\|_{H^\gamma}^2)$, not automatically $H_c$.
+
+For a separate actual source, define $C(f)=\int ff^T$, $E=\operatorname{tr}C$.
+Affine axial actions obey $C(T_Qf)=QC(f)Q^T$ without moments. If the least
+adjacent eigenvalue gap is $d>0$, the axial Haar-average tensor has a
+repeated eigenvalue and differs from $C$ by norm at least $d/2$.
+Since tensor differences have norm at most $2\sqrt E\|f-T_Qf\|_2$,
+every affine axis satisfies
+\[
+ \max_Q\|f-T_Qf\|_2^2\ge d^2/(16E).
+\]
+The real Schwartz curl of $(0,0,e^{-x_1^2-2x_2^2-3x_3^2})$ realizes
+$C=\operatorname{diag}(2I,I,0)$, $E=3I$, $Z=28I$ and floor $I/48$,
+$I=\pi^{3/2}/\sqrt{48}$. Existing-compact pair persistence propagates
+this global witness, but gives no late uniform tensor gap or local mass.
+For genuine Haar velocity $M$ and $v=u-M$, minmax and tensor factoring
+similarly give $16E\|v\|_2^2\ge d^2$; $C(M)$ is not the average of $C(u)$.
+
+At a fixed axis point $b$, bounded weights
+$\phi_K=r^2/(1+r^2/K^2)$ have $|\nabla\phi_K|\le2\sqrt{\phi_K}$ and
+$\Delta\phi_K\le6$. Actual canonical pressure obeys
+$\|p\|_2\le\|u\|_\infty\sqrt E$. Weighted kinetic balance, followed by
+remote cutoff removal at fixed $K$ and then monotone convergence, yields
+\[
+ J_b(t)\le E_0\left[\sqrt{J_b(0)/E_0+\ell^2}
+              +3\nu t/\ell+3\int_0^t\|u\|_\infty\right]^2.
+\]
+Diffusion, convection and pressure have respective costs6,2,4.
+Zero data is separate. Radial Haar orthogonality gives $J_v\le J_b$;
+axis offsets are charged. For any $H^1$ field with positive energy and
+finite $J=\int|x-b|^2|v|^2$, a cutoff at $R,2R$ gives
+\[
+ \|\nabla v\|_{L^2(B_{2R}(b))}^2
+       \ge F(E,J,R)=\frac{(3E-7J/R^2)_+^2}{4J}.
+\]
+The loss7 is exterior mass3 plus collar4. Nonzero mass implies $J>0$.
+$F$ increases in $E$ and decreases in $J$ on its positive branch, so
+$E\ge\eta,J\le K$ gives the same bound with $\eta,K$.
+$R^2\ge14K/(3\eta)$ gives $9\eta^2/(16K)$.
+For a uniform limiting witness, every-index positive numerators are
+insufficient: require a positive tail infimum of $F(\eta_B,K_B,R)$ at one
+fixed $R$, bounded common balls and strong local derivative convergence.
+A compact nonzero solenoidal $f$ with $v_n=\epsilon_n f$ has positive
+numerators at suitable fixed $R$ but $F_n\to0$ and $v_n\to0$ strongly
+in $H^1$. This substantive uniformity correction leaves actual late
+source, scale-compatible moments, products and pressure return open.
+
+Native records expose costs of other scales. Define $q_B=Q(t_B)/B^3$.
+The native law $Z^2\le EQ$ gives $q_B\ge1/(BE_0)$.
+The scale $\lambda=Q^{1/3}=Bq_B^{1/3}$ therefore tends to infinity
+along divergent positive-time records, preserving growing histories.
+It normalizes endpoint $Q$ to 1 and gives signed production at least
+$\nu$, but gradient allowance $q_B^{-1/3}$ and fixed-window cost
+$cR/q_B$ can diverge. Neither a product limit nor a local nonzero
+witness follows.
+
+For the growth-band scale keep the correct production
+$P=+\langle\Delta u,(u\cdot\nabla)u\rangle$. At $Z>0$, $a=\sqrt{Q/Z}$,
+$V=\|u\|_\infty$ and
+\[
+ D=2\nu(a-V/(2\nu))^2+2(Va-P/Z)\ge0,
+ \qquad(\log Z)'=V^2/(2\nu)-D.
+\]
+For $0<\theta<1$ let $s_B$ be the last $\theta B$ crossing before an
+actual record $t_B$. Put $L_B=E(s_B)-E(t_B)>0$,
+$\delta_B=t_B-s_B$ and $M_B=\sup_{[s_B,t_B]}V$. Then
+\[
+ 2\nu\theta B\delta_B\le L_B\le2\nu B\delta_B,
+ \qquad M_B^2L_B/B\ge4\nu^2\theta\log(1/\theta).
+\]
+At hypothetical finite divergence $s_B\to T_*$ and $L_B\to0$, so
+$M_B/\sqrt B\to\infty$. The scale $\lambda=\sqrt{B/L_B}$ has a
+band duration between $1/(2\nu)$ and $1/(2\nu\theta)$ and positive
+historical amplitude, with gradient/debit allowance $\sqrt{BL_B}$.
+Writing $H_B=B^2\delta_B$ and $D_B=\int_{-H_B}^0q$ gives
+\[
+ \nu D_B+(1-\theta)/2\le C_0H_B^{1/4}D_B^{3/4}.
+\]
+All-fixed-depth starvation would contradict bounded $H_B$; hence in that
+case $H_B\to\infty$, $BL_B\to\infty$, $H_B=o(B)$ and
+$\sqrt B\ll\lambda\ll B$. The gradient allowance diverges and the
+inherited analytic lower radius collapses. Fixed-depth limits cannot
+bound the growing-depth cost. An independent growth-band amplitude upper
+law or compatible source, strong topology, nonlinear products and pressure
+return remains to be constructed. The unconditional target stays open.
+
+\section{Canonical limits of bounded critical families}
+\label{sec:critical-family-limit}
+
+This section is conditional on an actual family, rather than a producer of
+that family. Fix $\nu>0$, $T>0$ and real solenoidal strong seeds
+$a_n\in L^2\cap L^3$, weakly converging to $a$ in $L^3$, with
+$\|a_n\|_3\le M$. Supply canonical finite-energy strong NS paths $u_n$
+on one common $[0,T)$ and their projected and local-energy identities.
+The sizes of their initial kinetic energies may diverge. Neither the
+common interval nor a bounded critical norm on late original slices is
+derived here. The original unconditional Clay statement remains open.
+
+For $h=G_{\nu t}*a$, put $\rho=|h|$ and $w=\rho^{3/2}$. The Hessian
+of the $C^2$ function $|h|^3$ and cutoff exhaustion give
+\[
+ \frac{d}{dt}\int\rho^3
+ =-3\nu\int\rho(|\nabla h|^2+|\nabla\rho|^2)
+ \le-\frac{8\nu}{3}\int|\nabla w|^2.
+\]
+Zeros are treated by magnitude regularization and the weak chain rule.
+Heat contraction, Sobolev $S_0=4/\sqrt3$ and interpolation yield
+\[
+ \int_0^\infty\!\int|h|^5
+ \le\frac{3S_0^2}{8\nu}\|a\|_3^5=\frac{2}{\nu}\|a\|_3^5.
+\]
+Approximation in $L^3$, applying the same estimate to differences,
+extends this law with $h\in C([0,\infty);L^3)$. Distributional divergence
+commutes with heat; compact solenoidal approximation is unnecessary.
+Weak $L^3$ seed convergence gives uniform convergence of every finite
+heat derivative on positive-time compact boxes: the translated Gaussian
+derivatives form a compact test set in the dual $L^{3/2}$. This does not
+give strong convergence of the seeds or nonlinear smooth initial jets.
+
+A separate scalar staging law keeps its PDE premise explicit. Suppose
+$\alpha(0)=0$, $\alpha$ is continuous and nonnegative, $\beta,g\ge0$,
+$\int g\le G$, and
+\[
+ \alpha(t)+\beta(t)\le C\left[t^\theta+
+      \int_0^t\{\alpha(1+g)+\alpha^3\}\right].
+\]
+While $\alpha\le b$, an integrating factor for
+$y=\int(1+b^2+g)\alpha$ gives
+\[
+ \alpha(t)+\beta(t)\le Ct^\theta
+                 e^{C[(1+b^2)t+G]}.
+\]
+The horizon $S\le\min\{1,[b/(2Ce^{C(1+b^2+G)})]^{1/\theta}\}$
+excludes a first crossing of $b$, including equality in this test.
+$C=0$ is separate. For a heat-reference local estimate the coefficient
+is $g=\|h\|_5^5$ and its integral has the preceding price. The full local
+PDE inequality is still supplied in this scalar law; it is not imported
+from a printed coefficient with power two.
+
+There is also a direct global consumer in the stated strong energy class.
+Set $v=u-h$, $Y=\|v\|_2^2$, $D=\|\nabla v\|_2$ and $W=\|h\|_5$.
+All four difference tensors and canonical pressure remain in the equation.
+Legal global transport and pressure pairings give
+\[
+ Y'+2\nu D^2=2\int[h\otimes(h+v)]:\nabla v.
+\]
+The mixed and heat self-work are retained. Interpolation and Young give
+\begin{align*}
+ 2\left|\int(h\otimes v):\nabla v\right|
+   &\le\tfrac\nu2D^2+64S_0^3\nu^{-4}W^5Y,\\
+ 2\left|\int(h\otimes h):\nabla v\right|
+   &\le\tfrac\nu2D^2+2\nu^{-1}\|h\|_4^4.
+\end{align*}
+The exact first Young coefficient is
+$(32/5)(8/5)^4S_0^3<64S_0^3$. Heat interpolation in space and time pays
+$\int_0^T\|h\|_4^4\le\sqrt2 M^4\sqrt{T/\nu}$. Define
+\[
+ K=128S_0^3M^5/\nu^5,\qquad
+ F_T=2\sqrt2 M^4\sqrt T\,\nu^{-3/2},\qquad
+ D_T=F_Te^K.
+\]
+The integrating factor and the accumulated $kY$ charge prove, at every
+common existing time,
+\[
+ Y(t)+\nu\int_0^tD(s)^2\,ds\le D_T.
+\]
+Each energy and dissipation cap is $D_T$. The sum of the maximum energy
+and the full dissipation can exceed this cap.
+The sharper individual bound is $Y(t)\le D_t=O(\sqrt t)$, and
+$\int|v|^{10/3}\le S_0^2D_T^{5/3}/\nu$ on the existing interval.
+These prices are independent of the magnitude of each finite seed energy,
+but do not remove finite-energy applicability or create a strong path.
+
+Uniform unit-ball energy $A$ prices a far pressure difference directly.
+For $R\ge1$, $x\in B_R(b)$ and
+$K_{ij}(z)=3z_iz_j|z|^{-5}-\delta_{ij}|z|^{-3}$, set
+\[
+ p_{\rm far}(x)=\frac1{4\pi}\int_{|y-b|\ge2R}
+ [K(x-y)-K(b-y)]:(u\otimes u)(y)\,dy.
+\]
+The Frobenius derivative cost is $21+3\sqrt3\le27$; the segment price
+is $432|x-b||y-b|^{-4}$. Cubes of side $1/\sqrt3$ and dyadic shells
+give $\int_{|y-b|\ge s}|y-b|^{-4}|u|^2\le2C_{\rm cov}A/s$, where
+$C_{\rm cov}=(4\sqrt3+3)^3$. Hence
+\[
+ |p_{\rm far}(x)|\le(108C_{\rm cov}/\pi)A|x-b|/R,
+ \quad |\nabla p_{\rm far}(x)|\le(108C_{\rm cov}/\pi)A/R.
+\]
+This absolutely convergent field is harmonic. An outer source radius $L$
+costs $216C_{\rm cov}RA/(\pi L)$ per tail. Strong local $L^2$ velocity
+convergence identifies the full tensor in local $L^1$; pass a fixed
+annulus before sending $L$ to infinity. This gives uniform spatial tail
+passage, or $L^1$ in time of the spatial supremum in the spacetime version.
+Weak velocities alone can leave an oscillatory tensor defect.
+
+Near pressure is a separate law. Distributional differentiation gives
+\[
+ \partial_i\partial_j(4\pi|x|)^{-1}
+       =(4\pi)^{-1}{\rm pv}\,K_{ij}-\delta_{ij}\delta_0/3.
+\]
+Its multiplier is bounded on $L^2$. Dyadic good/bad decomposition, the
+mean-zero bad-cube cancellation and the $|x|^{-4}$ derivative bound prove
+weak $(1,1)$. Splitting input at the output height and integrating its
+distribution function gives strong $L^p$, $1<p<2$, with finite factors
+$1/(p-1)$ and $1/(2-p)$. Density and finite bad sums followed by $L^2$
+convergence justify the limits. This proves the needed $L^{3/2}$ estimate
+for the full near tensor including its contact term.
+
+The remainder and a local heat cutoff now give uniform unit-ball energy
+$E$ and integrated gradients $D_0$, with spatial supremum outside the
+gradient time integral. A bounded reflection extension and local Sobolev
+give $\int_{B_R\times(0,T)}|u_n|^{10/3}\le C_RE^{2/3}(D_0+TE)$.
+Near pressure and the far difference therefore have uniform local
+$L^{3/2}$ spacetime prices modulo scalar time constants. Normalize every
+pressure by one $B_1$ average, consistently on nested balls; define
+$P_R=\sup_n\int_0^T\int_{B_R}|p_n-\operatorname{avg}_{B_1}p_n|^{3/2}$.
+This retains physical pressure and excludes arbitrary affine additions.
+
+For the projected identity the Oseen derivative obeys
+\[
+ \widehat D_{ij\ell,h}(k)=ik_\ell e^{-h|k|^2}P_{ij}(k),
+ \qquad |D_h(x)|\le C(\sqrt h+|x|)^{-4}.
+\]
+Its local $L^r$ age exponent is $a_r=2-3/(2r)$. Recent ages below
+$\eta$ cost $C_RE[\nu^{-a_r}\eta^{1-a_r}/(1-a_r)+\eta]$ for
+$1\le r<3/2$. Smooth old-age cutoffs allow derivatives of the kernel and
+cutoff only, never source-time derivatives. Arzel\`a--Ascoli plus recent
+vanishing gives $C([\delta,T];L^r_{\rm loc})$ convergence, with terminal
+traces from below. The endpoint $r=3/2$ is not supplied. Interpolation
+with local $10/3$ and an initial-strip $L^3$ norm cost $\delta^{1/30}$
+gives strong $L^3$ on whole bounded spacetime cylinders. Full tensors and
+cubic flux pass strongly; pressure times velocity passes weak--strong.
+
+For every compact smooth vector test $\psi$, the actual PDE bounds time
+pairings by $C_\psi[(\nu\sqrt E+E)|t-s|+P_R^{2/3}|t-s|^{1/3}]$.
+Dense-test compactness yields one every-slice weakly local-$L^2$ continuous
+representative, including both endpoints. The remainder bound and heat
+trace give strong initial local-$L^2$ attainment with remainder norm
+$O(t^{1/4})$. Pass the projected identity by fixing old age and source
+radius, passing local tensors, removing the $E/L$ tail and then the recent
+age error. Pass near and far pressure with the same single normalization.
+A local PDE alone would not identify these canonical objects.
+
+Local-energy tests supported after zero pass by weak lower semicontinuity
+on terminal energy/dissipation and the preceding products. To recover an
+initial term, apply a rising time switch in the \emph{limit}; its derivative
+has unit mass near zero. Proved strong initial attainment makes its term
+converge to $\int|a|^2\phi(0)$. All other terms pass by integrability.
+Weak initial energies of $a_n$ are never passed to the right-hand side.
+This constructs the canonical local-energy limit with its correct initial
+term. It supplies neither nonzero singular retention nor terminal zero,
+exterior backward uniqueness, a uniform late critical seed source, original
+$H^\gamma$ continuation or the full mixed original pressure/velocity face.
+
+\section{A fixed-input test of critical pressure closure}
+\label{sec:critical-pressure-source-control}
+
+The preceding bounded-critical limit construction requires an independently
+supplied late critical mass. We now test a specific original-source proposal,
+with full canonical pressure and actual Schwartz initial data. Write
+\[
+\begin{aligned}
+ &I(u)=\int |u|^3,\qquad Z(u)=\int |\nabla u|^2,\\
+ &q(u)=\operatorname{div}(|u|u),\qquad P(u)=\int p_u q(u),\\
+ &D(u)=\int |u|\bigl(|\nabla u|^2+|\nabla|u||^2\bigr).
+\end{aligned}
+\]
+The vector $C^2$ chain rule for $|z|^3$, cutoffs and the original
+unforced equation give $I'=3P-3\nu D$ on existing strong intervals.
+A proposed bound $I'\le C(\nu,E_0,I_0)Z(1+I)$ would give
+$I(t)+1\le(I_0+1)\exp(CE_0/(2\nu))$ using native energy.
+
+\begin{proposition}
+For each $\nu>0$ there are positive $E_*,I_*$ and real compact smooth
+solenoidal data $U_\lambda$, $\lambda\ge1$, such that
+$\|U_\lambda\|_2^2=E_*$, $\|U_\lambda\|_3^3=I_*$ and their actual
+local original strong solutions satisfy
+\[
+ \frac{I_\lambda'(0)}{Z(U_\lambda)(1+I_*)}\longrightarrow+\infty.
+\]
+Consequently no finite constant depending only on $\nu,E_0,I_0$
+can supply the stated universal differential closure.
+\end{proposition}
+\begin{proof}
+First construct a compact solenoidal field with positive pressure work.
+On the $2\pi$ torus, put $k=(1,0,0)$, $\ell=(0,1,1)$, $h=k+\ell$ and
+\[
+ v=(\cos(\ell\cdot x)+\sin(h\cdot x),\ \cos(k\cdot x),\ -\sin(h\cdot x)).
+\]
+Its mean-zero pressure has coefficients
+$1/3,-1/3,-1/6,1/2,1/9,-1$ at, respectively,
+$\cos((k-\ell)\cdot x),\cos(h\cdot x),\sin((2k+\ell)\cdot x),
+\sin(\ell\cdot x),\sin((k+2\ell)\cdot x),\sin(k\cdot x)$.
+Direct Fourier multiplication gives
+$\langle p_v\partial_3v_3\rangle=1/6$ and $\|p_v\|_\infty\le22/9$.
+Since $|v|\le3$, $|\nabla v|_F\le4$, for $C\ge6$ and $0\le a\le1$,
+\[
+ |q(Ce_3+av)-Ca\partial_3v_3|\le84a^2,\qquad
+ \langle a^2p_v q(Ce_3+av)\rangle
+ \ge Ca^3/6-(616/3)a^4.
+\]
+With $C=2048$ this is at least $136a^3$; the pressure envelope $a^2$
+already appears in this work.
+
+Let $A$ be the bounded periodic vector potential of $v$. Choose
+$0\le\psi\le1$, nonzero and smooth with support in $B_1$, and radial
+$\chi$ equal to one on $B_2$ and zero outside $B_3$. Set
+\[
+ b_R=\nabla\times[(e_3\times x)\chi(x/R)/2],\quad
+ v_R=\nabla\times[\psi(x/R)A(x)],\quad W_R=Cb_R+v_R.
+\]
+Both fields are compact solenoidal. The boost is exactly $e_3$ on the
+support of $v_R$, so the double divergence of their cross tensor is
+zero. Thus $p_{W_R}=C^2p_b(x/R)+p_{v_R}$. Inversion parity gives
+$P(b_R)=0$. Pair the slow boost pressure with the compact difference
+flux by integration by parts; its gradient supplies $R^{-1}$, giving
+$O_C(R^2)$. The remaining slow-boost pairing is also $O_C(R^2)$ by
+$L^2$ bounds.
+
+For each nonzero fast tensor mode, the full pressure multiplier
+$H_{ij}(\xi)=-\xi_i\xi_j/|\xi|^2$ is bounded and continuous there.
+Fourier shift and dilation therefore give normalized $L^2$ convergence
+of its modulated envelope to its value at that mode. The zero tensor
+mode gives a slow pressure $H_{ij}[T_{0,ij}\psi^2](x/R)$, which must be
+retained. It pairs to zero after normalization with the fast periodic
+$q(Ce_3+\psi(X)v)$, whose mean is zero for every $X$; Fourier averaging,
+compact envelope support, local $L^2$ slow pressure and summable fast
+Fourier tails justify this statement. The curl-cutoff error is
+$O(R^{-1})$ in the normalized product bounds. Hence
+\[
+ \lim_{R\to\infty}R^{-3}P(W_R)
+ =\int \psi(X)^2\langle p_vq(Ce_3+\psi(X)v)\rangle\,dX
+ \ge136\int\psi^3>0.
+\]
+Choose a finite such $R$. Amplitude scaling gives
+\[
+ P(A_0W_R)=A_0^4P(W_R),\qquad D(A_0W_R)=A_0^3D(W_R).
+\]
+It supplies a compact field $V$ with $\delta_V=P(V)-\nu D(V)>0$.
+
+Take any nonzero compact smooth solenoidal $g$. Write
+$E_*=E_V+E_g$, $I_*=I_V+I_g$, and
+\[
+ L_\lambda=\frac{E_*-E_V/\lambda}{E_g},\qquad
+ U_\lambda(x)=\lambda V(\lambda x)
+       +L_\lambda^{-1}g((x-d)/L_\lambda).
+\]
+One fixed distant $d$ separates the supports for every $\lambda\ge1$,
+since $1\le L_\lambda\le1+E_V/E_g$. Direct integration gives the exact
+fixed norms, and
+$Z(U_\lambda)=\lambda Z(V)+L_\lambda^{-1}Z(g)$,
+$D(U_\lambda)=\lambda^2D(V)+L_\lambda^{-2}D(g)$.
+Velocity cross stress is zero, but both pressure cross pairings remain.
+Subtract the background pressure at the core origin using $\int q_V=0$;
+its bounded gradient and the core first moment give $O(\lambda^{-1})$.
+For the reverse pairing, the off-support Newton Hessian is bounded by
+$\sqrt6/(4\pi r^3)$, the core tensor mass is $E_V/\lambda$ and the
+background $q$ has invariant $L^1$ norm. Fixed separation gives another
+$O(\lambda^{-1})$. Consequently
+\[
+ P(U_\lambda)=\lambda^2P(V)+L_\lambda^{-2}P(g)+O(\lambda^{-1}),\qquad
+ I_\lambda'(0)=3\lambda^2\delta_V+O(1).
+\]
+Each datum has its own actual local original strong path; no common
+lifespan is needed. Divide by $[\lambda Z(V)+O(1)](1+I_*)$ to conclude.
+Continuity also gives a positive-time violation if exactly $t=0$ is
+omitted from the proposed bound.
+\end{proof}
+
+This removes the particular norm-only supplier from the route. It proves
+no late critical cap and no singular trajectory. Constants using the
+full datum or additional native source information, and independently
+proved signed temporal compensation, remain possible research targets.
+Their source and original continuation returns remain open. Novelty of
+this exact construction has not been checked against matched prior work.
+
+\end{document}

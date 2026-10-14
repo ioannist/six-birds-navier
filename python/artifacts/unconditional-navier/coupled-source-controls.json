@@ -1,0 +1,63 @@
+{
+  "status": "PASS",
+  "scope": "Exact polynomial identities, initial inner-field source creation, scaling and norm-profile controls only; no PDE simulation, stationary realization, endpoint source or all-data closure.",
+  "cofactor_sign_controls": [
+    1,
+    -1
+  ],
+  "axial_reaction_residual": "0",
+  "actual_inner_polynomial_rho_t": [
+    "0",
+    "0",
+    "x*y"
+  ],
+  "local_Young_coefficient": 128,
+  "stationary_flux_exponents": [
+    {
+      "p": "9/2",
+      "pressure_near_L2_radius_power": "1/6",
+      "pressure_far_radius_power": "-4/3",
+      "full_flux_radius_power": "0",
+      "diffusion_cutoff_radius_power": "-1/3"
+    },
+    {
+      "p": "6",
+      "pressure_near_L2_radius_power": "1/2",
+      "pressure_far_radius_power": "-1",
+      "full_flux_radius_power": "1/2",
+      "diffusion_cutoff_radius_power": "0"
+    }
+  ],
+  "annular_norm_profiles": [
+    {
+      "n": 1,
+      "radius": 4096,
+      "Z_factor": "1/4",
+      "L6_sixth_factor": "1/64",
+      "absolute_cubic_cutoff_price_factor": 8
+    },
+    {
+      "n": 2,
+      "radius": 16777216,
+      "Z_factor": "1/16",
+      "L6_sixth_factor": "1/4096",
+      "absolute_cubic_cutoff_price_factor": 64
+    },
+    {
+      "n": 3,
+      "radius": 68719476736,
+      "Z_factor": "1/64",
+      "L6_sixth_factor": "1/262144",
+      "absolute_cubic_cutoff_price_factor": 512
+    },
+    {
+      "n": 4,
+      "radius": 281474976710656,
+      "Z_factor": "1/256",
+      "L6_sixth_factor": "1/16777216",
+      "absolute_cubic_cutoff_price_factor": 4096
+    }
+  ],
+  "absolute_heat_tail": "4/(R**(1/4)*nu**(5/4))",
+  "signed_heat_dissipation_tail": "1/(4*pi**(3/2)*sqrt(R)*sqrt(nu))"
+}

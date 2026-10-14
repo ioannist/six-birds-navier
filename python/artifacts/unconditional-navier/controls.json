@@ -1,0 +1,59 @@
+{
+  "status": "exact finite controls passed",
+  "domain": "finite real transverse Fourier modes on a periodic control carrier",
+  "original_target": "whole-space actual Navier maximal trajectory: OPEN",
+  "scope": "These controls illustrate energy/strong-norm separation and cutoff drift. They are not NS trajectories or whole-space Clay instances.",
+  "finite_modes": [
+    {
+      "frequency": 1,
+      "kinetic_energy": "2",
+      "strong_energy_gamma3": "16",
+      "cutoff": 4,
+      "tail_fraction": "0",
+      "pointwise_cutoff_m_tail_fraction": "0"
+    },
+    {
+      "frequency": 4,
+      "kinetic_energy": "2",
+      "strong_energy_gamma3": "9826",
+      "cutoff": 4,
+      "tail_fraction": "0",
+      "pointwise_cutoff_m_tail_fraction": "0"
+    },
+    {
+      "frequency": 5,
+      "kinetic_energy": "2",
+      "strong_energy_gamma3": "35152",
+      "cutoff": 4,
+      "tail_fraction": "1",
+      "pointwise_cutoff_m_tail_fraction": "0"
+    },
+    {
+      "frequency": 8,
+      "kinetic_energy": "2",
+      "strong_energy_gamma3": "549250",
+      "cutoff": 4,
+      "tail_fraction": "1",
+      "pointwise_cutoff_m_tail_fraction": "0"
+    },
+    {
+      "frequency": 16,
+      "kinetic_energy": "2",
+      "strong_energy_gamma3": "33949186",
+      "cutoff": 4,
+      "tail_fraction": "1",
+      "pointwise_cutoff_m_tail_fraction": "0"
+    },
+    {
+      "frequency": 32,
+      "kinetic_energy": "2",
+      "strong_energy_gamma3": "2153781250",
+      "cutoff": 4,
+      "tail_fraction": "1",
+      "pointwise_cutoff_m_tail_fraction": "0"
+    }
+  ],
+  "absorption_equality": "5",
+  "energy_class_spacetime_exponent": "10/3 (requires classical Sobolev/interpolation law)",
+  "candidate_critical_exponent": "5 (independent supplier OPEN)"
+}

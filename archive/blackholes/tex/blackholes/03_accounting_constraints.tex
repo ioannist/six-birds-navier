@@ -1,0 +1,59 @@
+% ============================
+% BH: Accounting constraints (P6) + BH-T2
+% ============================
+
+Packaging the interior into $Z(\omega)$ (P5) makes the exterior predictive (P1), but it does not yet make it \emph{physical}. The admissible class of interface responses is sharply constrained by accounting principles (P6): the interior cannot inject net energy into the exterior unless there is an explicit free-energy source in the ledger (e.g.\ rotational superradiance). In the non-superradiant setting we therefore demand a \emph{passive} interface: it may absorb or store energy, but it must not act as a gain medium.
+
+\paragraph{Flux ledger for 1D waves.}
+With the convention \eqref{eq:bh-decomp}, define the (time-averaged) flux/current in the $+x$ direction by
+\begin{equation}
+  j \;:=\; \Im\!\big(\psi^*\,\psi'\big).
+  \label{eq:bh-fluxdef}
+\end{equation}
+In a free region $V\approx 0$, inserting $\psi(y,\omega)=e^{-i\omega y}+R\,e^{+i\omega y}$ gives the identity
+\begin{equation}
+  j \;=\; \omega\big(|R|^2 - 1\big).
+  \label{eq:bh-fluxR}
+\end{equation}
+Thus $|R|<1$ corresponds to net inward flux (absorption into the interior), while $|R|>1$ corresponds to net outward flux (energy injection into the exterior).
+
+\paragraph{Passivity at the inner interface.}
+Let $R_0(\omega)$ be the reflectivity of the interior interface at $x=x_0$ in the sense of \eqref{eq:bh-decomp}. In the non-superradiant ledger, passivity is the requirement that the interior does not produce net outward flux:
+\begin{equation}
+  j(x_0) \le 0
+  \qquad\Longleftrightarrow\qquad
+  |R_0(\omega)| \le 1
+  \quad (\omega>0).
+  \label{eq:bh-passiveR}
+\end{equation}
+This is the first and most basic admissibility constraint on the packaged interface object.
+
+\paragraph{From reflectivity to impedance: Cayley inequality.}
+Using the Cayley transform \eqref{eq:bh-RZ}, passivity can be expressed directly as a constraint on $Z(\omega)$. Writing
+\[
+  R_0 \;=\; \frac{1 - Z}{1 + Z},
+\]
+we have
+\[
+  |R_0|^2 \;=\; \frac{|1 - Z|^2}{|1 + Z|^2}.
+\]
+Therefore $|R_0|\le 1$ is equivalent to $|1 - Z|^2 \le |1 + Z|^2$, and the difference of these two quantities is
+\begin{equation}
+  |1 + Z|^2 - |1 - Z|^2 \;=\; 4\,\Re(Z).
+  \label{eq:bh-cayley-diff}
+\end{equation}
+Consequently,
+\begin{equation}
+  |R_0(\omega)| \le 1
+  \qquad\Longleftrightarrow\qquad
+  \Re(Z(\omega)) \ge 0,
+  \label{eq:bh-passiveZ}
+\end{equation}
+with the understanding that $1+Z(\omega)\neq 0$ (automatically satisfied if $\Re(Z)\ge 0$).
+This equivalence is the algebraic core of the non-superradiant passivity constraint.
+
+\paragraph{BH-T2 status (mechanized core + numeric checks).}
+The inequality direction $\Re(Z)\ge 0 \Rightarrow \big|\frac{1-Z}{1+Z}\big|\le 1$ is mechanized in Lean (formal/BlackHoles/Impedance.lean; Cayley-transform lemma), while the flux identity \eqref{eq:bh-fluxR} and the equivalence chain \eqref{eq:bh-passiveR}--\eqref{eq:bh-passiveZ} are additionally stress-tested numerically in the repo’s passivity diagnostics. We emphasize this separation to keep the evidence ladder honest: the ledger constraint itself is physical, but only its algebraic Cayley core is currently formalized.
+
+\paragraph{Preview: beyond non-superradiant passivity.}
+When the ledger includes an explicit free-energy source (most importantly, Kerr rotational energy), amplification bands with $|R_0|>1$ can occur without inconsistency. In \S\ref{sec:bh-protocol} we treat this as a change in ledger rather than a violation of accounting, and we use a toy active-band model to expose the corresponding instability condition for a cavity.

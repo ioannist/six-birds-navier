@@ -1,0 +1,54 @@
+{
+  "status": "PASS",
+  "scope": "Exact datum-level Fourier algebra and scaling; not a PDE simulation, actual trajectory, source payment, or global closure.",
+  "normalization": "physical k; input vectors unnormalized, sqrt(2) times parent54 inputs",
+  "convection": [
+    [
+      "-2",
+      "0"
+    ],
+    [
+      "-1",
+      "0"
+    ],
+    [
+      "0",
+      "1"
+    ]
+  ],
+  "leray_output": [
+    [
+      "-6/5",
+      "0"
+    ],
+    [
+      "3/5",
+      "0"
+    ],
+    [
+      "0",
+      "1"
+    ]
+  ],
+  "curl_output": [
+    [
+      "-2",
+      "0"
+    ],
+    [
+      "1",
+      "0"
+    ],
+    [
+      "0",
+      "3"
+    ]
+  ],
+  "opposite_sector_nonzero": "pure positive would imply 9=5",
+  "fixed_energy_scaling": {
+    "P": "9/2",
+    "beta_5_over_4_rhs": "9/2",
+    "beta_1_same_format_rhs": "4"
+  },
+  "matrix_G_minus_I_coefficient": "1024"
+}

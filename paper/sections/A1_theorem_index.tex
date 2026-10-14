@@ -1,0 +1,76 @@
+\clearpage
+\section{Mechanized theorem index}\label[appendix]{app:theorem-index}
+
+All Lean statements are discrete or abstract: sequences indexed by $\N$, finite sums, finite index
+sets, real inner-product spaces and real functions of one variable. None of them formalizes a
+continuum PDE, a Sobolev estimate, a storage frontier or a limit $\mu\to0$. The library builds with
+Lean~4 and mathlib~v4.8.0 (\texttt{lake build} in \nolinkurl{formal/}). The file
+\nolinkurl{formal/ScaffoldAxiomAudit.lean} prints the transitive axioms of the 31 declarations
+below; every one depends only on \texttt{propext}, \texttt{Classical.choice} and \texttt{Quot.sound}.
+There is no \texttt{sorry} and no added axiom. All names live in the namespace \texttt{Fluids}.
+
+{\footnotesize
+\renewcommand{\arraystretch}{1.12}
+\setlength{\tabcolsep}{4pt}
+\begin{longtable}{>{\raggedright\arraybackslash}p{0.40\linewidth}
+                  >{\raggedright\arraybackslash}p{0.54\linewidth}}
+\toprule
+\textbf{Lean declaration} & \textbf{Statement (paper reference)} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Lean declaration} & \textbf{Statement (paper reference)} \\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+\multicolumn{2}{l}{\nolinkurl{Zeno.lean}} \\
+\nolinkurl{le_t0_add_sum_range_of_increments_ge} & $\Phi(n)\le t(n{+}1)-t(n)$ for all $n$ implies $t(n)\ge t(0)+\sum_{k<n}\Phi(k)$. \\
+\nolinkurl{monotone_of_increments_ge_of_nonneg} & With $\Phi\ge0$, the crossing times are nondecreasing. \\
+\nolinkurl{no_finite_upper_bound_of_increments_ge_of_sum_unbounded} & \Cref{thm:unbounded-sums-no-zeno}. \\
+\nolinkurl{no_finite_upper_bound_dyadic} & If $\Phi(2^j)\le t(j{+}1)-t(j)$ and the $\Phi(2^j)$ have unbounded partial sums, $t$ has no finite upper bound. \\
+\addlinespace
+\multicolumn{2}{l}{\nolinkurl{ZenoWorkCap.lean}} \\
+\nolinkurl{workcap_div_le_increment} & \Cref{thm:workcap-increment}. \\
+\nolinkurl{increments_ge_of_workcap} & The same bound for every $n$. \\
+\nolinkurl{no_finite_upper_bound_of_workcap_of_sum_unbounded} & \Cref{thm:workcap-no-zeno}. \\
+\nolinkurl{no_finite_upper_bound_dyadic_of_workcap} & Dyadic version of \cref{thm:workcap-no-zeno} (\cref{sec:no-zeno-engine}). \\
+\addlinespace
+\multicolumn{2}{l}{\nolinkurl{RouteCapacity.lean}} \\
+\nolinkurl{telescoping_pow} & One telescoping step, $((n+2)/(n+1))^p(n+1)^p=(n+2)^p$. \\
+\nolinkurl{route_capacity_poly_bound} & \Cref{thm:route-capacity}, with the tame factor substituted in the recurrence. \\
+\nolinkurl{route_capacity_poly_bound_of_bounded_sum} & The same, with bounded mismatch sums. \\
+\nolinkurl{route_capacity_poly_bound_of_tame_factor} & \Cref{thm:route-capacity} from an actual factor $r(n)$ and $C\ge0$. \\
+\nolinkurl{route_capacity_poly_bound_of_tame_factor_of_bounded_sum} & Its bounded-mismatch form, $C(n)\le(C(0)+E)(n+1)^p$. \\
+\addlinespace
+\multicolumn{2}{l}{\nolinkurl{ECTCap.lean}} \\
+\nolinkurl{max_add_le_add_max} & $\max(x+y,0)\le\max(x,0)+\max(y,0)$. \\
+\nolinkurl{max_sum_le_sum_max} & The same for finite sums (\cref{sec:route-capacity}). \\
+\nolinkurl{icap_sum_le_card_mul} & Per-atom bounds $w_i\le\Lambda_0E$ sum to at most $|s|\Lambda_0E$ (\cref{sec:route-capacity}). \\
+\addlinespace
+\multicolumn{2}{l}{\nolinkurl{IcapNoGo.lean}} \\
+\nolinkurl{icap_implies_pointwise_pos_bound_of_basis_tests} & \Cref{thm:icap-no-go} with ICAP on all inputs. \\
+\nolinkurl{icap_implies_pointwise_pos_bound_on_feasible_basis_tests} & \Cref{thm:icap-no-go} with ICAP only on a feasible class containing the basis tests. \\
+\addlinespace
+\multicolumn{2}{l}{\nolinkurl{AntiLocalization.lean}} \\
+\nolinkurl{mass_cell_le_card_mul_deloc_mul_coeffEnergy} & \Cref{lem:channel-antiloc}, coefficient form \eqref{eq:finite-channel-antiloc}. \\
+\nolinkurl{synthesis_energy_eq_coeffEnergy_of_orthonormal} & Parseval from the Gram identity of orthonormal channels. \\
+\nolinkurl{mass_cell_le_card_mul_deloc_mul_fieldEnergy_of_orthonormal} & \Cref{lem:channel-antiloc}, field-energy form. \\
+\addlinespace
+\multicolumn{2}{l}{\nolinkurl{Energy.lean}} \\
+\nolinkurl{inner_rhs_self} & For $\mathrm{rhs}(u)=-B(u,u)-\nu Au-\mu A_\alpha u$ with $\langle B(u,u),u\rangle=0$: $\langle\mathrm{rhs}(u),u\rangle=-\nu\langle Au,u\rangle-\mu\langle A_\alpha u,u\rangle$. \\
+\nolinkurl{inner_rhs_self_le_zero} & With positive semidefinite $A,A_\alpha$ and $\nu,\mu\ge0$, this pairing is $\le0$ (\cref{app:regularized}). \\
+\addlinespace
+\multicolumn{2}{l}{\nolinkurl{Difference.lean}} \\
+\nolinkurl{inner_rhsDiff_self} & Pairing identity for $-\nu Aw-\mu A_\alpha w+g$. \\
+\nolinkurl{inner_rhsDiff_self_le_inner_g} & With positive semidefinite $A,A_\alpha$ and $\nu,\mu\ge0$, that pairing is at most $\langle g,w\rangle$. \\
+\nolinkurl{hasDerivAt_normSq} & Derivative of $\|w(\tau)\|^2$ along a differentiable curve. \\
+\nolinkurl{deriv_normSq_le_two_inner_g} & Under the same hypotheses, if $w$ is differentiable at $t$ with $w'(t)=-\nu Aw(t)-\mu A_\alpha w(t)+g(t)$, the derivative value $2\langle w'(t),w(t)\rangle$ is at most $2\langle g(t),w(t)\rangle$. \\
+\nolinkurl{deriv_normSq_le_two_inner_g_at_rhs} & Under the same hypotheses, $\frac{d}{dt}\|w(t)\|^2\le2\langle g(t),w(t)\rangle$ for the curve's norm square itself (\cref{app:regularized}). \\
+\addlinespace
+\multicolumn{2}{l}{\nolinkurl{Multiplier.lean}} \\
+\nolinkurl{deriv_nonneg_of_nonneg_right} & $f(0)=0$, $f'(0)=\nu$ and $f\ge0$ on a right neighbourhood of $0$ give $\nu\ge0$. \\
+\nolinkurl{viscosity_coeff_nonneg} & The same, read as nonnegativity of a leading viscosity coefficient (\cref{app:regularized}). \\
+\nolinkurl{fixed_mode_passivity_counterexample} & $\ell(r)=r^2-r/2$ has $\ell(0)=0$, $\ell(r)\ge0$ for $r\ge1$ and $\ell'(0)=-1/2$ (\cref{app:regularized}). \\
+\end{longtable}
+}

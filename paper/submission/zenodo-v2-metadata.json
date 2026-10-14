@@ -1,0 +1,108 @@
+{
+  "title": "Six Birds for Navier-Stokes: A Mechanized No-Zeno Scaffold",
+  "description": "<p>Energy estimates for the three-dimensional incompressible Navier&ndash;Stokes equations bound the kinetic energy, but they do not stop velocity gradients from concentrating in ever smaller regions. This is why the classical regularity criteria, such as Beale&ndash;Kato&ndash;Majda, ask for control of a peak quantity. This paper builds a multiscale <em>decision scaffold</em>, inspired by the Six Birds framework, around a different question: can activity cascade to arbitrarily fine scales in finite time, a <em>Zeno cascade</em>? The scaffold keeps three kinds of statement apart.</p>\n<p><strong>Proved in Lean.</strong> If every refinement step costs a fixed quantum of work, and the work available per unit time at depth <em>j</em> is bounded by a capacity whose reciprocals have divergent sum, then no Zeno cascade occurs. Route-stable reductions have at most polynomial capacity growth. In a finite model, a uniform capacity certificate over inputs that include localized tests forces a pointwise bound on the gain.</p>\n<p><strong>Proved on paper, or stated as open hypotheses.</strong> We define the subgrid bridge with sharp Fourier shells and show that on a strong solution it returns the actual closure force. Energy alone bounds the power that the bridge supplies to shell <em>j</em> by C&thinsp;2<sup>5j/2</sup>&Vert;u<sub>0</sub>&Vert;<sub>2</sub><sup>3</sup>. That bound is too weak to certify divergence. An explicit three-mode field shows that no bound of the form &Vert;&nabla;u&Vert;<sub>&infin;</sub>&Vert;u<sub>j</sub>&Vert;<sub>2</sub><sup>2</sup> holds for this power.</p>\n<p><strong>Measured.</strong> An anti-localization certificate on initial data passes band-limited random fields (max<sub>j</sub> &kappa;<sub>j</sub> &asymp; 2.1) and rejects a localized shell wavepacket (&kappa; &asymp; 404).</p>\n<p>We do not prove the Clay regularity statement, and we do not show that the certificate persists under the flow. The Navier&ndash;Stokes inequalities that a proof along these lines would still need are listed explicitly.</p>",
+  "publication_date": "2026-10-14",
+  "version": "v2.0",
+  "keywords": [
+    "Navier-Stokes equations",
+    "no-Zeno scaffold",
+    "global regularity",
+    "multiscale analysis",
+    "anti-localization",
+    "route capacity",
+    "subgrid closure",
+    "hyperviscous regularization",
+    "Lean 4",
+    "energy estimates",
+    "partial differential equations",
+    "emergence calculus",
+    "Six Birds Theory"
+  ],
+  "related_identifiers": [
+    {
+      "identifier": "10.1007/978-3-642-16830-7",
+      "relation": "cites",
+      "resource_type": "publication-book",
+      "scheme": "doi"
+    },
+    {
+      "identifier": "10.1007/BF01212349",
+      "relation": "cites",
+      "resource_type": "publication-article",
+      "scheme": "doi"
+    },
+    {
+      "identifier": "10.1007/978-3-642-84108-8",
+      "relation": "cites",
+      "resource_type": "publication-book",
+      "scheme": "doi"
+    },
+    {
+      "identifier": "10.1007/978-3-319-21401-6_26",
+      "relation": "cites",
+      "resource_type": "publication-conferencepaper",
+      "scheme": "doi"
+    },
+    {
+      "identifier": "978-0-521-63948-4",
+      "relation": "cites",
+      "resource_type": "publication-book",
+      "scheme": "isbn"
+    },
+    {
+      "identifier": "10.1145/3372885.3373824",
+      "relation": "cites",
+      "resource_type": "publication-conferencepaper",
+      "scheme": "doi"
+    },
+    {
+      "identifier": "10.1175/1520-0469(1971)028<1074:OTEOAI>2.0.CO;2",
+      "relation": "cites",
+      "resource_type": "publication-article",
+      "scheme": "doi"
+    },
+    {
+      "identifier": "10.1007/BF00253344",
+      "relation": "cites",
+      "resource_type": "publication-article",
+      "scheme": "doi"
+    },
+    {
+      "identifier": "978-1-4704-7786-8",
+      "relation": "cites",
+      "resource_type": "publication-book",
+      "scheme": "isbn"
+    },
+    {
+      "identifier": "https://lean-lang.org/",
+      "relation": "cites",
+      "resource_type": "other",
+      "scheme": "url"
+    },
+    {
+      "identifier": "arXiv:2602.00134",
+      "relation": "cites",
+      "resource_type": "publication-preprint",
+      "scheme": "arxiv"
+    },
+    {
+      "identifier": "10.1007/BF00276493",
+      "relation": "cites",
+      "resource_type": "publication-article",
+      "scheme": "doi"
+    },
+    {
+      "identifier": "10.2140/apde.2009.2.361",
+      "relation": "cites",
+      "resource_type": "publication-article",
+      "scheme": "doi"
+    },
+    {
+      "identifier": "978-0-8218-3679-8",
+      "relation": "cites",
+      "resource_type": "publication-book",
+      "scheme": "isbn"
+    }
+  ],
+  "notes": "Version 2 (October 14, 2026). Follows a mathematical review of the supporting derivations, Lean library and numerical code; the title and the main mechanized theorems are unchanged. Changes: the subgrid bridge is defined with sharp Fourier shells and a fixed sign for the supplied power, with an exact return on strong solutions; a section on what energy alone gives the capacity is added, including an explicit counterexample to a shell-only strain bound; the no-go theorem is stated on a feasible class and the continuum passage is listed as open; the divergence comparisons and the work-quantum lemma state their exact quantifiers and assumptions; the route-capacity and anti-localization results are connected to Lean through adapter lemmas, and all 31 audited Lean declarations are indexed; a residual-charged anti-localization bound and an appendix on the hyperviscous regularized model are added; the numerical code is corrected (time stepping, de-aliasing, sign conventions, diagnostics) and all figures are regenerated, the illegal example's concentration factor becoming about 404; the text is rewritten for readability and new figures are added. Full list in the Version note appendix of the paper."
+}

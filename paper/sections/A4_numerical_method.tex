@@ -1,0 +1,53 @@
+\section{Numerical method}\label[appendix]{app:numerics}
+
+All three-dimensional experiments use a Fourier pseudo-spectral discretization \citep{canuto1988spectral}
+of \eqref{eq:hyper} on $\T^3=(\R/2\pi\mathbb Z)^3$ with an $N\times N\times N$ grid. Fields are stored as
+Fourier coefficients $\hat u(k)$ and derivatives are computed spectrally. Incompressibility is
+enforced by the Leray projection $P(k)=I-k\otimes k/|k|^2$ for $k\ne0$.
+
+\paragraph{De-aliasing and real fields.}
+Products are formed in physical space. The de-aliasing mask keeps the modes with
+$|k_x|,|k_y|,|k_z|<\tfrac23\lfloor N/2\rfloor$, with strict inequality \citep{orszag1971aliasing}.
+A non-strict cutoff would let two retained modes alias onto a retained mode when $N$ is divisible
+by three. Runs without de-aliasing still remove the ambiguous Nyquist faces, since an even grid
+identifies $+N/2$ with $-N/2$ and odd derivative symbols cannot be represented there. Restriction
+to a coarser grid also drops those faces, which preserves Hermitian symmetry, real fields and
+nested restriction. Spectra that are not those of real fields, and nonfinite states or forces, are
+rejected rather than silently repaired. With the strict cutoff the semi-discrete nonlinear term
+conserves energy; the test suite checks this cancellation.
+
+\paragraph{Time integration.}
+The linear part $L(k)=-(\nu|k|^2+\mu|k|^{2\alpha})$ is integrated exactly. The classical fourth-order
+Runge--Kutta method is applied to the integrating-factor variable $e^{-Lt}\hat u$ (the Lawson
+scheme), with $E=e^{L\Delta t}$ and $E_{1/2}=e^{L\Delta t/2}$:
+\[
+\begin{aligned}
+a&=E_{1/2}\bigl(\hat u+\tfrac{\Delta t}2n_1\bigr),\quad
+b=E_{1/2}\hat u+\tfrac{\Delta t}2n_2,\quad
+c=E\hat u+\Delta t\,E_{1/2}n_3,\\
+\hat u^{\,\mathrm{new}}&=E\hat u+\tfrac{\Delta t}6\bigl(En_1+2E_{1/2}n_2+2E_{1/2}n_3+n_4\bigr),
+\end{aligned}
+\]
+where $n_1,\dots,n_4$ are the nonlinear and forcing terms at the stage states $\hat u,a,b,c$ and the
+corresponding stage times. Exact forced-linear and quadratic scalar solutions confirm fourth-order
+convergence in the tests. Runs end exactly at the requested time, taking a shorter final step when
+necessary, and record the terminal state.
+
+\paragraph{Forcing.}
+When forcing is on, a seeded random field is projected to divergence-free form, truncated to
+$|k|\le k_{\mathrm{force}}$, de-aliased and rescaled to the configured root-mean-square amplitude. The
+forcing is deterministic given the seed and configuration.
+
+\paragraph{Diagnostics.}
+The local energy fractions are amplitude invariant and are computed after rescaling, so very small
+nonzero shells are not lost to underflow; an empty shell is assigned zero. Ranks $m_{95}$ are
+counts of singular values of the uncentered snapshot matrix needed to reach $95\%$ of its squared
+Frobenius norm. A sampled work-to-energy ratio is reported as a ratio over one sampled window, not
+as an extremum over admissible histories. Each producer records the configuration that applies to it (for evolution
+runs the grid, time step, final time, viscosities, exponent and forcing parameters, with separate
+coefficients for comparison runs; for certificates, the thresholds) in a printed
+\texttt{FIGURE\_CONFIG} line and in its \texttt{.npz} file.
+
+\paragraph{Scope.}
+These simulations are diagnostics for the certificates and hinge quantities of the scaffold.
+Low-resolution runs are not evidence about continuum blow-up or regularity.

@@ -1,0 +1,48 @@
+{
+  "status": "PASS",
+  "scope": "Exact Gaussian-independent source coefficient, radial-weight calculus and disjoint-profile norm powers; no stationary NS realization, endpoint source, measure construction or unconditional closure.",
+  "arbitrary_shifted_window_Q_bound": "64*length/nu^4+1/nu",
+  "radial_A": "r*sqrt(r**2 + 1)/2 - asinh(r)/2",
+  "origin_head_eigenvalues": [
+    "1/6",
+    "1/6"
+  ],
+  "formal_power_weights": [
+    {
+      "alpha": "1/2",
+      "tangential_over_theta": "1/10",
+      "radial_over_theta": "3/10",
+      "native_L6_weight_pairing_integrable": false
+    },
+    {
+      "alpha": "1",
+      "tangential_over_theta": "0",
+      "radial_over_theta": "1/2",
+      "native_L6_weight_pairing_integrable": false
+    },
+    {
+      "alpha": "2",
+      "tangential_over_theta": "-1/2",
+      "radial_over_theta": "3/2",
+      "native_L6_weight_pairing_integrable": false
+    },
+    {
+      "alpha": "5/2",
+      "tangential_over_theta": "-3/2",
+      "radial_over_theta": "7/2",
+      "native_L6_weight_pairing_integrable": true
+    }
+  ],
+  "translated_profile_base2_exponents": {
+    "Z": -1,
+    "L6_sixth": -3,
+    "weighted_energy": -3,
+    "L9_2_power": "3/2"
+  },
+  "annular_profile_radius_exponents": {
+    "Z": "-1/2",
+    "L6_sixth": "-3/2",
+    "L9_2_power": "-3/8",
+    "weighted_energy": "1/2"
+  }
+}

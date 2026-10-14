@@ -1,0 +1,64 @@
+{
+  "beta": "3/8",
+  "lambda": "1/2",
+  "receiver_rate": "1/4",
+  "mixed_rate": "5/4",
+  "heated_B": {
+    "raw": "277637*pi**(3/2)/67108864",
+    "longitudinal": "298153833*pi**(3/2)/83969966080",
+    "projected": "196957853*pi**(3/2)/335879864320",
+    "prefactor": "pi/16",
+    "radial_alpha": "1",
+    "mean_raw": "r**2*(189*r**8 - 12144*r**6 + 469920*r**4 - 4198656*r**2 + 13502720)/37847040",
+    "mean_longitudinal": "r**2*(707*r**8 - 73008*r**6 + 3706560*r**4 - 36571392*r**2 + 117621504)/369008640"
+  },
+  "mixed_E": {
+    "raw": "-628662*sqrt(13)*pi**(3/2)/815730721",
+    "longitudinal": "-27491495492*sqrt(13)*pi**(3/2)/39257040948125",
+    "projected": "-2762863258*sqrt(13)*pi**(3/2)/39257040948125",
+    "prefactor": "sqrt(10)*pi/25",
+    "radial_alpha": "13/40",
+    "mean_raw": "-r**2*(90496*r**10 - 6106022*r**8 + 177163701*r**6 - 1968282030*r**4 + 16506890400*r**2 - 58318260000)/7207200000000",
+    "mean_longitudinal": "-r**2*(22624*r**10 - 1613388*r**8 + 45275139*r**6 - 485175405*r**4 + 3967906800*r**2 - 13951938000)/1801800000000"
+  },
+  "Q_beta": "pi**(3/2)*(-1544851648406750125 + 185412614631718912*sqrt(13))/2634495422030151680000",
+  "Q_beta_over_pi_3half": "-196957853/335879864320 + 2762863258*sqrt(13)/39257040948125",
+  "physical_unprojected_checks": "Both physical polynomial heat/Gaussian pairings match exact Fourier raw pairings.",
+  "beta0_control": {
+    "beta": "0",
+    "lambda": "1",
+    "receiver_rate": "1",
+    "mixed_rate": "2",
+    "heated_B": {
+      "raw": "2789*pi**(3/2)/8192",
+      "longitudinal": "2625873*pi**(3/2)/10250240",
+      "projected": "3455453*pi**(3/2)/41000960",
+      "prefactor": "pi/16",
+      "radial_alpha": "1/4",
+      "mean_raw": "r**2*(189*r**8 - 12144*r**6 + 469920*r**4 - 4198656*r**2 + 13502720)/37847040",
+      "mean_longitudinal": "r**2*(707*r**8 - 73008*r**6 + 3706560*r**4 - 36571392*r**2 + 117621504)/369008640"
+    },
+    "mixed_E": {
+      "raw": "-2985*pi**(3/2)/8192",
+      "longitudinal": "-1435559*pi**(3/2)/5125120",
+      "projected": "-3455453*pi**(3/2)/41000960",
+      "prefactor": "pi/16",
+      "radial_alpha": "1/4",
+      "mean_raw": "-r**2*(707*r**10 - 51376*r**8 + 1825824*r**6 - 15100800*r**4 + 102246144*r**2 - 246005760)/2952069120",
+      "mean_longitudinal": "-r**2*(707*r**10 - 60462*r**8 + 2188992*r**6 - 22102080*r**4 + 137170176*r**2 - 358245888)/2952069120"
+    },
+    "Q_beta": "0",
+    "Q_beta_over_pi_3half": "0",
+    "physical_unprojected_checks": "Both physical polynomial heat/Gaussian pairings match exact Fourier raw pairings."
+  },
+  "radical_enclosure": [
+    "-59356537680344343076946339805361261967/178441095218750000000000000000000000000000",
+    "-6529219144837877738464097378588357384741/19628520474062500000000000000000000000000000"
+  ],
+  "sign": "negative",
+  "amplitude_parity": "G and F each quadratic, Q(bU)=b^4Q(U), identical for +/-U.",
+  "script_sha256": "f6ce114997411d168a9d049c6cf8b66b5b7122f04887d4b09e460f95de2f4239",
+  "sympy_version": "1.14.0",
+  "scope": "Exact original initial-state ONEheatedreceiver quartic only; not trajectorydrift, infiniteheatmemory, all-data source or mechanized PDE theorem.",
+  "squared_radical_sign_certificate": "149204209688126086797877562082114381/533889702207525154604009772600524800000000"
+}

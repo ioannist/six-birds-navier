@@ -1,0 +1,67 @@
+\section{Uniform capacity and localized tests do not mix}
+\label{sec:no-go-icap}
+
+ICAP \eqref{eq:icap} is an extremal statement: it bounds the positive work over \emph{every}
+admissible input. This section shows, in a finite model, what that costs. If the admissible inputs
+include localized test vectors, a uniform capacity certificate is exactly as strong as a pointwise
+bound on the gain. We then state what a continuum version for the actual bridge would require.
+
+\subsection{A finite obstruction}
+
+Let $\iota$ be a finite index set, such as the cells of a grid, and let $g:\iota\to\R$ be a gain
+profile with quadratic form $Q_g(u)=\sum_{i\in\iota}g(i)\,u(i)^2$. Let $\mathcal F$ be a class of
+feasible inputs $u:\iota\to\R$. A memoryless ICAP on $\mathcal F$ reads
+\begin{equation}\label{eq:icap-discrete}
+\max\bigl(Q_g(u),0\bigr)\ \le\ \Lambda\sum_{i\in\iota}u(i)^2\qquad\text{for all }u\in\mathcal F .
+\end{equation}
+
+\begin{theorem}[ICAP on localized tests gives a pointwise gain bound]\label{thm:icap-no-go}
+Assume \eqref{eq:icap-discrete} for some $\Lambda\in\R$, and assume $\mathcal F$ contains every
+coordinate vector $\mathbf 1_{\{i\}}$. Then $\max(g(i),0)\le\Lambda$ for every $i\in\iota$.
+\end{theorem}
+
+\begin{proof}
+Test \eqref{eq:icap-discrete} with $u=\mathbf 1_{\{i\}}$, for which $Q_g(u)=g(i)$ and $\sum u^2=1$.
+\end{proof}
+
+The converse holds as well: if $\max(g(i),0)\le\Lambda$ for every $i$ and $\Lambda\ge0$, then
+\eqref{eq:icap-discrete} holds for all $u$. On a localization-rich class, a uniform capacity
+certificate and a pointwise gain bound are therefore the same statement.
+
+\paragraph{Mechanization.}
+Lean proves the version with all inputs feasible
+(\nolinkurl{icap_implies_pointwise_pos_bound_of_basis_tests}) and the version stated here, where
+ICAP is assumed only on a class that contains the basis tests
+(\nolinkurl{icap_implies_pointwise_pos_bound_on_feasible_basis_tests}), both in
+\nolinkurl{formal/Fluids/IcapNoGo.lean}.
+
+\subsection{What a continuum version would need}
+
+In the continuum the role of the basis vectors would be played by divergence-free wavepackets in
+shell $j$ whose energy concentrates in a ball of radius about $2^{-j}$. If the bridge acted on
+such packets through a local gain, a uniform ICAP would bound that gain pointwise in space. For
+Navier--Stokes the natural candidate is a strain-type gain, and a pointwise bound on it has the
+form of a classical peak criterion \citep{majda_bertozzi_vif,bkm_1984,serrin1962interior}.
+
+We do \emph{not} prove this passage. The actual bridge is nonlinear and history-dependent, and the
+finite theorem cannot simply be applied to it. A continuum version would need three adapters,
+each open here:
+\begin{enumerate}
+\item an actual gain representation of the bridge's positive work on shell-$j$ inputs;
+\item feasibility of solenoidal localized test inputs in the bridge's admissible class;
+\item a limit argument with control of the fixed background, turning localized averages at finite
+scale into a pointwise bound on the claimed strain readout.
+\end{enumerate}
+\Cref{prop:sgs-counterexample} is a warning about item (3). For the full subgrid port, the shell
+power is not controlled by $\|\nabla u\|_{L^\infty}$ times the shell energy at all, because the
+high--high source can feed an almost empty shell.
+
+\subsection{Consequence: localization is the lever}
+
+\Cref{thm:icap-no-go} identifies what a capacity route must avoid. If the admissible inputs at
+depth $j$ can concentrate in one cell, a uniform certificate inherits the full strength of a
+pointwise bound. One way to keep a capacity certificate from inheriting that strength is to
+restrict the admissible inputs so that they cannot concentrate. This restriction is a proposal,
+not a consequence of the theorem: other restrictions of the input class could also block the
+basis tests. The next section makes the anti-localization restriction quantitative. Excluding localized tests only removes the obstruction. It
+does not by itself provide ICAP, WORK, DIV, or a continuation criterion.

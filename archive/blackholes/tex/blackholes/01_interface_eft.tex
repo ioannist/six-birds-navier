@@ -1,0 +1,60 @@
+% ============================
+% BH: Interface EFT story (P5 + P1)
+% ============================
+
+A recurring difficulty in black-hole physics is that the \emph{interior} is both (i) causally inaccessible to exterior observers and (ii) radically underdetermined by exterior data: many distinct interior stories can be made compatible with the same exterior evolution, at least at the level of linear perturbations. In the language of Six Primitives Theory (SBT), this is not a paradox but a signal that ``the interior'' is not an exterior observable---it is a \emph{latent completion} whose only exterior imprint is through an \emph{interface object}. This section formalizes that idea as an \emph{interface effective field theory} (interface EFT): we treat the exterior as an open system coupled to an unknown interior, and then \emph{package} (P5) the interior into a boundary response, which in turn induces an \emph{operator rewrite} (P1) for the exterior dynamics.
+
+\paragraph{Exterior master equation.}
+Throughout the BH section we work in a 1D reduction appropriate for radial scattering of a single master field (e.g.\ a Regge--Wheeler/Zerilli-type mode after separation of variables). In frequency domain (with the global convention $\exp(-i\omega t)$ fixed in \S\ref{sec:bh-conventions}), the exterior field $\psi(x,\omega)$ satisfies
+\begin{equation}
+  \psi''(x,\omega) + \big(\omega^2 - V(x)\big)\,\psi(x,\omega) = 0,
+  \label{eq:bh-master}
+\end{equation}
+on an exterior domain $x\in[x_0,\infty)$, where $x$ is a tortoise-like coordinate and $V(x)$ is an effective barrier potential with $V(x)\to 0$ as $x\to+\infty$. The interior physics is hidden behind the inner boundary location $x=x_0$ (a ``stretched horizon'' in spirit, though we do not assume any specific membrane model). The key question is: \emph{what data at $x_0$ is sufficient to close the exterior problem?}
+
+\paragraph{P5 Packaging: interior $\mapsto$ interface response.}
+For a fixed real frequency $\omega>0$, any linear coupling of the exterior to an interior sector that is \emph{time-translation invariant} and appears to the exterior as a \emph{local} boundary relation at $x_0$ can be summarized by a single complex number---the boundary admittance
+\begin{equation}
+  Y(\omega) \;:=\; \frac{\psi'(x_0,\omega)}{\psi(x_0,\omega)} \qquad (\psi(x_0,\omega)\neq 0).
+  \label{eq:bh-Ydef}
+\end{equation}
+Equivalently, we may use the normalized impedance
+\begin{equation}
+  Z(\omega) \;:=\; \frac{i\,Y(\omega)}{\omega}
+  \qquad\Longleftrightarrow\qquad
+  \psi'(x_0,\omega) = -\,i\omega\,Z(\omega)\,\psi(x_0,\omega),
+  \label{eq:bh-Zdef}
+\end{equation}
+or, in scattering language, the inner reflectivity $R_0(\omega)$ defined relative to the local plane-wave decomposition near $x_0$ (see \S\ref{sec:bh-conventions}). The crucial SBT point is that $\omega\mapsto Z(\omega)$ is the \emph{packaged interface object}: distinct microscopic interiors that induce the same $Z(\omega)$ are indistinguishable to the exterior within the modeling assumptions of \eqref{eq:bh-master}.
+
+In this view, an ``interior model'' is not a unique ontological commitment but an equivalence class modulo the packaging map
+\[
+  \Pi:\;\; (\text{interior completion}) \;\mapsto\; Z(\omega)\;\;\text{as seen from the exterior}.
+\]
+The paper’s BH claim is deliberately modest and operational: \emph{to the extent that the exterior is well-described by a linear 1D master equation, the only interior information the exterior needs is its boundary response function $Z(\omega)$ (or an equivalent parameterization).}
+
+\paragraph{P1 Operator rewrite: closing the open exterior system.}
+Packaging immediately induces an operator-level rewrite. Instead of an open system ``exterior + unknown interior,'' we obtain a closed exterior boundary-value problem: solve \eqref{eq:bh-master} on $[x_0,\infty)$ with the boundary operator \eqref{eq:bh-Zdef} at $x_0$ and an outgoing condition as $x\to+\infty$. The unknown interior is replaced by the \emph{effective boundary operator} $B_\omega$ acting at $x_0$:
+\[
+  B_\omega[\psi] \;:=\; \psi'(x_0,\omega) + i\omega Z(\omega)\psi(x_0,\omega) \;=\; 0.
+\]
+This is the core of the interface EFT: the packaging step (P5) produces a boundary operator, and the operator rewrite (P1) turns the exterior into a predictive, testable theory conditioned on $Z(\omega)$.
+
+\paragraph{Equivalent parameterizations and the physical reflection coefficient.}
+For scattering and echo physics it is often more intuitive to work with a reflection coefficient. With the conventions fixed in \S\ref{sec:bh-conventions}, the impedance and inner reflectivity are related by the Cayley transform
+\begin{equation}
+  R_0(\omega) \;=\; \frac{1 - Z(\omega)}{1 + Z(\omega)},
+  \qquad
+  Z(\omega) \;=\; \frac{1 - R_0(\omega)}{1 + R_0(\omega)}.
+  \label{eq:bh-RZ-interface}
+\end{equation}
+Thus the ``interior'' is encoded either as an impedance $Z(\omega)$ (natural for accounting and causality) or as a reflectivity $R_0(\omega)$ (natural for echo transfer functions). Later sections will exploit both: \S\ref{sec:bh-accounting} constrains the admissible class of $Z(\omega)$ by ledger arguments (P6), while \S\ref{sec:bh-echoes} expresses observable echoes in terms of $R_0(\omega)$ and the exterior barrier coefficients.
+
+\paragraph{What this interface object is (and is not).}
+It is important not to overread $Z(\omega)$.
+First, $Z(\omega)$ is \emph{not} a microscopic theory; it is the exterior’s \emph{boundary response functional} summarizing whatever degrees of freedom live behind $x_0$.
+Second, $Z(\omega)$ is not unconstrained: physical interiors cannot induce arbitrary complex functions. Ledger constraints (passivity/non-injection in non-superradiant regimes), causality/analyticity, and stability sharply restrict the admissible set; we develop these restrictions in \S\ref{sec:bh-accounting} and \S\ref{sec:bh-crosschannel}.
+Third, the packaging map itself can be protocol-dependent (P3): what an observer can infer depends on the measurement/extraction protocol used to define $R_0(\omega)$ from time-domain data. We make this explicit later in \S\ref{sec:bh-protocol}, where a naive estimator fails while a free-region two-point protocol succeeds.
+
+\paragraph{Preview: why this helps the larger SBT story.}
+The interface EFT viewpoint reframes ``interior ambiguity'' as a closure problem: many completions exist, but exterior science proceeds by (i) packaging them into $Z(\omega)$, and then (ii) constraining $Z(\omega)$ by non-negotiable accounting and consistency conditions. This mirrors the fluid closure story: unresolved microstructure is replaced by an interface/closure object, then pruned by invariances and energy budgets. In both cases, what looks like metaphysical underdetermination becomes a concrete admissible-set geometry for an effective operator.

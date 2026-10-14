@@ -1,0 +1,8 @@
+% BH figure helpers (draft)
+\newcommand{\bhincludegraphics}[2][]{%
+  \IfFileExists{python/artifacts/#2}{%
+    \includegraphics[#1]{python/artifacts/#2}%
+  }{%
+    \fbox{\texttt{Missing artifact: #2}}%
+  }%
+}

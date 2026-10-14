@@ -1,0 +1,34 @@
+\section{Reproducing the results}\label[appendix]{app:how-to-run}
+
+All commands run from the repository root. The Python checks assume an environment with
+\nolinkurl{python/requirements.txt} installed and \texttt{PYTHONPATH=python/src}.
+
+\paragraph{Tests and proofs.}
+\begin{verbatim}
+python -m pytest python/tests          # full suite, including slow tests
+cd formal && lake build                 # Lean library
+lake env lean ScaffoldAxiomAudit.lean   # transitive axioms of 31 declarations
+\end{verbatim}
+
+\paragraph{Figures.}
+The manifest \nolinkurl{paper/figures_manifest.json} lists every producer. To regenerate all
+artifacts into \nolinkurl{python/artifacts/paper/}, and then the main-text figures that are drawn
+from their \texttt{.npz} files:
+{\small
+\begin{verbatim}
+python python/scripts/ns_paper_figures.py --include-slow --include-optional --clean
+python python/scripts/ns_paper_publication_figures.py
+\end{verbatim}
+}
+The second command performs no simulation, but several of its figures use slow producers, so it
+needs the full set of artifacts from the first command. To re-run the fast producers and check that their \texttt{.npz} hashes are identical:
+\begin{verbatim}
+python python/scripts/ns_paper_figures.py --clean --verify-determinism
+\end{verbatim}
+Determinism is checked in a fixed software environment. For reruns on other platforms we pin the
+thread count (\texttt{OMP\_NUM\_THREADS=1}) and recommend tolerance-based comparison.
+
+\paragraph{Paper.}
+\begin{verbatim}
+./check_paper.sh
+\end{verbatim}

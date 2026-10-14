@@ -1,0 +1,17 @@
+{
+  "action": "created new-version draft",
+  "concept_record_id": "18862864",
+  "dashboard_url": "https://zenodo.org/uploads/23373445",
+  "doi": "10.5281/zenodo.23373445",
+  "doi_reservation": {
+    "client": "datacite",
+    "identifier": "10.5281/zenodo.23373445",
+    "provider": "datacite",
+    "verified_via": "rdm_pid_table"
+  },
+  "draft_id": 23373445,
+  "recorded_at": "2026-10-14T15:40:54+00:00",
+  "source_doi": "10.5281/zenodo.18862865",
+  "source_record_id": 18862865,
+  "source_title": "Six Birds for Navier-Stokes: A Mechanized No-Zeno Scaffold"
+}

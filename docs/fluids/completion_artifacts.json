@@ -1,0 +1,976 @@
+{
+  "artifacts": [
+    {
+      "class": "fast",
+      "config": {
+        "N": 16,
+        "alpha": 2.0,
+        "dt": 0.0005,
+        "k_init": 6,
+        "mu": 0.0001,
+        "nu": 0.001,
+        "out_dir": "/tmp/navier-scaffold-final-fast/paper",
+        "script": "ns14_energy_ledger_3d.py",
+        "seed": 0,
+        "t_max": 0.05
+      },
+      "diagnostic": {},
+      "files": {
+        "artifact_npz": {
+          "bytes": 6531,
+          "path": "/tmp/navier-scaffold-final-fast/paper/ns14_energy_ledger_3d_data.npz",
+          "sha256": "c1b0b687ce72dd1f985c421bb5c827a7af43391929e2a82cd7bb295ca61e6f2f"
+        },
+        "artifact_png": {
+          "bytes": 13135,
+          "path": "/tmp/navier-scaffold-final-fast/paper/ns14_energy_ledger_3d.png",
+          "sha256": "0f8052a27df8da11d75e419abe7a5de66f651bd1cdd088be7e09b7b0d2e3ffca"
+        }
+      },
+      "id": "fig_ns14_energy_ledger_3d",
+      "keys": [
+        "D",
+        "E",
+        "E0",
+        "I",
+        "R",
+        "max_abs_resid",
+        "max_abs_resid_after_t0",
+        "meta_json",
+        "resid_final",
+        "t"
+      ],
+      "nonfinite_counts": {},
+      "root": "/tmp/navier-scaffold-final-fast",
+      "seed": 0
+    },
+    {
+      "class": "fast",
+      "config": {
+        "N": 24,
+        "alpha": 2.0,
+        "dt": 0.0005,
+        "k0": 7,
+        "k_init": 8,
+        "k_low": 4,
+        "mu_base": 0.0,
+        "mu_comp": 0.003,
+        "nu": 0.001,
+        "out_dir": "/tmp/navier-scaffold-final-fast/paper",
+        "script": "ns15_uv_completion_turns_on_3d.py",
+        "seed": 0,
+        "t_max": 0.1
+      },
+      "diagnostic": {},
+      "files": {
+        "artifact_npz": {
+          "bytes": 1962,
+          "path": "/tmp/navier-scaffold-final-fast/paper/ns15_uv_completion_3d_data.npz",
+          "sha256": "62cb89f2d2bb5de8a7c53a3b060b2dcc26325747b29ed6a518539e88614c2036"
+        },
+        "artifact_png": {
+          "bytes": 31636,
+          "path": "/tmp/navier-scaffold-final-fast/paper/ns15_uv_completion_3d.png",
+          "sha256": "270849585e63e39c6c64f0456aac84b3583f070ba7792efc79ee302eae244f3e"
+        }
+      },
+      "id": "fig_ns15_uv_completion_3d",
+      "keys": [
+        "e0_final",
+        "e1_final",
+        "k",
+        "meta_json",
+        "t_hat"
+      ],
+      "nonfinite_counts": {},
+      "root": "/tmp/navier-scaffold-final-fast",
+      "seed": 0
+    },
+    {
+      "class": "fast",
+      "config": {
+        "N": 24,
+        "alpha": 2.0,
+        "dt": 0.0005,
+        "k_init": 8,
+        "k_low": 4,
+        "mu": 0.0,
+        "mu_list": [
+          0.0,
+          0.01,
+          0.003,
+          0.001
+        ],
+        "nu": 0.001,
+        "out_dir": "/tmp/navier-scaffold-final-fast/paper",
+        "script": "ns16_mu_to_zero_convergence_3d.py",
+        "seed": 0,
+        "t_max": 0.1
+      },
+      "diagnostic": {},
+      "files": {
+        "artifact_npz": {
+          "bytes": 1507,
+          "path": "/tmp/navier-scaffold-final-fast/paper/ns16_mu_convergence_3d_data.npz",
+          "sha256": "da5bc2285aebca75d8f3125142e61a981e229ebc867984340ab341f414bf4dc6"
+        },
+        "artifact_png": {
+          "bytes": 24622,
+          "path": "/tmp/navier-scaffold-final-fast/paper/ns16_mu_convergence_3d.png",
+          "sha256": "bd3629941f0704f5bb8b30d6bf1220f300df1eb466c20f8e2e075b533c2ddb62"
+        }
+      },
+      "id": "fig_ns16_mu_convergence_3d",
+      "keys": [
+        "err_vals",
+        "meta_json",
+        "monotone_decreasing",
+        "mu_sorted",
+        "mu_vals"
+      ],
+      "nonfinite_counts": {},
+      "root": "/tmp/navier-scaffold-final-fast",
+      "seed": 0
+    },
+    {
+      "class": "fast",
+      "config": {
+        "K_list": [
+          4,
+          6,
+          8,
+          10
+        ],
+        "N": 32,
+        "alpha": 1.25,
+        "dt": 0.0,
+        "eps": 0.1,
+        "mu": 0.0,
+        "nu": 0.0,
+        "out_dir": "/tmp/navier-scaffold-final-fast/paper",
+        "reps": 3,
+        "s": 3.0,
+        "script": "ns18_exponent_sanity_harness.py",
+        "seed": 0,
+        "t_max": 0.0,
+        "theta_bad": 0.4,
+        "theta_good": 0.8
+      },
+      "diagnostic": {},
+      "files": {
+        "artifact_npz": {
+          "bytes": 3071,
+          "path": "/tmp/navier-scaffold-final-fast/paper/ns18_exponent_sanity_data.npz",
+          "sha256": "fe9a6330302a37989e37c9d0b86011e71050a5dd19d960394ad4963726eaa60b"
+        },
+        "artifact_png": {
+          "bytes": 78532,
+          "path": "/tmp/navier-scaffold-final-fast/paper/ns18_exponent_sanity.png",
+          "sha256": "423b07b9152d6ac6bf456021b774517fa2fc8f0ec34f2cb97c5da5d070271c66"
+        }
+      },
+      "id": "fig_ns18_exponent_sanity",
+      "keys": [
+        "K_arr",
+        "creq_bad",
+        "creq_good",
+        "interp_bad",
+        "interp_good",
+        "meta_json",
+        "ordering_ok",
+        "slope_creq_bad",
+        "slope_creq_good",
+        "slope_interp_bad",
+        "slope_interp_good"
+      ],
+      "nonfinite_counts": {},
+      "root": "/tmp/navier-scaffold-final-fast",
+      "seed": 0
+    },
+    {
+      "class": "fast",
+      "config": {
+        "J": 200,
+        "N": 0,
+        "alpha": 0.0,
+        "dt": 0.0,
+        "mu": 0.0,
+        "nu": 0.0,
+        "out_dir": "/tmp/navier-scaffold-final-fast/paper",
+        "script": "nsbu12_toy_zeno_gallery.py",
+        "seed": 0,
+        "t_max": 0.0
+      },
+      "diagnostic": {},
+      "files": {
+        "artifact_npz": {
+          "bytes": 7706,
+          "path": "/tmp/navier-scaffold-final-fast/paper/nsbu12_toy_zeno_gallery_data.npz",
+          "sha256": "1734bfdfbbeb670f108229f79d5e88bfc13f4f0003b592e536b84a5bc4cea145"
+        },
+        "artifact_png": {
+          "bytes": 48334,
+          "path": "/tmp/navier-scaffold-final-fast/paper/nsbu12_toy_zeno_gallery.png",
+          "sha256": "ecdc8845ec1cd76120b36b28282e4f0f3f1d0244f6b7208a7a090101ab7545a7"
+        }
+      },
+      "id": "fig_nsbu12_toy_zeno_gallery",
+      "keys": [
+        "j_plot",
+        "meta_json",
+        "nz",
+        "z1",
+        "z2"
+      ],
+      "nonfinite_counts": {},
+      "root": "/tmp/navier-scaffold-final-fast",
+      "seed": 0
+    },
+    {
+      "class": "fast",
+      "config": {
+        "N": 32,
+        "burst_threshold": 50.0,
+        "center_xyz": [
+          0.23,
+          0.41,
+          0.67
+        ],
+        "energy_threshold": 0.95,
+        "illegal_dealias": false,
+        "j_target": 3,
+        "k_init": 10,
+        "kappa_threshold": 10.0,
+        "no_evolve": true,
+        "out_dir": "/tmp/navier-scaffold-final-fast/paper",
+        "script": "ns_spt_illegal_ic_demo.py",
+        "seed": 0,
+        "sigma": 0.025,
+        "window_c": 1.0
+      },
+      "diagnostic": {},
+      "files": {
+        "artifact_npz": {
+          "bytes": 3990,
+          "path": "/tmp/navier-scaffold-final-fast/paper/ns_spt_illegal_vs_legal_data.npz",
+          "sha256": "1b51933ee691ea71e1f3a60ebbcd891d5faa294eded48134b1b6dd03021b7aa8"
+        },
+        "artifact_png": {
+          "bytes": 57786,
+          "path": "/tmp/navier-scaffold-final-fast/paper/ns_spt_illegal_vs_legal.png",
+          "sha256": "b3d79fc90a38f4751fcdeee3b4fe70144f5b34d36c13e303b63d921821994692"
+        }
+      },
+      "id": "fig_ns_spt_illegal_vs_legal",
+      "keys": [
+        "burst_illegal",
+        "burst_legal",
+        "illegal_max_burst",
+        "illegal_max_kappa",
+        "illegal_verdict",
+        "j_illegal",
+        "j_legal",
+        "kappa_illegal",
+        "kappa_legal",
+        "legal_max_burst",
+        "legal_max_kappa",
+        "legal_threshold",
+        "legal_verdict",
+        "meta_json"
+      ],
+      "nonfinite_counts": {},
+      "root": "/tmp/navier-scaffold-final-fast",
+      "seed": 0
+    },
+    {
+      "class": "slow",
+      "config": {
+        "N": 32,
+        "N_levels": [
+          8,
+          12,
+          16,
+          24,
+          32
+        ],
+        "alpha": 2.0,
+        "amp": 0.01,
+        "burn_in_frac": 0.4,
+        "dt": 0.0005,
+        "k_force": 2,
+        "k_init": 3,
+        "mu": 0.0,
+        "nu": 0.001,
+        "out_dir": "/tmp/navier-scaffold-completion-artifacts/paper",
+        "script": "nsbu21_route_capacity_numbers.py",
+        "seed": 0,
+        "shell_j": 1,
+        "t_max": 0.2
+      },
+      "diagnostic": {},
+      "files": {
+        "artifact_npz": {
+          "bytes": 7602,
+          "path": "/tmp/navier-scaffold-completion-artifacts/paper/nsbu21_route_capacity_numbers_data.npz",
+          "sha256": "cfdacbb1c0fdbd2e65650bb90805dab61c32467496f7023bbb4720eb654a3e85"
+        },
+        "artifact_png": {
+          "bytes": 136210,
+          "path": "/tmp/navier-scaffold-completion-artifacts/paper/nsbu21_route_capacity_numbers.png",
+          "sha256": "b503157bd482d484ef80ff0c6dd11a35e0dda1aa59b6c8a9bcc687132187bf48"
+        }
+      },
+      "id": "fig_nsbu21_route_capacity_numbers",
+      "keys": [
+        "C_sum",
+        "C_tilde",
+        "Lambda_direct",
+        "N_hi",
+        "N_levels",
+        "U_rms",
+        "alpha",
+        "burn_in_frac",
+        "dt",
+        "e",
+        "e_route",
+        "e_route_tilde",
+        "e_tilde",
+        "forcing_amp",
+        "k_cut",
+        "k_force",
+        "k_init",
+        "meta_json",
+        "mu",
+        "n",
+        "nu",
+        "partial_sum_e",
+        "partial_sum_e_route",
+        "r_tilde",
+        "seed",
+        "shell_j",
+        "slack_poswork",
+        "t_max",
+        "u_port_energy"
+      ],
+      "nonfinite_counts": {
+        "r_tilde": 2
+      },
+      "root": "/tmp/navier-scaffold-completion-artifacts",
+      "seed": 0
+    },
+    {
+      "class": "slow",
+      "config": {
+        "N": 0,
+        "alpha": 0.0,
+        "dt": 0.0,
+        "mu": 0.0,
+        "npz": "/tmp/navier-scaffold-completion-artifacts/paper/nsbu21_route_capacity_numbers_data.npz",
+        "nu": 0.0,
+        "out_dir": "/tmp/navier-scaffold-completion-artifacts/paper",
+        "script": "nsbu23_route_capacity_hypothesis_check.py",
+        "seed": 0,
+        "t_max": 0.0
+      },
+      "diagnostic": {
+        "summability_status": [
+          "PASS (sampled route mismatch ~0 within tol)"
+        ],
+        "verdict": [
+          "PLAUSIBLE"
+        ]
+      },
+      "files": {
+        "artifact_npz": {
+          "bytes": 3774,
+          "path": "/tmp/navier-scaffold-completion-artifacts/paper/nsbu23_route_capacity_hypothesis_dense_data.npz",
+          "sha256": "8dd836afcd05e8e8a224abd14c32cd4c8297d283f11160507e0478347bb7eb8f"
+        },
+        "artifact_png": {
+          "bytes": 106533,
+          "path": "/tmp/navier-scaffold-completion-artifacts/paper/nsbu23_route_capacity_hypothesis_dense.png",
+          "sha256": "e93e651b38fb9c831841b9c2e849fcca712e0ec640d097a23d7ed66dd526886a"
+        }
+      },
+      "id": "fig_nsbu23_route_capacity_hypothesis_dense",
+      "keys": [
+        "c_tilde",
+        "e",
+        "e_tilde",
+        "max_violation",
+        "meta_json",
+        "p_best",
+        "partial_sum_e",
+        "psum_e_tilde",
+        "r_steps",
+        "start_idx",
+        "summability_status",
+        "verdict",
+        "worst_step"
+      ],
+      "nonfinite_counts": {},
+      "root": "/tmp/navier-scaffold-completion-artifacts",
+      "seed": 0
+    },
+    {
+      "class": "slow",
+      "config": {
+        "N": 32,
+        "alpha": 2.0,
+        "amp": 0.01,
+        "dt": 0.0005,
+        "energy_threshold": 0.95,
+        "k_force": 2,
+        "k_init": 10,
+        "mu": 0.0,
+        "nu": 0.001,
+        "out_dir": "/tmp/navier-scaffold-completion-artifacts/paper",
+        "record_u_hat_every": 20,
+        "script": "nsbu28_antilocalization_diagnostic.py",
+        "seed": 0,
+        "seed_force": 0,
+        "seed_u0": 0,
+        "skip_channelization": false,
+        "t_max": 0.6,
+        "top_modes": 3,
+        "window_c": 1.0
+      },
+      "diagnostic": {},
+      "files": {
+        "artifact_npz": {
+          "bytes": 6052,
+          "path": "/tmp/navier-scaffold-completion-artifacts/paper/nsbu28_antilocalization_data.npz",
+          "sha256": "9b737d7862de953db9f61461055dc8e81861237c81960fc8bf15886ded6ceff9"
+        },
+        "artifact_png": {
+          "bytes": 119389,
+          "path": "/tmp/navier-scaffold-completion-artifacts/paper/nsbu28_antilocalization.png",
+          "sha256": "b9770a1f1b4f1c77983f81264b2fd41b54007c322a8a86b0d03a002bef33c631"
+        }
+      },
+      "id": "fig_nsbu28_antilocalization",
+      "keys": [
+        "L_max",
+        "L_mean",
+        "channel_rows",
+        "conc",
+        "f_j",
+        "j_values",
+        "kappa_max",
+        "kappa_mean",
+        "max_conc",
+        "mean_conc",
+        "meta_json",
+        "windows"
+      ],
+      "nonfinite_counts": {},
+      "root": "/tmp/navier-scaffold-completion-artifacts",
+      "seed": 0
+    },
+    {
+      "class": "slow",
+      "config": {
+        "alpha": 2.0,
+        "amp": 0.01,
+        "burst_threshold": 50.0,
+        "dt": 0.0005,
+        "energy_threshold": 0.95,
+        "k_force": 2,
+        "k_init": 10,
+        "kappa_normalization": "raw_over_baseline_over_j_plus_one",
+        "kappa_threshold": 10.0,
+        "mu": 0.0,
+        "nu": null,
+        "nu_list": [
+          0.004,
+          0.002,
+          0.001
+        ],
+        "out_dir": "/tmp/navier-scaffold-corrected-sweep/paper",
+        "record_u_hat_every": 30,
+        "resolutions": [
+          32,
+          48
+        ],
+        "script": "nsbu29_antilocalization_sweep.py",
+        "seed": 0,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "t_max": 0.6,
+        "window_c": 1.0
+      },
+      "configured_cases": 18,
+      "diagnostic": {
+        "coverage_complete": true,
+        "failures": [],
+        "j_sorted": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "max_burst": 1.1713026504289428,
+        "max_kappa": 1.1571497677919829,
+        "n_cov": [
+          18,
+          18,
+          18,
+          18,
+          9
+        ],
+        "status": "PASS_THRESHOLD",
+        "verdict": 1,
+        "worst_m95": [
+          1.0,
+          1.0,
+          2.0,
+          2.0,
+          0.0
+        ]
+      },
+      "files": {
+        "artifact_npz": {
+          "bytes": 3925,
+          "path": "/tmp/navier-scaffold-corrected-sweep/paper/nsbu29_antilocalization_sweep_data.npz",
+          "sha256": "cef097e65da8f47ac5e70703e4b0cc894df6a71279e7506807f48df1f19feb28"
+        },
+        "artifact_png": {
+          "bytes": 69503,
+          "path": "/tmp/navier-scaffold-corrected-sweep/paper/nsbu29_antilocalization_sweep.png",
+          "sha256": "f25b279553264540e25af4c32e73433895e4b8ef4c6dddf0df1e07cd0cb82f30"
+        }
+      },
+      "id": "fig_nsbu29_antilocalization_sweep",
+      "keys": [
+        "coverage_complete",
+        "failures",
+        "j_sorted",
+        "kappa_normalization",
+        "max_burst",
+        "max_kappa",
+        "meta_json",
+        "n_cov",
+        "status",
+        "verdict",
+        "worst_burst",
+        "worst_kappa",
+        "worst_m95"
+      ],
+      "nonfinite_counts": {},
+      "root": "/tmp/navier-scaffold-corrected-sweep",
+      "seed": 0
+    },
+    {
+      "class": "slow",
+      "config": {
+        "N": 32,
+        "alpha": 2.0,
+        "burn_in_frac": 0.4,
+        "dt": 0.0005,
+        "energy_threshold": 0.95,
+        "forcing_amp": 0.01,
+        "k_force": 2,
+        "k_init": 10,
+        "mu": 0.0,
+        "nu": 0.001,
+        "out_dir": "/tmp/navier-scaffold-completion-artifacts/paper",
+        "record_u_hat_every": 20,
+        "script": "ns_chan00_channel_count.py",
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "t_max": 0.6,
+        "window_hop": 5,
+        "window_len": 20
+      },
+      "diagnostic": {
+        "failures": []
+      },
+      "files": {
+        "artifact_npz": {
+          "bytes": 4724,
+          "path": "/tmp/navier-scaffold-completion-artifacts/paper/ns_channel_count_data.npz",
+          "sha256": "a79da03ac6e25f76383f0d86bf288934ca8d576f7a92ad8ab3695bfc5ea2e0bc"
+        },
+        "artifact_png": {
+          "bytes": 51928,
+          "path": "/tmp/navier-scaffold-completion-artifacts/paper/ns_channel_count.png",
+          "sha256": "324b4e7e3060a0dbff720d4a9bcbc2fc871aad93d0b511daed27b93cf153c1eb"
+        }
+      },
+      "id": "fig_ns_chan00_channel_count",
+      "keys": [
+        "failures",
+        "j_values",
+        "m95_max",
+        "m95_median",
+        "m95_p25",
+        "m95_p75",
+        "m95_pooled",
+        "m95_samples",
+        "m95_window_max",
+        "m95_window_median",
+        "m95_window_p25",
+        "m95_window_p75",
+        "meta_json",
+        "n_seeds",
+        "n_windows"
+      ],
+      "nonfinite_counts": {},
+      "root": "/tmp/navier-scaffold-completion-artifacts",
+      "seed": 0
+    },
+    {
+      "class": "slow",
+      "config": {
+        "N": 32,
+        "alpha": 2.0,
+        "burn_in_frac": 0.4,
+        "dt": 0.0005,
+        "energy_threshold": 0.95,
+        "forcing_amp": 0.01,
+        "k_force": 2,
+        "k_init": 10,
+        "max_k": 32,
+        "mu": 0.0,
+        "nu": 0.001,
+        "out_dir": "/tmp/navier-scaffold-completion-artifacts/paper",
+        "record_u_hat_every": 20,
+        "script": "ns_chan01_channel_delocalization.py",
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "t_max": 0.6,
+        "window_c": 1.0
+      },
+      "diagnostic": {
+        "eta_hat": [
+          0.5585520595384008,
+          0.07605840647385154,
+          0.012506004118422783,
+          0.0023609976916550875
+        ],
+        "eta_scope": "top_m95_channel_span_only",
+        "eta_snapshot_bound": [
+          0.7447765288628945,
+          0.21502724170354737,
+          0.16154996869515068,
+          0.2258684471919372
+        ],
+        "failures": [],
+        "max_residual_fraction": [
+          0.01467622342329587,
+          0.03729331747378133,
+          0.08707346569672877,
+          0.18612372466542712
+        ]
+      },
+      "files": {
+        "artifact_npz": {
+          "bytes": 3564,
+          "path": "/tmp/navier-scaffold-completion-artifacts/paper/ns_channel_delocalization_data.npz",
+          "sha256": "2f976c64b1348b346affcb9899ca487e1916b395d329a04e22050d691a5a6df0"
+        },
+        "artifact_png": {
+          "bytes": 86049,
+          "path": "/tmp/navier-scaffold-completion-artifacts/paper/ns_channel_delocalization.png",
+          "sha256": "b57d6533f3386bda326ff063d5b4cc7a7c1a50e55700684f9f9d4084bfc756cd"
+        }
+      },
+      "id": "fig_ns_chan01_channel_delocalization",
+      "keys": [
+        "baseline_fraction",
+        "eta_hat",
+        "eta_scope",
+        "eta_snapshot_bound",
+        "failures",
+        "j_values",
+        "kappa_max",
+        "m95",
+        "m95_pooled",
+        "max_residual_fraction",
+        "meta_json",
+        "windows"
+      ],
+      "nonfinite_counts": {},
+      "root": "/tmp/navier-scaffold-completion-artifacts",
+      "seed": 0
+    },
+    {
+      "class": "slow",
+      "config": {
+        "alpha": 2.0,
+        "burst_threshold": 50.0,
+        "dt": 0.0005,
+        "energy_threshold": 0.95,
+        "forcing_amp": 0.01,
+        "k_force": 2,
+        "k_init": 10,
+        "kappa_threshold": 10.0,
+        "m95_threshold": 10.0,
+        "mu": 0.0,
+        "nu_list": [
+          0.004,
+          0.002,
+          0.001
+        ],
+        "out_dir": "/tmp/navier-scaffold-completion-artifacts/paper",
+        "record_u_hat_every": 30,
+        "resolutions": [
+          32,
+          48
+        ],
+        "script": "ns_spt_legal_sweep.py",
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "t_max": 0.6,
+        "window_c": 1.0
+      },
+      "configured_cases": 18,
+      "diagnostic": {
+        "coverage_complete": true,
+        "failures": [],
+        "j_sorted": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "max_burst": 1.1713026504289428,
+        "max_kappa": 5.785748838959915,
+        "n_cov": [
+          18,
+          18,
+          18,
+          18,
+          18,
+          9
+        ],
+        "plausible": 1,
+        "status": "PASS_THRESHOLD",
+        "worst_m95": [
+          1.0,
+          1.0,
+          1.0,
+          2.0,
+          2.0,
+          0.0
+        ]
+      },
+      "files": {
+        "artifact_npz": {
+          "bytes": 3529,
+          "path": "/tmp/navier-scaffold-completion-artifacts/paper/ns_spt_legal_sweep_data.npz",
+          "sha256": "1c4906537bbe29de08ca4c25266072c8b3522f99a77f71e8571660ab2c318ad9"
+        },
+        "artifact_png": {
+          "bytes": 61516,
+          "path": "/tmp/navier-scaffold-completion-artifacts/paper/ns_spt_legal_sweep.png",
+          "sha256": "c5c3c46d626a4be65ad7475cb0573b7855ecf43f57ad37d65660823f6df7de2f"
+        }
+      },
+      "id": "fig_ns_spt_legal_sweep",
+      "keys": [
+        "coverage_complete",
+        "failures",
+        "j_sorted",
+        "max_burst",
+        "max_kappa",
+        "meta_json",
+        "n_cov",
+        "plausible",
+        "status",
+        "worst_burst",
+        "worst_kappa",
+        "worst_m95"
+      ],
+      "nonfinite_counts": {},
+      "root": "/tmp/navier-scaffold-completion-artifacts",
+      "seed": 0
+    },
+    {
+      "class": "optional",
+      "config": {
+        "N": 32,
+        "N_co": 16,
+        "alpha": 2.0,
+        "amp": 0.01,
+        "burn_in_frac": 0.4,
+        "dt": 0.0005,
+        "k_force": 2,
+        "k_init": 8,
+        "mu": 0.0,
+        "nu": 0.001,
+        "out_dir": "/tmp/navier-scaffold-completion-artifacts/paper",
+        "script": "nsbu04_sgs_frequency_response.py",
+        "seed": 0,
+        "t_max": 0.6
+      },
+      "diagnostic": {},
+      "files": {
+        "artifact_npz": {
+          "bytes": 7265,
+          "path": "/tmp/navier-scaffold-completion-artifacts/paper/nsbu04_sgs_H_data.npz",
+          "sha256": "3adedd6524123f3fdd1455a5f25603d8842eaa53f860cf29c137f79bdd46770a"
+        },
+        "artifact_png": {
+          "bytes": 59250,
+          "path": "/tmp/navier-scaffold-completion-artifacts/paper/nsbu04_sgs_H.png",
+          "sha256": "655ede6570b0d4823ea21716622c79dee6720c215b632fc2a901c3eac1aaf375"
+        }
+      },
+      "id": "fig_nsbu04_sgs_H",
+      "keys": [
+        "H",
+        "denom",
+        "meta_json",
+        "omega",
+        "shells"
+      ],
+      "nonfinite_counts": {},
+      "root": "/tmp/navier-scaffold-completion-artifacts",
+      "seed": 0
+    },
+    {
+      "class": "optional",
+      "config": {
+        "N": 0,
+        "alpha": 0.0,
+        "dt": 0.0,
+        "mu": 0.0,
+        "nu": 0.0,
+        "out_dir": "/tmp/navier-scaffold-completion-artifacts/paper",
+        "script": "nsbu05_sgs_realization_fit.py",
+        "seed": 0,
+        "source_npz": "/tmp/navier-scaffold-completion-artifacts/paper/nsbu04_sgs_H_data.npz",
+        "t_max": 0.0
+      },
+      "diagnostic": {
+        "best_M": 4,
+        "optimizer_success": true,
+        "rmse_vals": [
+          0.001765574356426798,
+          0.0017655743621474752,
+          0.0017655743995487016,
+          0.0017655742888637313
+        ]
+      },
+      "files": {
+        "artifact_npz": {
+          "bytes": 14185,
+          "path": "/tmp/navier-scaffold-completion-artifacts/paper/nsbu05_sgs_fit_data.npz",
+          "sha256": "3c57a601f8ddbcdfdb808c2b0a11681221e69e55f3c920d1662a23a962d3ac74"
+        },
+        "artifact_png": {
+          "bytes": 97651,
+          "path": "/tmp/navier-scaffold-completion-artifacts/paper/nsbu05_sgs_fit.png",
+          "sha256": "1028557669c90145b65a3b227c3f966094c45b1ed62b2137eee55137556bc230"
+        }
+      },
+      "id": "fig_nsbu05_sgs_fit",
+      "keys": [
+        "H_dense",
+        "H_fit",
+        "H_pos",
+        "best_M",
+        "best_a",
+        "best_a0",
+        "best_b",
+        "meta_json",
+        "omega_dense",
+        "omega_pos",
+        "optimizer_success",
+        "rmse_vals"
+      ],
+      "nonfinite_counts": {},
+      "root": "/tmp/navier-scaffold-completion-artifacts",
+      "seed": 0
+    }
+  ],
+  "scope": "Finite diagnostic artifact production; no continuum or uniform source theorem.",
+  "source_sha256": {
+    "formal/Fluids.lean": "7d26cc9d016939222ba70041fd50bf79cd7c614891be10b4d5cfe554fece1292",
+    "formal/Fluids/AntiLocalization.lean": "29a9b1f01b0a65d2129fb6197d8997592f396b6f8b543e14d65beb45544c7e88",
+    "formal/Fluids/Difference.lean": "8c99397160cb39edbc409c2efb05d4aecae6c23b5bf0d2b7d2860f678204756e",
+    "formal/Fluids/ECTCap.lean": "62e95e868c6944d7e51b663bd1a4d35cf11a80439d95747b6940742925ddc34f",
+    "formal/Fluids/Energy.lean": "afe3299e77c839c64dd3a3cff62e938982446abd8bc92cbc72f27b45abf2f016",
+    "formal/Fluids/IcapNoGo.lean": "7558e79d00c9e4f193e0137db5b4f081b5e772ad01919c6fcd959b96acfdf433",
+    "formal/Fluids/Multiplier.lean": "b4525329d1b5e6f4a9c95f988c9cc0e0c4418d535164a0e7493884fb4d7f9684",
+    "formal/Fluids/RouteCapacity.lean": "885116e18f5e6c3086173900f349d0d44e3d55dff799a0190c103bfd3db5938f",
+    "formal/Fluids/Zeno.lean": "2084f86b05bfd6f1647329c1d0c0ce34728825152b961b075494b224c4bdbff7",
+    "formal/Fluids/ZenoWorkCap.lean": "e0b4daa4a9e5031515ff4601ee62ce199e30f04cf44cf2b9c1cf0a2a7370f446",
+    "formal/ScaffoldAxiomAudit.lean": "ab0830eedfe9e072fb227c1c23b5d9d1f443a37dba1115caa3cbbd8ce8be0466",
+    "formal/lake-manifest.json": "db47b51451226b8a56c6c4579ef2278a1c9d76b88655c879cc698cb57771e541",
+    "formal/lean-toolchain": "61561b06f5587e027815fac8f59bf6ca160dfbf3f7372fc6297664acfd85b8c0",
+    "python/scripts/ns02_galerkin_core_demo.py": "575fc252664419299ea92e17b131d0e244785de18dfe99ebaf73a4de38c6bf26",
+    "python/scripts/ns04_smoke_demo.py": "40c6edcc389ead1a56ce10f0ed21b4e760066b34b24914cb8265eb5c8891044b",
+    "python/scripts/ns05_energy_ledger.py": "54730bb3b265ba066986bc47c309b636e51b5f8849149fbfc2921f8ba61e22be",
+    "python/scripts/ns06_uv_completion_turns_on.py": "b615c77a21b3b4144a2a2549f08f30318b6c1b4143650736a423600fd488fdee",
+    "python/scripts/ns07_mu_to_zero_convergence.py": "8810b4394e0898873b5d38be79efff680f45b48f24d4ed1ff44faaa2ac44b798",
+    "python/scripts/ns08_infer_closure_kernel.py": "d0e6494e595618e03030faf33d8b58205efca9aa108b5d9fd1032bde59c978cc",
+    "python/scripts/ns09_invariance_sanity.py": "e5480900d833c157ad98f5b98045b309a407d832403e3a454f8fa11296b9871b",
+    "python/scripts/ns12_run_all.py": "1352ad421132bc1ae6fa4079f9109eadadc0188724cfb789eb31ad5834bba003",
+    "python/scripts/ns13_smoke_demo.py": "947c84063b5d6cd41c6f2cbdaf66558a23745b5df5ce665b3664507e58547a60",
+    "python/scripts/ns14_energy_ledger_3d.py": "68dcd7dd0642afb26a7e681f185a6431524b95405a9c47f18b5d7f563cbe553d",
+    "python/scripts/ns15_uv_completion_turns_on_3d.py": "374ecd0957037d53fc1259fa3acdd91aee58d70063c949fbedca043138f93b77",
+    "python/scripts/ns16_mu_to_zero_convergence_3d.py": "91146e640de92e7d148a6fb20244031d3cd7693437be8a0abb4421be4acac134",
+    "python/scripts/ns18_exponent_sanity_harness.py": "797d3ddbc7b05461eaad3453c3aba12d1436d3cb912ee2a2d36a0d733ea2f0b9",
+    "python/scripts/ns20_infer_closure_kernel_3d.py": "1efc01ea0c3a6adc0b24f49c2755e44adab9f267a40e7c040b16579292d24ba9",
+    "python/scripts/ns21_infer_closure_kernel_3d_forced_avg.py": "6a7a382b815be01363e6decd21001496b2b867ffa6154a0253655b426207d0a3",
+    "python/scripts/ns22_markov_lens_endomap_demo.py": "8d29f0f92f2b3b74cc5aecc45dbb9fc4555258889d5628f90932082d165b72a2",
+    "python/scripts/ns24_perf_report.py": "0690dd681840414f904c6b5360664a129a9d39eecb3a2d58148aa00756209c73",
+    "python/scripts/ns_chan00_channel_count.py": "59685cf7066bbbaca27180d490327e0b96b1a937640517f5216f3beca17956d8",
+    "python/scripts/ns_chan01_channel_delocalization.py": "b6651ffe7eda24d4d9c8c19b70014bb0d94af2d760d03b2dd7bc3d9fd2226339",
+    "python/scripts/ns_paper_appendix_figure_table.py": "1f57f280d251ed1db20250a4e7286a5d602e101566802aa8ac3fb207415ad679",
+    "python/scripts/ns_paper_figures.py": "5a7ffdab3ab7303732e973c2b5f70871a68b072d34b798d82b5f3d21e2742252",
+    "python/scripts/ns_run_all.py": "e1f6f5c66d74243efb2e2059d4ffb739748e807a395b3cb7004eee852ac8a24e",
+    "python/scripts/ns_spt_illegal_ic_demo.py": "9905a46b3ce470f43eb88ead82df10fafee2284bb895b3f1c4e1558844fd0f6b",
+    "python/scripts/ns_spt_legal_certify.py": "b2f6b5ee36447c787cb4a3b2631e110539d2adc611bc2964d5c5ce1501a47b4a",
+    "python/scripts/ns_spt_legal_sweep.py": "9df9347f9c7330a03e4e5925f21b8f3f92dd0607635f223d0b8f89cbad6c039d",
+    "python/scripts/nsbu01_dyadic_frontier_demo.py": "67e79e38e30bb7a359dbfae092ae7fa869059fcccade330f269217ce28170587",
+    "python/scripts/nsbu02_latency_series.py": "2f479c736ba105df73fc2abe7c437b85887e80e451d73fc631f8c60f36e951b2",
+    "python/scripts/nsbu03_bkm_proxy_vs_frontier.py": "4a0156209d620aef2c6e458c52e342c57817af0af86fb7211f8b43b6a9c4d3c0",
+    "python/scripts/nsbu04_sgs_frequency_response.py": "026ecc51e52c0af38060d911109c283ae51319b4ef8733317c2987a633e2aa62",
+    "python/scripts/nsbu05_sgs_realization_fit.py": "789b766d41add6e9706da28c102ab3f2f4dbcfa6de83549a576c7c9fe8be7ee0",
+    "python/scripts/nsbu06_route_dependence.py": "5368b43af9c51f62758102d148e4799399a35f5dda3e2881861d1494cddc8cfd",
+    "python/scripts/nsbu09_dyadic_zeno_vs_passivity.py": "8afe2e85db1039a7af3077bad6c6906bf26867f939f80c4668f0d25c40751227",
+    "python/scripts/nsbu12_toy_zeno_gallery.py": "a7714fa23025b04c4c093be2b7f83e0c46ffe4f2065abed50157bee37b0d6b6b",
+    "python/scripts/nsbu21_route_capacity_numbers.py": "17b2ce6757cdbd2992c31cfba6556d47ef55809d40425c06289cdad804d25d9a",
+    "python/scripts/nsbu23_route_capacity_hypothesis_check.py": "2e587dad0617b8be2bab708a44481fb3b2e89bd68d55da1110a1d34f203d1ffe",
+    "python/scripts/nsbu28_antilocalization_diagnostic.py": "285ad077868b5707fb0285953c4321d6efc6575a53df1f0a8e058946cbbf38c3",
+    "python/scripts/nsbu29_antilocalization_sweep.py": "fc8cdb2e0a437d9c5071394646752ca95478397428d04f30d44667765662474f",
+    "python/scripts/run_all.py": "a96eaafef731379baeb38366da13e465339e498a5d841330921ce75965407d1c",
+    "python/src/nswave/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "python/src/nswave/capacity_estimator.py": "9c3ab37fca2d718abfe7e291ecae0fe7df1468857ad97f9c59370d1ad26f0e88",
+    "python/src/nswave/channel_diagnostics.py": "ce17cb3f752494b1dd145d60efa4f4551076ae77c041d69cb6c02f12a70d0ebf",
+    "python/src/nswave/coarse_grain.py": "1248da0580465f00c215f9ff8109e00e96b0a405eefdac7213e935c8bdd24f5d",
+    "python/src/nswave/deterministic_npz.py": "bb506a08b98a22576c72eabe802754a5c960a1b86d5e2b1ab6c20456fff76507",
+    "python/src/nswave/dyadic.py": "2d6fd6807180030f3fcfe4b4ca5c4269beae0275e1e7544a4d17f40ceb99e7e4",
+    "python/src/nswave/dyadic_models.py": "86d3d91ddeb30a73cf89a7caed590c04bee53d56a531474c9ae06792658ed006",
+    "python/src/nswave/galerkin_core.py": "a3b8119a783c7516ab6e14ea76b5962f812b71b1483ddced115e4ef56f392061",
+    "python/src/nswave/illegal_initial_conditions.py": "41aeb5ac715618bc2b83ebb22ba409f3571700ca58fba745c3a029c1d2d85b7b",
+    "python/src/nswave/localization.py": "91084ffbcd373f4056a103ab2a30d6b3e96955f871edd84b7c164ee6cf6c5882",
+    "python/src/nswave/markov_lattice.py": "256e58c19e15c9b2e34aaf90ba20fd238d33117ada82b00a1411e0110b96c5a2",
+    "python/src/nswave/ns2d_spectral.py": "76f3ee3e3ba6d6988bfb58d1ab3ec6bbb319e04be1879e751a487dd1ec8221ee",
+    "python/src/nswave/ns3d_spectral.py": "3905187a7fd883135892d71199c0fdde50f9f1527c3fc34379013c3c9828f47d",
+    "python/src/nswave/operators.py": "dce435073c3edb85d598385ee3c8b99fe9827ec21cd7c447c17da0097859a0a4",
+    "python/src/nswave/positive_real_fit.py": "6704f61018fea830b7a995ea7bef97cb51d4c9110b4b2dd486ac5f3318839e49",
+    "python/src/nswave/route_capacity_hypothesis.py": "481737370364882c5df9e4f7aab0ff31e7a2af6c9e62cf52c81427f17f5e64e0",
+    "python/src/nswave/spt_legal_cert.py": "23b560aa825c87df58faf0e20a8aec9b323922aa865375c03c3726f79d0bfe42",
+    "python/src/nswave/toy_zeno.py": "f064bab4212d728052055042c0ba9b70cffac5d89eefc1a64b4d30757895be39",
+    "python/src/nswave/version.py": "9ab5df75a033ce87793939ecbdb09444ba39a4e4b4306745d50073ab380a7d52"
+  }
+}

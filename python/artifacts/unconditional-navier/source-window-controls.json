@@ -1,0 +1,55 @@
+{
+  "scope": "Exact rational exponent, triad-geometry and minimizer controls; no PDE event realization or signed source bound.",
+  "native_interpolation_family": {
+    "2": {
+      "a": "0",
+      "b": "5/4",
+      "holder_kernel_power": "5/4",
+      "fixed_native_budget_band_majorant_power": "-1/4"
+    },
+    "5/2": {
+      "a": "3/10",
+      "b": "19/20",
+      "holder_kernel_power": "19/14",
+      "fixed_native_budget_band_majorant_power": "-1/4"
+    },
+    "3": {
+      "a": "1/2",
+      "b": "3/4",
+      "holder_kernel_power": "3/2",
+      "fixed_native_budget_band_majorant_power": "-1/4"
+    },
+    "7/2": {
+      "a": "9/14",
+      "b": "17/28",
+      "holder_kernel_power": "17/10",
+      "fixed_native_budget_band_majorant_power": "-1/4"
+    },
+    "4": {
+      "a": "3/4",
+      "b": "1/2",
+      "holder_kernel_power": "2",
+      "fixed_native_budget_band_majorant_power": "-1/4"
+    }
+  },
+  "triad_geometry": {
+    "4": {
+      "reflected_segment_length_squared": 1,
+      "unreflected_segment_length_squared": 85
+    },
+    "16": {
+      "reflected_segment_length_squared": 1,
+      "unreflected_segment_length_squared": 1093
+    },
+    "64": {
+      "reflected_segment_length_squared": 1,
+      "unreflected_segment_length_squared": 16645
+    }
+  },
+  "gamma3_split_minimizer": {
+    "correct_normalized_d_power": "1",
+    "incorrect_old_d_power": "13/17",
+    "objective_derivative_when_d_power_equals_old_value": "-8/13"
+  },
+  "unpaid": "Original signed cone-tip source, actual cadence/disjointness and pressure/critical supplier."
+}

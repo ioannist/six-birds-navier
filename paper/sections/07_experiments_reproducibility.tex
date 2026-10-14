@@ -1,0 +1,101 @@
+\section{Diagnostics}
+\label{sec:experiments}
+
+The experiments in this section are diagnostics, not proofs. They check that the tooling computes
+the quantities of the scaffold consistently, and they ask whether the anti-localization
+restriction is plausible in tested regimes. Every artifact is produced by a script listed in the
+manifest \nolinkurl{paper/figures_manifest.json} (\cref{app:figure-table}). Each script prints its
+configuration and writes the plotted arrays to a companion \texttt{.npz} file, so every figure can be
+re-plotted from data, and the fast producers are checked for byte-identical output on rerun in a
+fixed software environment. Commands are in \cref{app:how-to-run}; the solver is described in
+\cref{app:numerics}.
+
+The channel diagnostics and the sweep use the $2\pi$-periodic box, a random band-limited initial field
+($k_{\mathrm{init}}=10$), low-wavenumber forcing ($k_{\mathrm{force}}=2$, amplitude $10^{-2}$),
+$\alpha=2$, $\mu=0$, time step $5\times10^{-4}$ and final time $0.6$, with the first $40\%$ of each run
+discarded as burn-in in the channel diagnostics.
+
+\subsection{Channel count and delocalization}
+
+The finite-channel route to anti-localization (\cref{lem:channel-antiloc}) needs two things: few
+channels, and channels that are spread out. For shells $j=1,\dots,4$ on a $32^3$ grid with
+$\nu=10^{-3}$ and three seeds, we collect shell snapshots and compute the rank $m_{95}$ needed to
+retain $95\%$ of their uncentered squared norm, both within sliding windows of 20 snapshots and
+after pooling all snapshots across time and seeds (\cref{fig:channels}a). Every window is
+effectively one-dimensional ($m_{95}=1$ in all 15 windows per shell), while the pooled rank is
+3 in every shell. A pooled rank above the windowed one is what one expects when a dominant channel rotates
+over time: each window sees one direction, and the pooled data span a few.
+
+For the pooled channels we measure, in each shell, the largest local energy fraction of the channel
+shapes and the resulting span bound $\hat\eta_j$ of \cref{lem:channel-antiloc}
+(\cref{fig:channels}b, solid). It falls from 0.56 at $j=1$ to 0.0024 at $j=4$. The span is not
+the data, however. The worst snapshot leaves a fraction 0.19 of its energy outside the
+retained span at $j=4$, and charging that residual through \cref{lem:residual} gives a
+full-snapshot bound of 0.23 (dashed). At the finest shell the residual, not the span,
+controls the bound. A fixed $95\%$ retention therefore does not show asymptotic anti-localization. For this
+residual-charged bound to establish it, both $\hat\eta_j\to0$ and a residual fraction tending to zero
+would be needed.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\linewidth]{figures/channel_diagnostics.pdf}
+  \caption{\textbf{Channel structure of the shells} ($32^3$, $\nu=10^{-3}$, three seeds).
+  (a)~Rank $m_{95}$ within windows of 20 snapshots (median and interquartile band, all equal to one)
+  and after pooling. (b)~Anti-localization bound for the retained channel span ($\hat\eta_j$) and for
+  full snapshots once the discarded residual is charged (\cref{lem:residual}). The gap at $j=4$ is
+  due to the residual.}
+  \label{fig:channels}
+\end{figure}
+
+\subsection{Anti-localization sweep}
+
+To see whether shells avoid localization along the flow in the tested regimes, we run the
+certificate of \cref{def:spt-legal-cert} on 18 short forced runs: resolutions $N\in\{32,48\}$,
+viscosities $\nu\in\{0.004,0.002,0.001\}$ and three seeds, recording snapshots every 30 steps.
+All 18 runs complete, so coverage is complete. \Cref{fig:sweep} shows the worst values over the sweep.
+The largest concentration factor is $\max_j\kappa_j\approx 5.79$ (at $j=4$) and the largest
+burst ratio is 1.17, well below the thresholds $\kappa_\star=10$ and $\mathrm{burst}_\star=50$; the largest
+rank $m_{95}$ in any run is 2. Shell $j=5$ exists only on the $48^3$ grid and is empty after
+de-aliasing, so it is reported as zero; this expresses the empty-shell convention, not a
+high-frequency result.
+
+A related sweep in the repository (\nolinkurl{nsbu29_antilocalization_sweep.py}) reports a
+channel-normalized factor $\kappa_j/(j+1)$ instead of the raw factor; on the same runs its maximum is
+1.16. The two factors answer different questions and should not be compared to the same threshold.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\linewidth]{figures/spt_legal_sweep.pdf}
+  \caption{\textbf{Anti-localization sweep} (18 runs, complete coverage). Worst concentration
+  factor $\kappa_j$ and worst burst ratio in each shell over all runs and snapshots. Values stay far
+  below the thresholds $\kappa_\star=10$ and $\mathrm{burst}_\star=50$ in the tested window. This
+  supports the plausibility of an anti-localization restriction in these regimes; it is not a
+  worst-case statement about Navier--Stokes.}
+  \label{fig:sweep}
+\end{figure}
+
+\subsection{Route-capacity and frequency-response diagnostics}
+
+The route-capacity diagnostics (\cref{sec:route-capacity}) extract capacity-like ratios along a
+ladder of truncations ($N=8,12,16,24,32$; $k_{\mathrm{init}}=3$, $\nu=10^{-3}$, final time $0.2$) and compare a direct elimination with an explicit
+two-stage nested composition. For the instantaneous field-level composition the two agree to
+round-off: the measured mismatch is of order $10^{-20}$, as the exact nesting of sharp projections
+predicts. The sampled step factors of the capacity ratio lie between 0.60 and 0.71 over
+the three available steps; two step factors are unavailable, one because there is no preceding
+level and one because the preceding capacity is zero. These are finite-window samples. They do not
+establish bounded mismatch for the packaged history map or a polynomial law.
+
+The optional frequency-response diagnostics ($32^3$ run with $k_{\mathrm{init}}=8$, $\nu=10^{-3}$, final
+time $0.6$, coarse cutoff at $16^3$) fit a linear time-invariant response to the subgrid term. They use the \emph{extracted}-power convention, opposite in sign to \eqref{eq:power}. In that
+convention the real part of the measured response is mostly negative in two of the three tested
+shells, so the response is not passive there, and only the remaining shell is eligible for a
+passive rational fit. Its root-mean-square
+error is about $0.24$; with each frequency's residual weighted by $\sqrt{d_i/\max_i d_i}$, where $d_i$
+is the shell input power at that frequency (the denominator of the estimate), it is about $1.8\times10^{-3}$. The fit misses much of the high-frequency data. Nonnegative fitted coefficients certify the
+passivity of the chosen rational model, not of the nonlinear Navier--Stokes bridge.
+
+\subsection{Legal and illegal data}
+
+\Cref{fig:spt-illegal-vs-legal} in \cref{sec:spt-legal} shows that the certificate is not vacuous: a
+band-limited but localized shell field fails it by a factor of forty, while the random baseline
+passes.

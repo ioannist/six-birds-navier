@@ -1,0 +1,72 @@
+{
+  "status": "PASS",
+  "scope": "Exact original initial polynomial jets, vector-potential identities and restricted harmonic tensor cancellation; compactification and smooth local-time Taylor bridge are proved separately. No PDE simulation, singular solution or unconditional closure.",
+  "strain_cofactor_sum": [
+    [
+      "a**2",
+      "0",
+      "0"
+    ],
+    [
+      "0",
+      "-3*a**2",
+      "0"
+    ],
+    [
+      "0",
+      "0",
+      "-3*a**2"
+    ]
+  ],
+  "cases": [
+    {
+      "axis": 1,
+      "operator_r_over_detG_t2": "8*a**2*b**2*nu",
+      "omega_gradient_t": [
+        "-4*a*b",
+        "0",
+        "0",
+        "0",
+        "2*a*b",
+        "0",
+        "0",
+        "0",
+        "2*a*b"
+      ],
+      "e_gradient_t_residual": "0",
+      "divergence": "0"
+    },
+    {
+      "axis": 2,
+      "operator_r_over_detG_t2": "-24*a**2*b**2*nu",
+      "omega_gradient_t": [
+        "0",
+        "2*a*b",
+        "0",
+        "2*a*b",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "e_gradient_t_residual": "0",
+      "divergence": "0"
+    }
+  ],
+  "harmonic_sum_of_squares_residual": "0",
+  "harmonic_cases": [
+    {
+      "E": "5/2",
+      "N": "3/2",
+      "cofactor_t2": "1",
+      "full_operator_t2_over_nu": "-1"
+    },
+    {
+      "E": "6",
+      "N": "2",
+      "cofactor_t2": "-4",
+      "full_operator_t2_over_nu": "-12"
+    }
+  ]
+}

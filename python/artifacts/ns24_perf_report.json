@@ -1,0 +1,10 @@
+{
+  "collect_returncode": 0,
+  "run_returncode": 0,
+  "collect_wall": 0.4592841826379299,
+  "pytest_not_slow_wall": 3.0234710946679115,
+  "collected_not_slow": 58,
+  "executed_not_slow": 58,
+  "threshold_seconds": 5.0,
+  "threshold_ok": true
+}

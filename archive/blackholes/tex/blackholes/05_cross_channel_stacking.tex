@@ -1,0 +1,36 @@
+% ============================
+% BH: Cross-channel linkage + constraint stacking (BH-T4 + BH-18)
+% ============================
+
+The interface EFT viewpoint (P5+P1) does not merely compress ``interior physics'' into $Z(\omega)$; it also forces a unification across observables. Distinct experimental channels---early-time scattering, late-time echoes, low-frequency tidal response, and dissipation---are not independent knobs. In a causal and physically admissible interface response, these channels are coupled by dispersion and accounting constraints (P6). This subsection makes that coupling explicit (BH-T4), and then visualizes the resulting admissible set geometry via a toy ``constraint stacking'' figure.
+
+\paragraph{BH-T4: dispersion links conservative and dissipative parts.}
+For a causal boundary response, the real and imaginary parts of $Z(\omega)$ cannot be chosen independently. In particular, under the standard analyticity assumptions for a causal linear response (upper half-plane analyticity with suitable decay), Kramers--Kronig relations relate $\Re Z$ to $\Im Z$. A convenient static (``$\omega\to 0$'') form is
+\begin{equation}
+  \Re Z(0) \;=\; \Re Z(\infty) \; + \; \frac{2}{\pi}\int_{0}^{\infty}\frac{\Im Z(\omega)}{\omega}\,d\omega,
+  \label{eq:bh-kk-static}
+\end{equation}
+where $\Re Z(\infty)$ is the high-frequency limit (a constant in the passive families we use for stress tests). The interpretation is direct: \emph{a conservative proxy} (the static real part $\Re Z(0)$, which controls how the interface stores/reacts) is determined by an \emph{integrated dissipative spectrum} (the low-frequency weighted $\Im Z(\omega)/\omega$). In SBT terms, this is a P6 accounting constraint expressed as a P2 admissibility restriction: you cannot separately tune ``static response'' and ``absorption spectrum'' while remaining within a causal physical class.
+
+\paragraph{Numeric evidence: constructive passive families and reconstruction.}
+In the repo we stress-test \eqref{eq:bh-kk-static} on constructive passive families of $Z(\omega)$ (finite sums of Debye-type terms), where causality and passivity are built in by construction. Two complementary numerical checks are performed. First, a mid-band Kramers--Kronig reconstruction recovers $\Re Z(\omega)$ from $\Im Z(\omega)$ at the percent level over a wide range, confirming the expected dispersive linkage in a setting where the analytic class is known. Second, the static identity \eqref{eq:bh-kk-static} is evaluated directly: $\Re Z(0)$ is predicted from the dissipative spectrum $\Im Z(\omega)/\omega$ with small absolute error ($\sim 10^{-4}$ in the demo grid). These are not formal proofs of KK in full generality; they are consistency checks that our chosen passive response families behave as true causal response functions should.
+
+\paragraph{From toy barrier to BH-like barrier.}
+So far, most echo validation can be done with a simple analytic barrier (e.g.\ P"oschl--Teller) because the interface logic lives at $x_0$. However, the constraint-stacking visualization is more convincing when the exterior barrier resembles an actual black-hole potential. We therefore implement the Schwarzschild Regge--Wheeler barrier (e.g.\ $\ell=2$) in tortoise coordinate and compute its scattering coefficients numerically, verifying unitarity $|r|^2+|t|^2\simeq 1$ to high accuracy. We also fit a P"oschl--Teller barrier to the Regge--Wheeler peak (matching height and curvature) and show that the resulting $|R(\omega)|$ curves agree closely over a representative band. This step does not change the interface EFT; it ensures that the ``cavity + interface'' toy computations remain anchored to a standard BH barrier model.
+
+\paragraph{Constraint stacking: what the figure means.}
+Constraint stacking is a closure-consistency visualization: we choose a low-dimensional passive family $Z(\omega;\theta)$ (e.g.\ a small Debye sum) and scan over its parameters $\theta$. For each parameter choice we evaluate several \emph{toy} channel constraints that are motivated by distinct physical questions but must be satisfied by the \emph{same} interface response. The figure then colors parameter space by the number of constraints satisfied, with contour lines marking each constraint boundary. The region where all constraints overlap is the toy ``feasible set'' of packaged interiors.
+
+In the current implementation we stack four representative constraints:
+(i) a ringdown/echo perturbativity proxy (requiring $t(\omega)^2R_0(\omega)$ to remain small in a mid-band so that echoes are a correction rather than a redefinition of the prompt signal),
+(ii) a Love-like static proxy (a bound on $\Re Z(0)$),
+(iii) a low-frequency absorption proxy (requiring $1-|R_0(\omega_{\mathrm{low}})|^2$ to exceed a threshold),
+and (iv) a stability proxy preventing cavity gain (requiring $\max_{\omega\in\mathrm{low}}|r(\omega)R_0(\omega)|<1$ in a low band).
+Each of these is deliberately simplified: the thresholds are illustrative and are not claimed to be observational posteriors. The purpose is conceptual and structural: \emph{once the interior is packaged into a single $Z(\omega)$, multiple channels cannot be tuned independently.}
+
+\paragraph{SBT reading: admissible-set geometry for closures.}
+This is the point where the BH story connects most directly to the SBT framing. Packaging (P5) turns interior ambiguity into an interface object. Accounting (P6) and admissibility constraints (P2) then carve out a nontrivial feasible region in the space of possible interfaces. The constraint-stacking figure makes that feasible region visible: it is a toy example of how ``many possible interiors'' becomes ``a small admissible class of boundary responses,'' and how cross-channel consistency is enforced by the structure of causal passive response itself.
+
+\paragraph{What we are (and are not) claiming here.}
+We \emph{are} claiming that (a) causality/passivity produce genuine cross-channel linkages for interface responses and (b) these linkages can be made explicit and stress-tested in constructive families, while remaining consistent with the scattering/echo solvers used elsewhere in this section.
+We are \emph{not} claiming that the toy thresholds used in the stacking plot are a fit to astrophysical black-hole data. The stacking plot is an instrument for reasoning about closures: it demonstrates that once the interior is packaged into $Z(\omega)$, the space of admissible completions can be visualized and pruned by multiple channels simultaneously, even before committing to a detailed microphysical interior model.

@@ -1,0 +1,98 @@
+\section{Black Holes as Interface EFT} \label{sec:blackholes}
+  \input{tex/blackholes_fig_macros.tex}
+  \subsection{Packaging the Interior as a Boundary Response} \label{sec:bh-interface}
+    % TODO(BH): P5 Packaging + P1 Rewrite narrative; define Z(\omega), R(\omega)
+    \input{tex/blackholes_interface_eft_draft.tex}
+    \input{tex/blackholes/01_interface_eft.tex}
+  \subsection{Conventions and Mapping (Z\texorpdfstring{$\leftrightarrow$}{<->}R\texorpdfstring{$\leftrightarrow$}{<->}Y)} \label{sec:bh-conventions}
+    % TODO(BH): reference docs/blackholes/conventions.md; state exp(-i\omega t) convention
+    \input{tex/blackholes/02_conventions.tex}
+  \subsection{Accounting Constraints: Passivity and Causality} \label{sec:bh-accounting}
+    % TODO(BH): BH-T2 passivity; KK/analyticity
+    \input{tex/blackholes_bh_t2_stub.tex}
+    \input{tex/blackholes/03_accounting_constraints.tex}
+  \subsection{Echo Transfer and Time-Domain Realizability} \label{sec:bh-echoes}
+    % TODO(BH): BH-T3, BH-08/BH-13 evidence
+    \input{tex/blackholes_bh_t3_stub.tex}
+    \input{tex/blackholes/04_echo_realizability.tex}
+    \begin{figure}[t]
+      \centering
+      \bhincludegraphics[width=0.95\linewidth]{bh08_waveform.png}
+      \caption{Time-domain echo train from a realizable passive boundary coupled to an exterior barrier; peak spacing is set primarily by the cavity round-trip time $\approx 2\Delta x$.}
+      \label{fig:bh-echo-waveform}
+    \end{figure}
+    \begin{figure}[t]
+      \centering
+      \bhincludegraphics[width=0.95\linewidth]{bh15_freqdep_echo_error.png}
+      \caption{Echo transfer validation with frequency-dependent impedance: absolute error $|R_{\mathrm{full}}(\omega)-R_{\mathrm{pred}}(\omega)|$ when $R_0(\omega)$ is induced by a passive Debye $Z(\omega)$.}
+      \label{fig:bh-freqdep-echo-error}
+    \end{figure}
+    \begin{figure}[t]
+      \centering
+      \bhincludegraphics[width=0.95\linewidth]{bh13_energy.png}
+      \caption{Discrete energy ledger for the time-domain scheme (field energy plus boundary storage term): in passive cases the energy is non-increasing up to small discretization drift.}
+      \label{fig:bh-energy-ledger}
+    \end{figure}
+  \subsection{Cross-Channel Linkage and Constraint Stacking} \label{sec:bh-crosschannel}
+    % TODO(BH): BH-T4, BH-18 figure
+    \input{tex/blackholes_bh_t4_stub.tex}
+    \input{tex/blackholes/05_cross_channel_stacking.tex}
+    \begin{figure}[t]
+      \centering
+      \bhincludegraphics[width=0.95\linewidth]{bh10_cross_channel.png}
+      \caption{Static dispersion linkage test: $\Re Z(0)$ reconstructed from the dissipative spectrum $\Im Z(\omega)/\omega$ via the Kramers--Kronig static formula on a passive family.}
+      \label{fig:bh-cross-channel}
+    \end{figure}
+    \begin{figure}[t]
+      \centering
+      \bhincludegraphics[width=0.95\linewidth]{bh05_kk_case2.png}
+      \caption{Kramers--Kronig reconstruction test on a constructive passive family: $\Re Z(\omega)$ reconstructed from $\Im Z(\omega)$ over a wide band (numeric stress test; not a general proof).}
+      \label{fig:bh-kk}
+    \end{figure}
+    \begin{figure}[t]
+      \centering
+      \bhincludegraphics[width=0.95\linewidth]{bh17_rw_vs_pt.png}
+      \caption{BH-like barrier realism step: Regge--Wheeler (Schwarzschild, $\ell=2$) barrier scattering compared to a curvature-matched P\"oschl--Teller fit; $|R(\omega)|$ agrees closely over the shown band.}
+      \label{fig:bh-rw-vs-pt}
+    \end{figure}
+    \begin{figure}[t]
+      \centering
+      \bhincludegraphics[width=0.95\linewidth]{bh18_constraint_stacking.png}
+      \caption{Constraint stacking toy example: feasible region in a passive Debye-sum family $Z(\omega;\theta)$ on the Regge--Wheeler barrier; color indicates how many toy channel constraints are simultaneously satisfied (illustrative thresholds, not observational posteriors).}
+      \label{fig:bh-constraint-stacking}
+    \end{figure}
+  \subsection{Protocol, Inference, and the Superradiance Ledger} \label{sec:bh-protocol}
+    % TODO(BH): BH-16 inference; BH-11 hook
+    \input{tex/blackholes_protocol_stub.tex}
+    \input{tex/blackholes/06_protocol_inference.tex}
+    \begin{figure}[t]
+      \centering
+      \bhincludegraphics[width=0.95\linewidth]{bh11_superradiance_gain.png}
+      \caption{Toy superradiance ledger hook: choosing an active-band inner response can yield round-trip gain $|R_0(\omega)r(\omega)|>1$, producing geometric echo growth; this illustrates the ledger-aware instability condition.}
+      \label{fig:bh-superradiance-gain}
+    \end{figure}
+    \begin{figure}[t]
+      \centering
+      \bhincludegraphics[width=0.95\linewidth]{bh16_fdtd_fit_waveform.png}
+      \caption{End-to-end inference demo (BH-16): time-domain waveform from a passive Debye boundary (ground truth) versus replay using parameters inferred from the two-point protocol; agreement shown over the echo window.}
+      \label{fig:bh-fdtd-fit-waveform}
+    \end{figure}
+    \begin{figure}[t]
+      \centering
+      \bhincludegraphics[width=0.95\linewidth]{bh16_fdtd_fit_R_error.png}
+      \caption{BH-16 spectral fit residual: discrepancy between the extracted $R_{\mathrm{out}}(\omega)$ (two-point protocol) and the cavity-model prediction using the fitted Debye $Z(\omega)$ over the inference band.}
+      \label{fig:bh-fdtd-fit-R-error}
+    \end{figure}
+
+% Figures to include (artifacts):
+% - bh05_kk_case2.png
+% - bh08_waveform.png
+% - bh09_fit_waveform.png
+% - bh10_cross_channel.png
+% - bh11_superradiance_gain.png
+% - bh13_energy.png
+% - bh15_freqdep_echo_error.png
+% - bh16_fdtd_fit_waveform.png
+% - bh16_fdtd_fit_R_error.png
+% - bh17_rw_vs_pt.png
+% - bh18_constraint_stacking.png

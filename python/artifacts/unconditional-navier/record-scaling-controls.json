@@ -1,0 +1,94 @@
+{
+  "status": "PASS",
+  "scope": "Exact symbolic scaling and disjoint profile controls; no actual singular path, same-datum no-escape conclusion, source payment, or NS simulation.",
+  "record_data_family": [
+    {
+      "s": 2,
+      "physical_energy_factor": 1,
+      "physical_Z": 16,
+      "normalized_Z": 1,
+      "normalized_Q_factor": "1/16",
+      "normalized_P_factor": "1/8",
+      "normalized_L3_norm_factor": 2,
+      "slow_scalar_record_ratio_fourth": "64/125"
+    },
+    {
+      "s": 4,
+      "physical_energy_factor": 1,
+      "physical_Z": 256,
+      "normalized_Z": 1,
+      "normalized_Q_factor": "1/256",
+      "normalized_P_factor": "1/64",
+      "normalized_L3_norm_factor": 4,
+      "slow_scalar_record_ratio_fourth": "4096/4913"
+    },
+    {
+      "s": 8,
+      "physical_energy_factor": 1,
+      "physical_Z": 4096,
+      "normalized_Z": 1,
+      "normalized_Q_factor": "1/4096",
+      "normalized_P_factor": "1/512",
+      "normalized_L3_norm_factor": 8,
+      "slow_scalar_record_ratio_fourth": "262144/274625"
+    },
+    {
+      "s": 16,
+      "physical_energy_factor": 1,
+      "physical_Z": 65536,
+      "normalized_Z": 1,
+      "normalized_Q_factor": "1/65536",
+      "normalized_P_factor": "1/4096",
+      "normalized_L3_norm_factor": 16,
+      "slow_scalar_record_ratio_fourth": "16777216/16974593"
+    },
+    {
+      "s": 32,
+      "physical_energy_factor": 1,
+      "physical_Z": 1048576,
+      "normalized_Z": 1,
+      "normalized_Q_factor": "1/1048576",
+      "normalized_P_factor": "1/32768",
+      "normalized_L3_norm_factor": 32,
+      "slow_scalar_record_ratio_fourth": "1073741824/1076890625"
+    }
+  ],
+  "annular_profiles": [
+    {
+      "count": 1,
+      "critical_L3_mass_factor": 1,
+      "enstrophy_factor": "1/4",
+      "laplacian_and_L6_mass_factor": "1/64"
+    },
+    {
+      "count": 2,
+      "critical_L3_mass_factor": 2,
+      "enstrophy_factor": "5/16",
+      "laplacian_and_L6_mass_factor": "65/4096"
+    },
+    {
+      "count": 4,
+      "critical_L3_mass_factor": 4,
+      "enstrophy_factor": "85/256",
+      "laplacian_and_L6_mass_factor": "266305/16777216"
+    },
+    {
+      "count": 8,
+      "critical_L3_mass_factor": 8,
+      "enstrophy_factor": "21845/65536",
+      "laplacian_and_L6_mass_factor": "4467856773185/281474976710656"
+    },
+    {
+      "count": 16,
+      "critical_L3_mass_factor": 16,
+      "enstrophy_factor": "1431655765/4294967296",
+      "laplacian_and_L6_mass_factor": "1257589881178799009421332545/79228162514264337593543950336"
+    }
+  ],
+  "kernel_scaling": {
+    "K_squared_L2": "lambda^3",
+    "normalized_raw": "lambda^2",
+    "J_squared_L2": "lambda",
+    "normalized_covariant": "1"
+  }
+}

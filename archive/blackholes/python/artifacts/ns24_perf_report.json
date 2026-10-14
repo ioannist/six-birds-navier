@@ -1,0 +1,22 @@
+{
+  "check_python_sh_wall": 1.788395082578063,
+  "pytest_not_slow_wall": 1.774334343150258,
+  "ns12_run_all_wall": 33.61588789336383,
+  "ci_fast_ok": true,
+  "evidence_ok": true,
+  "check_python_returncode": 0,
+  "pytest_not_slow_returncode": 0,
+  "ns12_run_all_returncode": 0,
+  "slowest_not_slow_tests": [
+    "0.36s call     python/tests/test_ns07_mu_convergence_smoke.py::test_mu_convergence_ordering",
+    "0.14s call     python/tests/test_ns13_ns3d_spectral_smoke.py::test_ns3d_dissipative_smoke",
+    "0.14s call     python/tests/test_ns14_energy_ledger_3d_residual.py::test_ns14_energy_ledger_residual",
+    "0.07s call     python/tests/test_bh15_echo_freqdep_validation.py::test_bh15_freqdep_reflection_formula",
+    "0.07s call     python/tests/test_bh07_echo_formula_validation.py::test_reflection_formula_match",
+    "0.07s call     python/tests/test_ns05_energy_ledger_residual.py::test_energy_ledger_residual_small",
+    "0.07s call     python/tests/test_ns13_ns3d_spectral_smoke.py::test_ns3d_conservative_short",
+    "0.06s call     python/tests/test_ns04_ns2d_spectral_smoke.py::test_unforced_enstrophy_decreases",
+    "0.05s call     python/tests/test_bh03_free_case.py::test_free_case_reflection_matches_boundary",
+    "0.05s call     python/tests/test_ns02_galerkin_core.py::test_energy_conservative"
+  ]
+}

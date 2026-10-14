@@ -1,0 +1,8 @@
+- Start from right-going incidence on the barrier and define r,t for the barrier alone.
+- Let Delta x = x_ref - x0 and include the round-trip phase e^{2 i omega Delta x}.
+- First pass: reflected amplitude at infinity is r e^{-2 i omega Delta x}.
+- First echo: transmit to inner boundary, reflect by R0, transmit back: t^2 R0.
+- Each additional round trip multiplies by (R0 r e^{2 i omega Delta x}).
+- Geometric series: sum_{n>=0} (R0 r e^{2 i omega Delta x})^n = 1/(1 - R0 r e^{2 i omega Delta x}).
+- Combine direct reflection + echo series to get R_out.
+- Note: assumes symmetric barrier and V->0 at x_max for plane-wave matching.

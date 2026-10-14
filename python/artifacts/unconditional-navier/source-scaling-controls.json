@@ -1,0 +1,72 @@
+{
+  "scope": "Fixed nonzero Schwartz profile with nonzero positive-middle-strain readout; no assertion that a scaled profile solves the original unforced PDE.",
+  "integrability_rule": "Integral of tau^(-p) near zero is finite exactly when p<1; p=1 diverges logarithmically.",
+  "cases": {
+    "parabolic_selfsimilar_profile": {
+      "alpha": "1/2",
+      "beta": "1/2",
+      "kinetic_energy_decay_power": "1/2",
+      "bounded_kinetic_energy": true,
+      "doses": {
+        "enstrophy": {
+          "blowup_power": "1/2",
+          "time_integrable": true,
+          "logarithmic_borderline": false
+        },
+        "squared_enstrophy_dose": {
+          "blowup_power": "1",
+          "time_integrable": false,
+          "logarithmic_borderline": true
+        },
+        "L5_dose": {
+          "blowup_power": "1",
+          "time_integrable": false,
+          "logarithmic_borderline": true
+        },
+        "Wiener_squared_dose": {
+          "blowup_power": "1",
+          "time_integrable": false,
+          "logarithmic_borderline": true
+        },
+        "positive_middle_strain_dose": {
+          "blowup_power": "1",
+          "time_integrable": false,
+          "logarithmic_borderline": true
+        }
+      }
+    },
+    "historical_energy_profile": {
+      "alpha": "4/9",
+      "beta": "2/3",
+      "kinetic_energy_decay_power": "0",
+      "bounded_kinetic_energy": true,
+      "doses": {
+        "enstrophy": {
+          "blowup_power": "8/9",
+          "time_integrable": true,
+          "logarithmic_borderline": false
+        },
+        "squared_enstrophy_dose": {
+          "blowup_power": "16/9",
+          "time_integrable": false,
+          "logarithmic_borderline": false
+        },
+        "L5_dose": {
+          "blowup_power": "2",
+          "time_integrable": false,
+          "logarithmic_borderline": false
+        },
+        "Wiener_squared_dose": {
+          "blowup_power": "4/3",
+          "time_integrable": false,
+          "logarithmic_borderline": false
+        },
+        "positive_middle_strain_dose": {
+          "blowup_power": "10/9",
+          "time_integrable": false,
+          "logarithmic_borderline": false
+        }
+      }
+    }
+  }
+}

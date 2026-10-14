@@ -1,0 +1,27 @@
+{
+  "scope": "Exact original Schwartz initial-state control; no numerical evolution, fixed-data terminal singularity or all-data source budget.",
+  "heat_response": "H_theta U=lambda^6 U(lambda*x), lambda=(1+4theta)^(-1/2)",
+  "t_parameter": "t=(1+8theta)^(-1)",
+  "flux_formula": "Pi_theta=pi^(3/2)*t^(7/2)*N(t)/(2+t)^(3/2+d)",
+  "d": 4,
+  "N_coefficients_ascending": [
+    "10",
+    "4",
+    "-14"
+  ],
+  "positive_factor_coefficients_ascending": [
+    "10",
+    "14"
+  ],
+  "positive_factor_Bernstein_coefficients": [
+    "10",
+    "24"
+  ],
+  "strict_flux_sign": "Pi_theta(U)>0 for every theta>0; Pi_theta(-U)=-Pi_theta(U)",
+  "E0_coefficient_of_(pi/2)^(3/2)": "13/8",
+  "Z0_coefficient_of_(pi/2)^(3/2)": "117/8",
+  "Pi_derivative_at_zero_coefficient_of_(pi/3)^(3/2)": "64/27",
+  "pairing_(-Delta)^3_U_with_B_coefficient_of_(pi/3)^(3/2)": "-19712/27",
+  "fixed_energy_scale": "U_R=R^(3/2)U(R*x); theta_R=c/R^2; Pi=R^(5/2)Pi_c, Z-Ztheta=R^2 Z0*(1-(1+4c)^(-11/2)), E-Etheta=E0*(1-(1+4c)^(-9/2))",
+  "direct_scaled_Gaussian_controls": "Exact spatial integrations at R=4,9 and c=3/8 verify Pi scaling, fixed energy and enstrophy scaling; the all-R bridge is written in source-gate.md."
+}

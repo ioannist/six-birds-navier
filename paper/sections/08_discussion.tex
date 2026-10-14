@@ -1,0 +1,76 @@
+\section{Discussion and open problems}\label{sec:discussion}
+
+\paragraph{What the scaffold establishes.}
+The inequality logic of a No-Zeno argument is mechanized
+(\cref{sec:no-zeno-engine}), together with two abstract results that bear on the capacity: route
+stability limits capacity growth to a polynomial (\cref{sec:route-capacity}), and, in a finite model,
+a uniform capacity certificate over localization-rich inputs is equivalent to a pointwise gain bound
+(\cref{sec:no-go-icap}). On the Navier--Stokes side, the packaged bridge has a precise definition
+with an exact return on strong solutions (\cref{prop:bridge-return}). Energy alone gives a valid but
+exponentially growing capacity, and an explicit field rules out a shell-only strain bound for the
+full subgrid port (\cref{sec:energy-capacity}). The anti-localization hypothesis that removes the
+finite obstruction follows from few spread-out channels, and a residual-charged version applies to
+measured channels (\cref{sec:spt-legal}). A manifest-driven pipeline reproduces every numerical figure.
+
+\paragraph{What it does not claim.}
+We do not prove global regularity for the three-dimensional Navier--Stokes equations. None of the
+Navier--Stokes-facing hypotheses below is discharged by the Lean proofs, by the analytic lemmas or by
+the certificates. The emphasis is on making the chain explicit, and on showing where a capacity
+route needs a genuinely new inequality.
+
+\paragraph{Why capacity is not a free lunch.}
+A uniform capacity certificate bounds the positive work over all admissible inputs. In the finite
+model, once those inputs include localized tests, the certificate and a pointwise gain bound are the
+same statement. The always-available energy bound gives capacity growth $2^{5j/2}$, whose reciprocals
+have a finite sum. A capacity route therefore has to look beyond energy, for instance to a stronger source of
+capacity, to a restriction of the admissible inputs, or to both.
+
+\paragraph{The restricted problem.}
+The scaffold suggests studying SBT-legal data, for which the admissible inputs are anti-localized
+at every scale. Anti-localization removes the localized tests. It does not by itself provide a
+capacity bound, a work quantum, a divergence or a continuation criterion.
+
+\subsection{Open hypotheses}
+Each of the following is open here. A regularity proof along these lines would need items 1, 2
+and 5. Items 3 and 4 concern the proposed route to item 2 and the obstruction it is meant to avoid.
+\begin{enumerate}
+\item \textbf{Work quantum for an actual frontier.} A storage functional for the eliminated scales
+that satisfies the passivity inequality along Navier--Stokes solutions, with attained crossings, so
+that \cref{lem:work-quantum} applies.
+\item \textbf{A capacity with divergent reciprocals.} An ICAP for the actual bridge with
+$\Lambda(j)$ growing at most linearly, for instance from a channel decomposition with $m_j\lesssim j+1$
+atoms and a uniform per-atom constant, or from route stability of the actual packaging maps.
+\item \textbf{Anti-localization as a theorem.} A proof that the admissible inputs of the actual
+bridge satisfy \eqref{eq:antiloc} with $\eta_j\to0$, or a counterexample showing that intermittency
+defeats it, together with persistence of legality under the flow.
+\item \textbf{The continuum no-go passage.} The three adapters listed in \cref{sec:no-go-icap}, if
+one wants the finite obstruction to hold for the actual bridge.
+\item \textbf{Return to the PDE (HL-NS-ZENO).} A proof that blow-up at a finite time $T^\ast$ would
+force the chosen frontier to cross every level before $T^\ast$. At each fixed smooth time the high
+Sobolev tail $\sum_{\ell\ge J}2^{2k\ell}\|u_\ell\|_{L^2}^2$ tends to zero as $J\to\infty$; the
+connection between the loss of a uniform bound near $T^\ast$ and the storage frontier is not proved.
+\end{enumerate}
+A related, also unproved, route would show that blow-up forces a quantified failure of passivity or
+a growing route mismatch. Finite-resolution diagnostics can look for such failures but do not
+prove them.
+
+\subsection{Further work}
+\paragraph{Theory.}
+\begin{itemize}
+\item Prove or refute a channelization or delocalization statement for the actual bridge that
+excludes wavepacket-like admissible inputs.
+\item Determine whether such an exclusion can be derived from the structure of Navier--Stokes
+without assuming a classical peak bound \citep{bkm_1984,serrin1962interior}.
+\item Look for capacity sources beyond energy, including cumulative bounds over time windows, to
+which the counterexample of \cref{prop:sgs-counterexample} does not apply.
+\item Mechanize further interface-calculus steps as they enter the scaffold, including alternative
+discrete feasibility models.
+\end{itemize}
+\paragraph{Numerics.}
+\begin{itemize}
+\item Extend the diagnostics to higher resolution, longer horizons and broader forcing and viscosity
+ranges, and quantify the robustness of the channel and anti-localization statistics.
+\item Stress-test the certificate with multi-shell, multi-site and intermittent constructions.
+\item Measure the sensitivity of $\kappa_j$, the residual fraction and the ranks to estimator choices
+such as window size, pooling and basis.
+\end{itemize}

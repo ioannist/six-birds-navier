@@ -1,0 +1,8 @@
+{
+  "status": "PASS",
+  "scope": "Exact Newton-ball potential, radial-tail derivative, coarse forced Young coefficient, transverse affine-wave identity, and cylindrical divergence algebra. No primary theorem proof, actual forced-profile asymptotics, source supplier, or Clay closure.",
+  "forced_record_Q_coefficient": 128,
+  "force_global_L2_exponent": "-3/2",
+  "newton_ball_inside_head_coefficient": "1/6",
+  "affine_wave": "transversality and amplitude work, with k nonzero"
+}

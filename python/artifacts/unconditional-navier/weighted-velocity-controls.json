@@ -1,0 +1,15 @@
+{
+  "scope": "Exact periodic algebra plus whole-space compact-curl averaging proof in parent47. Not a PDE solution, endpoint estimate or closure.",
+  "periodic_curl_and_divergence": "exactly verified",
+  "periodic_mean_production": "1/4",
+  "phase_reversal_mean": "-1/4",
+  "C0_fourth_power": "1024/27",
+  "native_growth_coefficient": "8",
+  "split_high_frequency_coefficient": "128",
+  "event_A_fourth_power": "8388608/27",
+  "profile_lower_coefficient_over_pi": "19/30",
+  "unresolved": [
+    "actual signed weighted source",
+    "all-event or long-duration continuation return"
+  ]
+}

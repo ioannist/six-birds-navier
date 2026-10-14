@@ -1,0 +1,144 @@
+\section{Introduction}\label{sec:intro}
+
+The Clay Millennium problem for the three-dimensional incompressible Navier--Stokes equations asks
+whether smooth initial data always produce solutions that stay smooth for all time, or whether a
+finite-time singularity can form \citep{fefferman2006clay}. Energy methods alone have not settled
+the question. The kinetic energy stays bounded, but a bounded energy is compatible with gradients
+that become very large in very small regions. Conditional criteria make this precise: if a peak
+quantity, such as the maximum vorticity, is integrable in time, the solution cannot blow up
+\citep{bkm_1984,serrin1962interior}. What is missing is a proof that such peak control holds for
+every smooth initial datum.
+
+This paper does \emph{not} solve the Clay problem. It builds a \emph{decision scaffold}: a precise
+chain of statements, each labelled as proved, measured or open. The chain organizes one
+multiscale strategy suggested by the Six Birds framework \citep{tsiokos_2026_18365949}. The idea
+is to treat the elimination of fine scales as a \emph{packaging} operation. The eliminated degrees
+of freedom become a causal ``bridge'' that acts on the retained scales through an interface, and
+an energy ledger constrains what the bridge can do. In this picture a singularity would be a
+\emph{Zeno cascade}: an activity front that descends through infinitely many dyadic scales in
+finite time.
+
+\paragraph{The strategy in one paragraph.}
+Label the dyadic scales $j=0,1,2,\dots$ and let $t_j$ be the time at which a suitably defined
+frontier first reaches depth $j$. Suppose each advance costs at least a fixed amount of work
+$\theta>0$ (WORK). Suppose also that the bridge can deliver work to depth $j$ at a rate of at most
+$\mathrm{Cap}(j)$ (CAP). Then the step from depth $j$ to depth $j+1$ takes at least
+$\theta/\mathrm{Cap}(j)$ units of time. If these lower bounds have divergent sum (DIV), the crossing
+times cannot accumulate at a finite time. The logic is elementary and is mechanized here. The
+difficulty lies in producing WORK, CAP and DIV for the actual Navier--Stokes bridge, and in
+showing that a blow-up would really push this frontier to infinite depth.
+\Cref{fig:scaffold-map} shows the resulting chain and where each link stands.
+
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}[
+  font=\small,
+  box/.style={rounded corners=2pt, align=center, inner sep=4pt, text width=3.3cm, minimum height=1.25cm},
+  mech/.style={box, draw=mechcol, fill=mechcol!10, very thick},
+  ana/.style={box, draw=anacol, fill=anacol!8, thick},
+  open/.style={box, draw=opencol, fill=opencol!8, thick, dashed},
+  arr/.style={-{Stealth[length=2.2mm]}, thick, draw=inkcol},
+  oarr/.style={-{Stealth[length=2.2mm]}, thick, dashed, draw=opencol}
+]
+% top block: hypotheses -> engine -> return
+\node[open] (work) at (0,1.75) {\textbf{WORK}\\ advancing to depth $j{+}1$ costs work $\ge\theta$};
+\node[open] (cap)  at (0,0)    {\textbf{CAP}\\ work in $[t_j,t_{j+1}]$ is $\le \mathrm{Cap}(j)\,\Delta t_j$};
+\node[open] (div)  at (0,-1.75){\textbf{DIV}\\ $\sum_j \theta/\mathrm{Cap}(j)=\infty$};
+\node[mech] (engine) at (4.9,0) {\textbf{No-Zeno engine}\\ $\Delta t_j\ge \theta/\mathrm{Cap}(j)$, so the $t_j$ have no finite upper bound\\ {\footnotesize \Cref{thm:workcap-no-zeno}}};
+\node[open] (ret) at (9.8,0) {\textbf{Return to the PDE}\\ blow-up at $T^\ast$ would force $t_j\uparrow T^\ast$ (HL-NS-ZENO)};
+\node[ana] (concl) at (9.8,-2.15) {no finite-time blow-up (if every dashed link holds)};
+\draw[arr] (work.east) -| ([xshift=-6mm]engine.west) -- (engine.west);
+\draw[arr] (cap.east) -- (engine.west);
+\draw[arr] (div.east) -| ([xshift=-6mm]engine.west);
+\draw[arr] (engine.east) -- (ret.west);
+\draw[oarr] (ret.south) -- (concl.north);
+% bottom block: what bears on the capacity
+\node[mech] (route)  at (0,-4.6)   {route stability $\Rightarrow$ $\mathrm{Cap}\lesssim(j{+}1)^p$; DIV if $p\le1$\\ {\footnotesize \Cref{thm:route-capacity}}};
+\node[ana]  (energy) at (4.9,-4.6) {energy alone: $\mathrm{Cap}(j)\sim 2^{5j/2}$, DIV not certified\\ {\footnotesize \Cref{sec:energy-capacity}}};
+\node[mech] (nogo)   at (9.8,-4.6) {uniform ICAP on localized tests $\Rightarrow$ pointwise gain bound\\ {\footnotesize \Cref{thm:icap-no-go}}};
+\node[ana]  (antiloc) at (9.8,-6.5) {anti-localized inputs exclude those tests\\ {\footnotesize \Cref{sec:spt-legal}}};
+\draw[arr] (route.north) -- (div.south);
+\draw[thick, draw=inkcol] (energy.north) |- (0,-3.05);
+\draw[thick, draw=inkcol] (nogo.north) |- (4.9,-3.05);
+\draw[arr] (antiloc.north) -- (nogo.south);
+\node[font=\footnotesize, text=anacol, anchor=north west] at (5.05,-3.12) {results that bear on the capacity};
+% legend
+\node[mech, text width=0.45cm, minimum height=0.32cm, inner sep=1pt] (l1) at (-0.9,-6.5) {};
+\node[anchor=west, font=\footnotesize] at (l1.east) {mechanized in Lean};
+\node[ana, text width=0.45cm, minimum height=0.32cm, inner sep=1pt] (l2) at (-0.9,-7.05) {};
+\node[anchor=west, font=\footnotesize] at (l2.east) {proved on paper};
+\node[open, text width=0.45cm, minimum height=0.32cm, inner sep=1pt] (l3) at (-0.9,-7.6) {};
+\node[anchor=west, font=\footnotesize] at (l3.east) {open hypothesis};
+\end{tikzpicture}
+\caption{\textbf{Map of the scaffold.} Top row: the No-Zeno engine turns WORK, CAP and DIV into a
+statement about crossing times. A separate, open return lemma would turn that statement into
+regularity. Bottom row: the results that bear on the capacity. Route stability limits capacity
+growth to a polynomial, which certifies DIV (with a constant work quantum) when its degree is at most one. Energy alone gives a valid capacity that grows too fast to certify DIV. A uniform capacity
+certificate over localization-rich inputs is, in the finite model, as strong as a pointwise gain
+bound. Anti-localization removes the localized tests that drive that equivalence, but it does not
+supply a capacity bound by itself.}
+\label{fig:scaffold-map}
+\end{figure}
+
+\paragraph{What the analysis shows.}
+Two findings shape the rest of the paper. First, a capacity certificate that holds uniformly over
+all admissible inputs is an extremal bound. In a finite model, if the admissible inputs include
+localized test vectors, such a certificate is exactly as strong as a pointwise bound on the gain
+(\cref{thm:icap-no-go}). That is the shape of a classical peak criterion. We do not prove the
+continuum analogue for the actual bridge (\cref{sec:no-go-icap} lists what it would need), but the
+finite theorem marks the risk: unless the admissible inputs are restricted, a uniform capacity
+certificate may be no weaker than peak control.
+Second, the information that is always available is too weak to close the chain. Energy alone gives
+a capacity that grows like $2^{5j/2}$ in the depth $j$, and the reciprocals of such a capacity have
+a finite sum. The natural sharpening, a bound by $\|\nabla u\|_\infty$ times the shell energy, fails for the full subgrid
+port: an exact three-mode field gives supplied power proportional to $\varepsilon$ with shell energy
+proportional to $\varepsilon^2$ (\cref{prop:sgs-counterexample}).
+
+\paragraph{A restricted problem.}
+These findings suggest one escape route inside the scaffold, which we adopt as a proposal: require
+admissible inputs to be spread out in space at each scale, so that localized tests are not available. We call such data
+\emph{SBT-legal} (``SBT'' for Six Birds Theory). We state the corresponding
+\emph{anti-localization} hypothesis and prove, in Lean, that it follows from a finite set of spread-out channels. We also turn
+it into a reproducible certificate for initial data. Smooth random band-limited fields pass the
+certificate. A band-limited wavepacket concentrated in one small ball exceeds the threshold forty-fold,
+about two hundred times the baseline's value. Whether the Navier--Stokes flow preserves legality is open.
+
+\paragraph{Three layers of claims.}
+Every statement in the paper belongs to one of three layers.
+\begin{itemize}
+\item \textbf{Mechanized (Lean).} The inequality logic of the No-Zeno engine, the route-capacity
+bound, the capacity aggregation step, the finite anti-localization lemma and the finite no-go
+theorem. These are system-agnostic statements about sequences and finite sums. The 31 audited
+declarations depend only on the standard axioms \texttt{propext}, \texttt{Classical.choice} and
+\texttt{Quot.sound} (\cref{app:theorem-index}).
+\item \textbf{Analytic (paper proofs).} Navier--Stokes-facing statements with complete proofs in
+the text: the exact return of the bridge, the energy bound on the subgrid power and its
+counterexample, the residual-charged anti-localization bound, and the properties of the
+regularized model used in the simulations (\cref{app:regularized}).
+\item \textbf{Open or measured.} The hinge lemmas that a regularity proof along these lines would
+need are stated as open hypotheses. Numerical diagnostics are reproducible from a manifest. They
+are evidence, not proofs.
+\end{itemize}
+
+\paragraph{Contributions.}
+\begin{itemize}
+\item A mechanized No-Zeno chain and a mechanized route-capacity theorem, with the Lean adapters
+that connect each theorem to the form in which it is used (\cref{sec:no-zeno-engine,sec:route-capacity}).
+\item A precise packaged-bridge definition for Navier--Stokes, with the sign of the supplied power
+fixed and an exact return on strong solutions (\cref{sec:six_primitives_mapping}).
+\item The energy-only capacity bound and an explicit counterexample to a shell-only strain bound for the full
+subgrid port (\cref{sec:energy-capacity}).
+\item A finite no-go theorem that shows why uniform capacity certificates and localization-rich
+inputs do not mix, with the continuum passage left explicitly open (\cref{sec:no-go-icap}).
+\item An anti-localization hypothesis, its finite-channel proof, and an operational certificate
+with a manifest-driven, deterministic figure pipeline (\cref{sec:spt-legal,sec:experiments}).
+\end{itemize}
+
+\paragraph{Reading guide.}
+\Cref{sec:six_primitives_mapping} recalls the Six Birds vocabulary and fixes the Navier--Stokes
+objects. \Cref{sec:no-zeno-engine,sec:route-capacity} give the mechanized engine and the route-capacity
+theorem. \Cref{sec:energy-capacity} shows what energy alone provides. \Cref{sec:no-go-icap} states
+the no-go theorem. \Cref{sec:spt-legal} develops anti-localization and the certificate, and
+\cref{sec:experiments} reports the diagnostics. \Cref{sec:discussion} lists what remains open.
+The appendices contain the Lean index, the regularized model, the numerical method, the
+reproduction commands and a version note.

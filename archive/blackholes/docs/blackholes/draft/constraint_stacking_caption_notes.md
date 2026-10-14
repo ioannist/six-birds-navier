@@ -1,0 +1,5 @@
+- Ringdown proxy: D_ring = max_{omega in [1,3]} |t(omega)^2 * R0(omega)| <= 0.05
+- Love-like proxy: L_proxy = |Re Z(0) - 1| with Re Z(0)=a0+a1+a2, require <= 0.2
+- Low-omega absorption: A_low = 1 - |R0(omega_low)|^2 at omega_low ~ 0.3, require >= 0.20
+- Round-trip gain: G_low = max_{omega in [0.2,1.0]} |R0(omega) * r(omega)| <= 0.98
+- This is a toy closure-consistency visualization; not a fit to observational posteriors.
